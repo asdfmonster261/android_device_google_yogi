@@ -1,0 +1,39 @@
+# System-side blobs from the same build as proprietary-files-vendor.txt.
+# First cut: system_ext libraries and binaries only. Product apps
+# (Pixel camera, AICore, euicc and friends) are deliberately NOT here yet:
+# they are optional features, and the euicc stack is the known gap from
+# the GSI test. Revisit once the tree boots.
+system_ext/bin/backup_ota_log.sh
+system_ext/bin/bluetooth_gci
+system_ext/bin/gs_watchdogd
+system_ext/bin/hw/android.hidl.allocator@1.0-service
+system_ext/bin/hw/vendor.google.edgetpu_app_service@1.0-service
+system_ext/bin/hw/vendor.google.whitechapel.audio.hal.parserservice
+system_ext/bin/mosey_server
+system_ext/bin/sconed
+system_ext/bin/userdata_alias_remove
+system_ext/lib64/com.google.edgetpu_app_service-V10-ndk.so
+system_ext/lib64/com.google.edgetpu_vendor_service-V2-ndk.so
+system_ext/lib64/libMIPC-native.so
+system_ext/lib64/libimsstack.so
+system_ext/lib64/libmipc.so
+system_ext/lib64/libmosey_daemon_ffi.so
+system_ext/lib64/libmtkproperty.so
+system_ext/lib64/libmtkrillog.so
+system_ext/lib64/libpixeldisplaymanager_jni.so
+system_ext/lib64/libpixelimsmedia.so
+system_ext/lib64/libpowerstatshaldataprovider.so
+system_ext/lib64/libtrm.so
+system_ext/lib64/vendor.google.whitechapel.audio.audioext@4.0.so
+system_ext/lib64/vendor.google.whitechapel.audio.extension-V8-ndk.so
+# odm partition (the dump normaliser splits this out of vendor)
+odm/etc/build.prop
+odm/etc/group
+odm/etc/passwd
+odm/etc/selinux/odm_file_contexts
+odm/etc/selinux/odm_hwservice_contexts
+odm/etc/selinux/odm_mac_permissions.xml
+odm/etc/selinux/odm_property_contexts
+odm/etc/selinux/odm_seapp_contexts
+odm/etc/selinux/odm_sepolicy.cil
+odm/etc/selinux/odm_service_contexts
