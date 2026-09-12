@@ -23,8 +23,6 @@ TARGET_CPU_VARIANT := cortex-a55
 
 # Partition sizes, read off the device with blockdev --getsize64.
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
-BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 67108864
-BOARD_VENDOR_KERNEL_BOOTIMAGE_PARTITION_SIZE := 67108864
 BOARD_INIT_BOOT_IMAGE_PARTITION_SIZE := 8388608
 BOARD_DTBOIMG_PARTITION_SIZE := 16777216
 
@@ -41,9 +39,9 @@ BOARD_GOOGLE_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_dlkm system_ext 
 BOARD_SUPER_PARTITION_SIZE := 10737418240
 BOARD_SUPER_PARTITION_METADATA_DEVICE := super
 
-# Virtual A/B with compression (vabc_enabled=1 in the same manifest).
+# Virtual A/B is configured product-side with the PRODUCT_VIRTUAL_AB_* variables;
+# TARGET_USES_VIRTUAL_AB is not a build variable and was silently doing nothing.
 BOARD_USES_RECOVERY_AS_BOOT :=
-TARGET_USES_VIRTUAL_AB := true
 
 # Filesystems: the dynamic partitions ship EROFS on this device, userdata is f2fs.
 TARGET_USERIMAGES_USE_F2FS := true
@@ -64,13 +62,19 @@ TARGET_COPY_OUT_SYSTEM_DLKM := system_dlkm
 # Kernel: prebuilt to start with, same approach LineageOS takes for Pixels
 # (comet depends on a comet-kernels repo). Our own tree is heybooboo-kernel,
 # ACK android16-6.12 based and already booting on this device.
-# TODO: point at the prebuilt Image + dtbo once staged
 BOARD_KERNEL_IMAGE_NAME := Image
+TARGET_PREBUILT_KERNEL := device/google/yogi-kernels/6.12/Image
 TARGET_NO_BOOTLOADER := true
 
 # Boot image header, read off the stock boot and init_boot rather than assumed.
 BOARD_BOOT_HEADER_VERSION := 4
 BOARD_INIT_BOOT_HEADER_VERSION := 4
+
+# vendor_boot is deliberately not built. Its ramdisk would need the device first-stage
+# init and kernel modules, which are Google own and not among our blobs, so it comes out
+# empty. Leaving it stock is proven: the DSU test booted a generic A17 system on yogi own
+# vendor_boot, our kernel zip has always left it alone, and the installed recovery lives
+# there.
 
 # TODO: AVB. Stock boot is chained (vbmeta carries a chain descriptor for boot
 # at rollback index location 2) and signed MLDSA65, which we cannot reproduce.
