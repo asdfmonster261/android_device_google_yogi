@@ -68,6 +68,10 @@ TARGET_COPY_OUT_SYSTEM_DLKM := system_dlkm
 BOARD_KERNEL_IMAGE_NAME := Image
 TARGET_NO_BOOTLOADER := true
 
+# Boot image header, read off the stock boot and init_boot rather than assumed.
+BOARD_BOOT_HEADER_VERSION := 4
+BOARD_INIT_BOOT_HEADER_VERSION := 4
+
 # TODO: AVB. Stock boot is chained (vbmeta carries a chain descriptor for boot
 # at rollback index location 2) and signed MLDSA65, which we cannot reproduce.
 # Our own images are signed with the AOSP test key; decide how this tree signs.
