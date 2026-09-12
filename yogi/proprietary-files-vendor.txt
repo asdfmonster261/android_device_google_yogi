@@ -696,8 +696,8 @@ vendor/lib64/aoc_aconfig_flags_c_lib.so
 vendor/lib64/aocx-V3-ndk.so
 vendor/lib64/biometricsuez.so
 vendor/lib64/com.google.edgetpu.tachyon-ndk.so
-vendor/lib64/com.google.edgetpu_app_service-V10-ndk.so
-vendor/lib64/com.google.edgetpu_vendor_service-V2-ndk.so
+vendor/lib64/com.google.edgetpu_app_service-V10-ndk.so;MODULE_SUFFIX=_vendor
+vendor/lib64/com.google.edgetpu_vendor_service-V2-ndk.so;MODULE_SUFFIX=_vendor
 vendor/lib64/com.google.hardware.biometrics.parcelable.fingerprint.PressToAuthParcelable-V1-ndk.so
 vendor/lib64/com.google.hardware.biometrics.sidefps.fingerprint-ext-V1-ndk.so
 vendor/lib64/com.google.hardware.pixel.display-V22-ndk.so
@@ -803,7 +803,7 @@ vendor/lib64/libmahalcontroller.so
 vendor/lib64/libmdspeech.so
 vendor/lib64/libmemtrack-pixel.so
 vendor/lib64/libmetrics_logger.so
-vendor/lib64/libmipc.so
+vendor/lib64/libmipc.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libmnl.so
 vendor/lib64/libmtkconfig.so
 vendor/lib64/libmtkconfigutils.so
@@ -812,8 +812,8 @@ vendor/lib64/libmtkhardware_legacy.so
 vendor/lib64/libmtkmipc-ril.so
 vendor/lib64/libmtknetcap.so
 vendor/lib64/libmtknetutils.so
-vendor/lib64/libmtkproperty.so
-vendor/lib64/libmtkrillog.so
+vendor/lib64/libmtkproperty.so;MODULE_SUFFIX=_vendor
+vendor/lib64/libmtkrillog.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libmtkrilutils.so
 vendor/lib64/libmtksysutils.so
 vendor/lib64/libmtktinyxml.so
@@ -842,7 +842,7 @@ vendor/lib64/libtachyon_core.so
 vendor/lib64/libtachyon_dsp_core.so
 vendor/lib64/libthermal_tflite_wrapper.so
 vendor/lib64/libtouchflow.so
-vendor/lib64/libtrm.so
+vendor/lib64/libtrm.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libufwriter.so
 vendor/lib64/libusc.so
 vendor/lib64/libusf.so
@@ -871,8 +871,8 @@ vendor/lib64/vendor.google.gnss.gnss_manager.controller-V2-ndk.so
 vendor/lib64/vendor.google.gnss.gnss_manager.logger-V1-ndk.so
 vendor/lib64/vendor.google.google_battery-V5-ndk.so
 vendor/lib64/vendor.google.plat_security-V1-ndk.so
-vendor/lib64/vendor.google.whitechapel.audio.audioext@4.0.so
-vendor/lib64/vendor.google.whitechapel.audio.extension-V8-ndk.so
+vendor/lib64/vendor.google.whitechapel.audio.audioext@4.0.so;MODULE_SUFFIX=_vendor
+vendor/lib64/vendor.google.whitechapel.audio.extension-V8-ndk.so;MODULE_SUFFIX=_vendor
 vendor/lib64/vendor.google.whitechapel.audio.hal.utils.adaptedinfo.repeated_thread.so
 vendor/lib64/vendor.google.whitechapel.audio.hal.utils.adaptedinfo.so
 vendor/lib64/vendor.google.whitechapel.audio.hal.utils.aoc.so

@@ -25,6 +25,16 @@ def lib_fixup_vendor_suffix(lib: str, partition: str, *args, **kwargs):
 
 lib_fixups: lib_fixups_user_type = {
     **lib_fixups,
+    (
+        "com.google.edgetpu_app_service-V10-ndk",
+        "com.google.edgetpu_vendor_service-V2-ndk",
+        "libmipc",
+        "libmtkproperty",
+        "libmtkrillog",
+        "libtrm",
+        "vendor.google.whitechapel.audio.audioext@4.0",
+        "vendor.google.whitechapel.audio.extension-V8-ndk",
+    ): lib_fixup_vendor_suffix,
 }
 
 # Blob fixups are discovered during bring-up, not guessed up front.
