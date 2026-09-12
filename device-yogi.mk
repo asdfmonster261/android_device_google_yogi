@@ -30,15 +30,37 @@ AB_OTA_PARTITIONS += \
     vbmeta_system \
     vbmeta_vendor \
     vendor \
-    vendor_boot \
-    vendor_dlkm \
-    vendor_kernel_boot
+    vendor_dlkm
 
 PRODUCT_PACKAGES += \
     otapreopt_script \
     update_engine \
     update_engine_sideload \
     update_verifier
+
+# VINTF. The device manifest is stock yogi own, taken from the B1 vendor image,
+# since the HALs we ship are the device own.
+DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/vintf/manifest.xml
+
+# Device framework compatibility matrices. The manifest declares vendor HALs that no
+# AOSP framework matrix knows about (the MediaTek radio ones above all), so the device
+# has to declare them. These are stock yogi own, from the B1 system_ext image, which is
+# where Google ships them.
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
+    $(DEVICE_PATH)/vintf/radio_framework_matrix_system_ext.xml \
+    $(DEVICE_PATH)/vintf/aocx_framework_matrix_system_ext.xml \
+    $(DEVICE_PATH)/vintf/camera_interference_avoidance_framework_matrix_system_ext.xml \
+    $(DEVICE_PATH)/vintf/imageprocessing_hal_framework_matrix_system_ext.xml
+
+DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE += \
+    $(DEVICE_PATH)/vintf/device_framework_matrix_product.xml
+
+# Our kernel deliberately deviates from two of AOSP kernel config requirements:
+# CONFIG_SYSVIPC=y, which the Linux container work needs and which shipped with a
+# kABI patch so it is CRC-neutral, and CONFIG_IP6_NF_NAT=y. Both are required to be
+# n at FCM level 202504, so the OTA kernel requirement check cannot pass. It gates
+# GMS compliance rather than function, and the kernel is device-verified.
+PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
 
 # Device is a book-style foldable: two panels, hinge sensor.
 # TODO: overlays for display/hinge once the tree boots.
@@ -49,3 +71,18 @@ PRODUCT_PACKAGES += \
 
 # Dynamic partitions (product-side; BoardConfig cannot set PRODUCT_* vars).
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
+
+# Virtual A/B with compression. Values measured from the B1 OTA payload manifest
+# (vabc_enabled=1, cow_version=3, vabc_compression_param=lz4), which also matters for
+# partition sizing: super holds one copy on virtual A/B, not two.
+PRODUCT_VIRTUAL_AB_OTA := true
+PRODUCT_VIRTUAL_AB_COMPRESSION := true
+PRODUCT_VIRTUAL_AB_COMPRESSION_METHOD := lz4
+PRODUCT_VIRTUAL_AB_COW_VERSION := 3
+
+# Do not build vendor_boot (and so not vendor_kernel_boot, which requires it). A boot
+# header version of 3 or more would otherwise imply one, and its ramdisk would come out
+# empty: the device first-stage init and kernel modules are Google own and are not among
+# our blobs. The device keeps its own, which the DSU test proved boots a generic A17
+# system, and which is also where the installed recovery lives.
+PRODUCT_BUILD_VENDOR_BOOT_IMAGE := false
