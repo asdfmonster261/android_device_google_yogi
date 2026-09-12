@@ -80,6 +80,14 @@ BOARD_INIT_BOOT_HEADER_VERSION := 4
 # at rollback index location 2) and signed MLDSA65, which we cannot reproduce.
 # Our own images are signed with the AOSP test key; decide how this tree signs.
 
-BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
+# Policy from the shared Pixel tree, for the blobs this device actually ships. Each dir
+# was picked by matching the paths its file_contexts labels against our blob list, not by
+# guessing: citadel labels citadeld and citadel_updater, power-libperfmgr labels sendhint,
+# sscoredump labels sscoredump.
+BOARD_VENDOR_SEPOLICY_DIRS += \
+    $(DEVICE_PATH)/sepolicy/vendor \
+    hardware/google/pixel-sepolicy/citadel \
+    hardware/google/pixel-sepolicy/power-libperfmgr \
+    hardware/google/pixel-sepolicy/sscoredump
 
 # TODO: include $(VENDOR_PATH)/BoardConfigVendor.mk once blobs are extracted
