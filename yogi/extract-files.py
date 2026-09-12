@@ -27,6 +27,7 @@ def lib_fixup_vendor_suffix(lib: str, partition: str, *args, **kwargs):
 lib_fixups: lib_fixups_user_type = {
     **lib_fixups,
     (
+        "com.google.hardware.pixel.display-V22-ndk",
         "com.google.edgetpu_app_service-V10-ndk",
         "com.google.edgetpu_vendor_service-V2-ndk",
         "libmipc",

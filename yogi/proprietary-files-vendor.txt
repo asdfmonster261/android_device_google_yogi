@@ -700,7 +700,7 @@ vendor/lib64/com.google.edgetpu_app_service-V10-ndk.so;MODULE_SUFFIX=_vendor
 vendor/lib64/com.google.edgetpu_vendor_service-V2-ndk.so;MODULE_SUFFIX=_vendor
 vendor/lib64/com.google.hardware.biometrics.parcelable.fingerprint.PressToAuthParcelable-V1-ndk.so
 vendor/lib64/com.google.hardware.biometrics.sidefps.fingerprint-ext-V1-ndk.so
-vendor/lib64/com.google.hardware.pixel.display-V22-ndk.so
+vendor/lib64/com.google.hardware.pixel.display-V22-ndk.so;MODULE_SUFFIX=_vendor
 vendor/lib64/com.google.input-V8-ndk.so
 vendor/lib64/com.google.pixel.modem_logging.log_files-ndk.so
 vendor/lib64/egl/libEGL_powervr.so
