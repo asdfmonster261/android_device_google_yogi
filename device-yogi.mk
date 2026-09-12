@@ -32,6 +32,13 @@ AB_OTA_PARTITIONS += \
     vendor \
     vendor_dlkm
 
+# The LineageOS HALs this device can serve. touch uses the pixel implementation rather
+# than the default one, since the touch driver is Google's.
+PRODUCT_PACKAGES += \
+    vendor.lineage.health-service.default \
+    vendor.lineage.powershare-service.default \
+    vendor.lineage.touch-service.pixel
+
 PRODUCT_PACKAGES += \
     otapreopt_script \
     update_engine \
