@@ -6,6 +6,7 @@
 
 from extract_utils.fixups_blob import blob_fixups_user_type
 from extract_utils.fixups_lib import (
+    lib_fixup_remove_arch_suffix,
     lib_fixups,
     lib_fixups_user_type,
 )
@@ -35,6 +36,10 @@ lib_fixups: lib_fixups_user_type = {
         "vendor.google.whitechapel.audio.audioext@4.0",
         "vendor.google.whitechapel.audio.extension-V8-ndk",
     ): lib_fixup_vendor_suffix,
+    (
+        "libclang_rt.hwasan-arm-android",
+        "libclang_rt.hwasan-aarch64-android",
+    ): lib_fixup_remove_arch_suffix,
 }
 
 # Blob fixups are discovered during bring-up, not guessed up front.
