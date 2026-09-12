@@ -19,3 +19,7 @@ PRODUCT_SYSTEM_NAME := generic_system_google
 # Boot animation: the cover panel, which is what recovery and boot render on.
 TARGET_SCREEN_HEIGHT := 2342
 TARGET_SCREEN_WIDTH := 1080
+
+# The extracted blobs. This has to come after the inherits above, since it appends to
+# PRODUCT_PACKAGES and PRODUCT_COPY_FILES.
+$(call inherit-product, $(VENDOR_PATH)/$(DEVICE_CODENAME)-vendor.mk)
