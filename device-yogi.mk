@@ -49,6 +49,11 @@ PRODUCT_PACKAGES += \
     update_engine_sideload \
     update_verifier
 
+# Recovery lives in the stock vendor_boot, which this tree does not build, so there is
+# no recovery image and nothing assigns recovery_fstab -- the OTA package is gated on it
+# and would silently not be built, leaving bacon to link a file that was never produced.
+PRODUCT_BUILD_GENERIC_OTA_PACKAGE := true
+
 # Vendor AIDs.
 TARGET_FS_CONFIG_GEN += $(DEVICE_PATH)/config.fs
 
