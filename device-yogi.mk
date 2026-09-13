@@ -138,6 +138,11 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors-service.multihal \
     android.hardware.drm-service.clearkey
 
+# system_ext declares the computercontrol extension by name, so the declaration points
+# at a missing jar unless the library is installed too.
+PRODUCT_PACKAGES += \
+    com.android.extensions.computercontrol
+
 # The embedded secure element behind ISecureElement/eSE1. Built from source; its
 # libse-gto-hal.conf is already among the blobs.
 PRODUCT_PACKAGES += \
