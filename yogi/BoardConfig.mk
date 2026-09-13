@@ -105,4 +105,19 @@ SOONG_CONFIG_lineage_powershare_powershare_path := /sys/class/power_supply/wirel
 # dtbo. Stock's, from the B1 OTA -- we build no device tree of our own.
 BOARD_PREBUILT_DTBOIMAGE := device/google/yogi-kernels/6.12/dtbo.img
 
+# Loadable modules. vendor_dlkm is stock's -- those are built from private/, which no
+# public tree has. system_dlkm is from our own kernel build, so the GKI modules match
+# the kernel they load against. system_dlkm gets no load list on purpose: the build
+# defaults that to false so GKI modules load only when a vendor module pulls them in.
+KERNEL_MODULE_DIR := device/google/yogi-kernels/6.12
+
+BOARD_VENDOR_KERNEL_MODULES := \
+    $(wildcard $(KERNEL_MODULE_DIR)/vendor_dlkm/*.ko)
+BOARD_VENDOR_KERNEL_MODULES_LOAD := \
+    $(addprefix $(KERNEL_MODULE_DIR)/vendor_dlkm/,\
+        $(shell cat $(KERNEL_MODULE_DIR)/vendor_dlkm.modules.load 2>/dev/null))
+
+BOARD_SYSTEM_KERNEL_MODULES := \
+    $(wildcard $(KERNEL_MODULE_DIR)/system_dlkm/*.ko)
+
 # TODO: include $(VENDOR_PATH)/BoardConfigVendor.mk once blobs are extracted
