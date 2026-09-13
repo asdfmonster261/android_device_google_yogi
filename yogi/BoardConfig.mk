@@ -71,11 +71,25 @@ BOARD_BOOT_HEADER_VERSION := 4
 BOARD_INIT_BOOT_HEADER_VERSION := 4
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
-# vendor_boot is deliberately not built. Its ramdisk would need the device first-stage
-# init and kernel modules, which are Google own and not among our blobs, so it comes out
-# empty. Leaving it stock is proven: the DSU test booted a generic A17 system on yogi own
-# vendor_boot, our kernel zip has always left it alone, and the installed recovery lives
-# there.
+# vendor_boot, which on this device also carries recovery: there is no recovery partition.
+# An earlier note here said its ramdisk would need device kernel modules we do not have.
+# That was wrong. Stock's is 530 entries of first-stage userspace and zero .ko, because
+# the modules live in vendor_kernel_boot, a separate partition this build still leaves
+# alone. Everything device-specific in it is an fstab and two init rc files.
+BOARD_BUILD_VENDOR_RAMDISK_IMAGE := true
+BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 67108864
+
+# The recovery fstab is not the first-stage one: it drops inlinecrypt and asks for plain
+# aes-256-xts with no wrapped key or metadata encryption, because recovery cannot use the
+# hardware-wrapped key path. Stock ships exactly this split, and other Pixels generate the
+# same thing under a name that says so (gen_fstab.<soc>-sw-encrypt).
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/recovery.fstab
+
+# RGBX, not the ABGR every other Pixel sets. minui draws RGBA8888 under ABGR and this
+# panel comes back with red and blue swapped, which is how orange renders blue. The
+# recovery work on this device hit it and landed here.
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 
 # AVB. Read off the stock B1 vbmeta: boot, init_boot, vbmeta_system and vbmeta_vendor
 # are chained at rollback index locations 2, 4, 1 and 3, everything else carries a hash

@@ -30,6 +30,7 @@ AB_OTA_PARTITIONS += \
     vbmeta_system \
     vbmeta_vendor \
     vendor \
+    vendor_boot \
     vendor_dlkm
 
 # The LineageOS HALs this device can serve. touch uses the pixel implementation rather
@@ -228,9 +229,12 @@ PRODUCT_VIRTUAL_AB_COMPRESSION := true
 PRODUCT_VIRTUAL_AB_COMPRESSION_METHOD := lz4
 PRODUCT_VIRTUAL_AB_COW_VERSION := 3
 
-# Do not build vendor_boot (and so not vendor_kernel_boot, which requires it). A boot
-# header version of 3 or more would otherwise imply one, and its ramdisk would come out
-# empty: the device first-stage init and kernel modules are Google own and are not among
-# our blobs. The device keeps its own, which the DSU test proved boots a generic A17
-# system, and which is also where the installed recovery lives.
-PRODUCT_BUILD_VENDOR_BOOT_IMAGE := false
+# Recovery. There is no recovery partition on this device, so it rides in vendor_boot.
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/recovery/init.recovery.device.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.yogi.rc \
+    $(DEVICE_PATH)/recovery/init.recovery.malibu.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.malibu.rc
+
+# The first-stage fstab, byte-identical to the copy in stock's vendor_boot, so it is
+# taken from the blob rather than duplicated where the two could drift apart.
+PRODUCT_COPY_FILES += \
+    $(VENDOR_PATH)/proprietary/vendor/etc/fstab.malibu:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/system/etc/fstab.malibu
