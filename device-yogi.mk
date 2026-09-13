@@ -161,6 +161,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.secure_element-service.thales
 
+# OpenEUICC is the LPA for anyone not running GMS. It declares a lower intent-filter
+# priority than Google's, so where both are enabled the stock one serves and this takes
+# over when EuiccPolicy disables it.
+PRODUCT_PACKAGES += \
+    OpenEUICC
+
 # eSIM. The eUICC sits behind ISecureElement/SIM1, so an LPA needs the OMAPI UICC
 # reader and EuiccManager exposed. Stock keeps the OMAPI declaration in vendor and the
 # telephony ones in product.
