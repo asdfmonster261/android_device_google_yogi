@@ -88,9 +88,11 @@ BOARD_VENDOR_SEPOLICY_DIRS += \
     $(DEVICE_PATH)/sepolicy/vendor \
     hardware/google/pixel-sepolicy/citadel \
     hardware/google/pixel-sepolicy/power-libperfmgr \
+    hardware/google/pixel-sepolicy/powerstats \
     hardware/google/pixel-sepolicy/sscoredump \
     hardware/google/pixel-sepolicy/lineage_health \
     hardware/google/pixel-sepolicy/powershare \
-    hardware/google/pixel-sepolicy/touch
+    hardware/google/pixel-sepolicy/touch \
+    hardware/google/pixel-sepolicy/wifi_ext
 
 # TODO: include $(VENDOR_PATH)/BoardConfigVendor.mk once blobs are extracted
