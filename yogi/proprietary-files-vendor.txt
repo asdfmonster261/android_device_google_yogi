@@ -936,11 +936,9 @@ vendor/firmware/usb_phy_fw_2.27.0.bin
 # outright. storageproxyd matters most: keymint reaches trusty secure storage through
 # it, so /data cannot come up without it.
 vendor/bin/misc_writer
-vendor/bin/rebalance_interrupts-vendor
 vendor/bin/storageproxyd
 vendor/bin/trusty_apploader
 vendor/bin/vndservice
-vendor/bin/vndservicemanager
 vendor/etc/fstab.zram.2g
 vendor/etc/fstab.zram.3g
 vendor/etc/fstab.zram.40p

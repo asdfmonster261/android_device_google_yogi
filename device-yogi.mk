@@ -244,3 +244,17 @@ PRODUCT_COPY_FILES += \
 # taken from the blob rather than duplicated where the two could drift apart.
 PRODUCT_COPY_FILES += \
     $(VENDOR_PATH)/proprietary/vendor/etc/fstab.malibu:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/system/etc/fstab.malibu
+
+
+# Two services ship as blobs whose init rc never lands. The rc path is owned by a tree
+# module's init_rc, which is enough for kati to call it a duplicate recipe, so the blob rc
+# went in the skip list, but the module is not selected either, so its rule never runs. The
+# binary installs and nothing ever starts it. Selecting the module installs both halves, and
+# both tree rcs are byte-identical to the ones stock ships.
+#
+# vndservicemanager is the one that blocks boot: with no context manager on /dev/vndbinder,
+# citadeld and the citadel strongbox keymint can never register, and keystore2 will not
+# continue without sending module info to every declared KeyMint security level.
+PRODUCT_PACKAGES += \
+    vndservicemanager \
+    rebalance_interrupts-vendor
