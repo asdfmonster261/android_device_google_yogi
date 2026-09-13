@@ -28,6 +28,11 @@ lib_fixups: lib_fixups_user_type = {
     **lib_fixups,
     (
         "com.google.hardware.pixel.display-V22-ndk",
+        "pixel-power-ext-V1-ndk",
+        "pixel-power-ext-V2-ndk",
+        "com.google.hardware.pixel.display-V15-ndk",
+        "google.hardware.image-V1-ndk",
+        "libmedia_ecoservice",
         "com.google.edgetpu_app_service-V10-ndk",
         "com.google.edgetpu_vendor_service-V2-ndk",
         "libmipc",

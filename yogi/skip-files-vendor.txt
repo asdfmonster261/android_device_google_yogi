@@ -742,11 +742,6 @@ lib64/libmnl.so
 lib64/libperfetto_c.so
 lib64/libutilscallstack.so
 lib64/hardware.google.ril_ext-V2-ndk.so
-lib64/libmedia_ecoservice.so
-lib64/pixel-power-ext-V1-ndk.so
-lib64/pixel-power-ext-V2-ndk.so
-lib64/com.google.hardware.pixel.display-V15-ndk.so
-lib64/google.hardware.image-V1-ndk.so
 lib64/libanyhow.dylib.so
 lib64/libbytes.dylib.so
 lib64/libcxx.dylib.so
