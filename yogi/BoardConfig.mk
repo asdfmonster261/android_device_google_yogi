@@ -62,13 +62,14 @@ TARGET_COPY_OUT_SYSTEM_DLKM := system_dlkm
 # Kernel: prebuilt to start with, same approach LineageOS takes for Pixels
 # (comet depends on a comet-kernels repo). Our own tree is heybooboo-kernel,
 # ACK android16-6.12 based and already booting on this device.
-BOARD_KERNEL_IMAGE_NAME := Image
-TARGET_PREBUILT_KERNEL := device/google/yogi-kernels/6.12/Image
+BOARD_KERNEL_IMAGE_NAME := Image.lz4
+TARGET_PREBUILT_KERNEL := device/google/yogi-kernels/6.12/Image.lz4
 TARGET_NO_BOOTLOADER := true
 
 # Boot image header, read off the stock boot and init_boot rather than assumed.
 BOARD_BOOT_HEADER_VERSION := 4
 BOARD_INIT_BOOT_HEADER_VERSION := 4
+BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
 # vendor_boot is deliberately not built. Its ramdisk would need the device first-stage
 # init and kernel modules, which are Google own and not among our blobs, so it comes out
