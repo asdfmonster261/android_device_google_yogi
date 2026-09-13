@@ -27,13 +27,3 @@ system_ext/lib64/libtrm.so
 system_ext/lib64/vendor.google.whitechapel.audio.audioext@4.0.so
 system_ext/lib64/vendor.google.whitechapel.audio.extension-V8-ndk.so
 # odm partition (the dump normaliser splits this out of vendor)
-odm/etc/build.prop
-odm/etc/group
-odm/etc/passwd
-odm/etc/selinux/odm_file_contexts
-odm/etc/selinux/odm_hwservice_contexts
-odm/etc/selinux/odm_mac_permissions.xml
-odm/etc/selinux/odm_property_contexts
-odm/etc/selinux/odm_seapp_contexts
-odm/etc/selinux/odm_sepolicy.cil
-odm/etc/selinux/odm_service_contexts

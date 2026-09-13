@@ -266,7 +266,7 @@ etc/init/hostapd.android.rc
 etc/init/hw/init.efs.rc
 etc/init/hw/init.zuma.soc.rc
 etc/init/init.pixel.rc
-etc/init/nfc-service-default.rc
+etc/init/nfc2-service-default.rc
 etc/init/pixel-mm-gki.rc
 etc/init/rebalance_interrupts-vendor.gs101.rc
 etc/init/vndservicemanager.rc
@@ -372,14 +372,14 @@ lib64/android.hardware.drm.common-V1-ndk.so
 lib64/android.hardware.gatekeeper-V1-ndk.so
 lib64/android.hardware.health-V4-ndk.so
 lib64/android.hardware.health.storage-V1-ndk.so
-lib64/android.hardware.nfc-V1-ndk.so
+lib64/android.hardware.nfc-V2-ndk.so
 lib64/android.hardware.power-V1-ndk.so
 lib64/android.hardware.power.stats-V2-ndk.so
 lib64/android.hardware.radio@1.0.so
 lib64/android.hardware.radio@1.1.so
 lib64/android.hardware.secure_element-V1-ndk.so
 lib64/android.hardware.secure_element.thales.libse.so
-lib64/android.hardware.security.keymint-V1-ndk.so
+lib64/android.hardware.security.keymint-V4-ndk.so
 lib64/android.hardware.security.secureclock-V1-ndk.so
 lib64/android.hardware.sensors-V3-ndk.so
 lib64/android.hardware.sensors@1.0.so
@@ -396,7 +396,7 @@ lib64/android.hardware.wifi.common-V2-ndk.so
 lib64/android.hardware.wifi.hostapd-V3-ndk.so
 lib64/android.hardware.wifi.supplicant-V5-ndk.so
 lib64/android.hidl.memory@1.0.so
-lib64/android.system.keystore2-V1-ndk.so
+lib64/android.system.keystore2-V6-ndk.so
 lib64/android.system.suspend-V1-ndk.so
 lib64/hw/android.hidl.memory@1.0-impl.so
 lib64/hw/audio.primary.default.so
@@ -607,7 +607,7 @@ etc/permissions/android.hardware.fingerprint.xml
 
 # GPS
 etc/permissions/android.hardware.location.gps.prebuilt.xml
-lib64/android.hardware.gnss-V3-ndk.so
+lib64/android.hardware.gnss-V7-ndk.so
 lib64/android.hardware.gnss.measurement_corrections@1.0.so
 lib64/android.hardware.gnss.measurement_corrections@1.1.so
 lib64/android.hardware.gnss.visibility_control@1.0.so
@@ -633,7 +633,7 @@ lib64/libcppbor.so
 lib64/libcppcose_rkp.so
 lib64/libkeymaster_messages.so
 lib64/libkeymaster_portable.so
-lib64/libkeymint_support_V3.so
+lib64/libkeymint_support_V4.so
 lib64/libnos.so
 lib64/libnos_client_citadel.so
 lib64/libnos_datagram.so
@@ -700,19 +700,19 @@ lib64/android.hardware.neuralnetworks@1.3.so
 lib64/android.hardware.oemlock-V1-ndk.so
 lib64/android.hardware.power-V2-ndk.so
 lib64/android.hardware.power-V7-ndk.so
-lib64/android.hardware.radio-V3-ndk.so
-lib64/android.hardware.radio.config-V3-ndk.so
+lib64/android.hardware.radio-V5-ndk.so
+lib64/android.hardware.radio.config-V5-ndk.so
 lib64/android.hardware.radio.config@1.0.so
 lib64/android.hardware.radio.config@1.1.so
 lib64/android.hardware.radio.config@1.2.so
-lib64/android.hardware.radio.data-V3-ndk.so
+lib64/android.hardware.radio.data-V5-ndk.so
 lib64/android.hardware.radio.deprecated@1.0.so
-lib64/android.hardware.radio.messaging-V3-ndk.so
-lib64/android.hardware.radio.modem-V3-ndk.so
-lib64/android.hardware.radio.network-V3-ndk.so
+lib64/android.hardware.radio.messaging-V5-ndk.so
+lib64/android.hardware.radio.modem-V5-ndk.so
+lib64/android.hardware.radio.network-V5-ndk.so
 lib64/android.hardware.radio.sap-V1-ndk.so
-lib64/android.hardware.radio.sim-V3-ndk.so
-lib64/android.hardware.radio.voice-V3-ndk.so
+lib64/android.hardware.radio.sim-V5-ndk.so
+lib64/android.hardware.radio.voice-V5-ndk.so
 lib64/android.hardware.radio@1.2.so
 lib64/android.hardware.radio@1.3.so
 lib64/android.hardware.radio@1.4.so
@@ -729,7 +729,7 @@ lib64/android.hidl.token@1.0-utils.so
 lib64/android.hidl.token@1.0.so
 lib64/com.google.hardware.pixel.display-V15-ndk.so
 lib64/com.google.hardware.pixel.display-V21-ndk.so
-lib64/hardware.google.ril_ext-V1-ndk.so
+lib64/hardware.google.ril_ext-V2-ndk.so
 lib64/pixel-power-ext-V2-ndk.so
 
 # Misc
@@ -737,12 +737,13 @@ lib64/libdrm.so
 lib64/libevent.so
 lib64/libgralloctypes.so
 lib64/libgui.so
+lib64/libsysutils.so
 lib64/libion.so
 lib64/libui.so
 
 # Odex
-framework/oat/arm64/com.google.android.camera.experimental2024.odex
-framework/oat/arm64/com.google.android.camera.experimental2024.vdex
+framework/oat/arm64/com.google.android.camera.experimental2026.odex
+framework/oat/arm64/com.google.android.camera.experimental2026.vdex
 
 # Rust
 lib64/libaconfig_storage_file.dylib.so
@@ -797,3 +798,17 @@ overlay/TeleService__yogi__auto_generated_rro_vendor.apk
 overlay/Traceur__yogi__auto_generated_rro_vendor.apk
 overlay/UwbOverlayPKK4/UwbOverlayPKK4Gsi.apk
 overlay/framework-res__yogi__auto_generated_rro_vendor.apk
+
+# Built from source in the tree
+etc/permissions/android.hardware.telephony.ims.prebuilt.xml
+lib64/android.hardware.light-V3-ndk.so
+lib64/android.hardware.npu-V1-ndk.so
+lib64/android.hardware.power@1.0.so
+lib64/android.hardware.power@1.1.so
+lib64/android.hardware.power@1.2.so
+lib64/android.hardware.radio.ims-V4-ndk.so
+lib64/android.hardware.radio.ims.media-V2-ndk.so
+lib64/google.hardware.image-V1-ndk.so
+lib64/libmnl.so
+lib64/libperfetto_c.so
+lib64/libutilscallstack.so
