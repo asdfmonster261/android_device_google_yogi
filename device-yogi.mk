@@ -48,9 +48,16 @@ PRODUCT_PACKAGES += \
 # Vendor AIDs.
 TARGET_FS_CONFIG_GEN += $(DEVICE_PATH)/config.fs
 
-# VINTF. The device manifest is stock yogi own, taken from the B1 vendor image,
-# since the HALs we ship are the device own.
-DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/vintf/manifest.xml
+# VINTF. All of this is stock yogi own, from the B1 vendor image, since the HALs we ship
+# are the device own. The four fragments Google keeps under etc/vintf/manifest/ are
+# merged in here rather than installed separately: their module names are taken by HALs
+# the tree builds itself, and VINTF metadata cannot go through PRODUCT_COPY_FILES.
+DEVICE_MANIFEST_FILE += \
+    $(DEVICE_PATH)/vintf/manifest.xml \
+    $(VENDOR_PATH)/proprietary/vendor/etc/vintf/manifest/android.hardware.thermal-service.pixel.xml \
+    $(VENDOR_PATH)/proprietary/vendor/etc/vintf/manifest/gnss-default.xml \
+    $(VENDOR_PATH)/proprietary/vendor/etc/vintf/manifest/nfc2-service-default.xml \
+    $(VENDOR_PATH)/proprietary/vendor/etc/vintf/manifest/pixel-display-default.xml
 
 # Device framework compatibility matrices. The manifest declares vendor HALs that no
 # AOSP framework matrix knows about (the MediaTek radio ones above all), so the device
