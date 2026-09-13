@@ -8,6 +8,13 @@
 
 TARGET_BOARD_INFO_FILE := $(DEVICE_PATH)/board-info.txt
 TARGET_BOOTLOADER_BOARD_NAME := yogi
+
+# The SoC, and it feeds ro.board.platform, which stock sets to malibu. Leaving it unset
+# breaks two things that look unrelated: zygote aborts in preload with "Board platform
+# unknown found in ro.board.platform is not supported in this build", and
+# init.recovery.yogi.rc imports init.recovery.<ro.board.platform>.rc, so the malibu
+# recovery rc never loads and recovery comes up with no usb and therefore no adb.
+TARGET_BOARD_PLATFORM := malibu
 TARGET_SCREEN_DENSITY := 420
 
 # From the running B1 build (ro.build.version.security_patch).
