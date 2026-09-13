@@ -70,6 +70,11 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors-service.multihal \
     android.hardware.drm-service.clearkey
 
+# The embedded secure element behind ISecureElement/eSE1. Built from source; its
+# libse-gto-hal.conf is already among the blobs.
+PRODUCT_PACKAGES += \
+    android.hardware.secure_element-service.thales
+
 # Vendor AIDs.
 TARGET_FS_CONFIG_GEN += $(DEVICE_PATH)/config.fs
 
