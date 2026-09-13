@@ -81,6 +81,29 @@ BOARD_BOOT_HEADER_VERSION := 4
 BOARD_INIT_BOOT_HEADER_VERSION := 4
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
+# The vendor_boot cmdline and bootconfig, read off stock. Leaving these unset builds a
+# vendor_boot with an empty header, and the one that matters is boot_devices: first-stage
+# init resolves /dev/block/by-name through it, so without it no partition is found, system
+# never mounts and the bootloader bounces straight back with no retry consumed. The rest is
+# driver load ordering and android_arch_task_struct_size, which the vendor modules assert
+# against. dyndbg is quoted for the shell because the build wraps this in double quotes.
+BOARD_KERNEL_CMDLINE := spmi_smartdv.load_sequential=1 regmap-goog-spmi.load_sequential=1
+BOARD_KERNEL_CMDLINE += max77779_pmic.load_sequential=1 max77779_pmic_spmi.load_sequential=1
+BOARD_KERNEL_CMDLINE += max77779_pmic_pinctrl.load_sequential=1
+BOARD_KERNEL_CMDLINE += samsung_dma_heap.gcma_skip_heaps=gcma_camera_internal
+BOARD_KERNEL_CMDLINE += dyndbg=\"func alloc_contig_dump_pages +p\"
+BOARD_KERNEL_CMDLINE += cma_sysfs.experimental=Y init_on_alloc=0 init_on_free=1
+BOARD_KERNEL_CMDLINE += rcupdate.rcu_expedited=1 rcu_nocbs=all rcutree.enable_rcu_lazy
+BOARD_KERNEL_CMDLINE += swiotlb=noforce disable_dma32=on rodata=on
+BOARD_KERNEL_CMDLINE += sysctl.kernel.sched_pelt_multiplier=4 arm64.nomops
+BOARD_KERNEL_CMDLINE += aoc_core.aoc_panic_on_ssr_failure=1 aoc_core.aoc_enable_gsa_boot=1
+BOARD_KERNEL_CMDLINE += ufs.async_probe=1 vs_drm.async_probe=1 gs_governor_dsulat.async_probe=1
+BOARD_KERNEL_CMDLINE += arm64.nosme kasan=off at24.write_timeout=100 log_buf_len=1024K
+BOARD_KERNEL_CMDLINE += android_arch_task_struct_size=784 bootconfig
+
+BOARD_BOOTCONFIG := androidboot.load_modules_parallel=performance
+BOARD_BOOTCONFIG += androidboot.boot_devices=3c2d0000.ufs
+
 # vendor_boot, which on this device also carries recovery: there is no recovery partition.
 # An earlier note here said its ramdisk would need device kernel modules we do not have.
 # That was wrong. Stock's is 530 entries of first-stage userspace and zero .ko, because
