@@ -45,6 +45,9 @@ PRODUCT_PACKAGES += \
     update_engine_sideload \
     update_verifier
 
+# Vendor AIDs.
+TARGET_FS_CONFIG_GEN += $(DEVICE_PATH)/config.fs
+
 # VINTF. The device manifest is stock yogi own, taken from the B1 vendor image,
 # since the HALs we ship are the device own.
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/vintf/manifest.xml
