@@ -77,9 +77,49 @@ BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 # vendor_boot, our kernel zip has always left it alone, and the installed recovery lives
 # there.
 
-# TODO: AVB. Stock boot is chained (vbmeta carries a chain descriptor for boot
-# at rollback index location 2) and signed MLDSA65, which we cannot reproduce.
-# Our own images are signed with the AOSP test key; decide how this tree signs.
+# AVB. Read off the stock B1 vbmeta: boot, init_boot, vbmeta_system and vbmeta_vendor
+# are chained at rollback index locations 2, 4, 1 and 3, everything else carries a hash
+# or hashtree descriptor in the main vbmeta. Stock signs MLDSA65 with keys we do not
+# have, and the bootloader is unlocked so the signature is not enforced -- only the
+# footer properties are read. So keep stock's structure and sign with the AOSP test key.
+BOARD_AVB_ENABLE := true
+BOARD_AVB_ALGORITHM := SHA256_RSA4096
+BOARD_AVB_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+
+# Stock's rollback index is the security patch date as a Unix epoch, so deriving it from
+# BOOT_SECURITY_PATCH reproduces stock's 1788220800 exactly. Do not lower it: a rollback
+# index or patch level below what the device recorded is the direction that costs /data.
+BOARD_AVB_ROLLBACK_INDEX := $(shell date -u -d "$(BOOT_SECURITY_PATCH)" +%s)
+
+BOARD_AVB_BOOT_KEY_PATH := $(BOARD_AVB_KEY_PATH)
+BOARD_AVB_BOOT_ALGORITHM := $(BOARD_AVB_ALGORITHM)
+BOARD_AVB_BOOT_ROLLBACK_INDEX := $(BOARD_AVB_ROLLBACK_INDEX)
+BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := 2
+
+BOARD_AVB_INIT_BOOT_KEY_PATH := $(BOARD_AVB_KEY_PATH)
+BOARD_AVB_INIT_BOOT_ALGORITHM := $(BOARD_AVB_ALGORITHM)
+BOARD_AVB_INIT_BOOT_ROLLBACK_INDEX := $(BOARD_AVB_ROLLBACK_INDEX)
+BOARD_AVB_INIT_BOOT_ROLLBACK_INDEX_LOCATION := 4
+
+BOARD_AVB_VBMETA_SYSTEM := system system_ext product system_dlkm
+BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := $(BOARD_AVB_KEY_PATH)
+BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := $(BOARD_AVB_ALGORITHM)
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(BOARD_AVB_ROLLBACK_INDEX)
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
+
+BOARD_AVB_VBMETA_VENDOR := vendor
+BOARD_AVB_VBMETA_VENDOR_KEY_PATH := $(BOARD_AVB_KEY_PATH)
+BOARD_AVB_VBMETA_VENDOR_ALGORITHM := $(BOARD_AVB_ALGORITHM)
+BOARD_AVB_VBMETA_VENDOR_ROLLBACK_INDEX := $(BOARD_AVB_ROLLBACK_INDEX)
+BOARD_AVB_VBMETA_VENDOR_ROLLBACK_INDEX_LOCATION := 3
+
+# avbtool defaults a hashtree to sha1. Stock uses sha256 on every one of them.
+BOARD_AVB_SYSTEM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
+BOARD_AVB_SYSTEM_EXT_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
+BOARD_AVB_PRODUCT_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
+BOARD_AVB_SYSTEM_DLKM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
+BOARD_AVB_VENDOR_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
+BOARD_AVB_VENDOR_DLKM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 
 # Policy from the shared Pixel tree, for the blobs this device actually ships. Each dir
 # was picked by matching the paths its file_contexts labels against our blob list, not by
