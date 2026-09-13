@@ -221,11 +221,17 @@ PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
 # Dynamic partitions (product-side; BoardConfig cannot set PRODUCT_* vars).
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-# Virtual A/B with compression. Values measured from the B1 OTA payload manifest
-# (vabc_enabled=1, cow_version=3, vabc_compression_param=lz4), which also matters for
-# partition sizing: super holds one copy on virtual A/B, not two.
-PRODUCT_VIRTUAL_AB_OTA := true
-PRODUCT_VIRTUAL_AB_COMPRESSION := true
+# Virtual A/B with compression. Setting the flags alone declares it without shipping any
+# of it: snapuserd serves the compressed cow, and first_stage_init prefers the generic
+# ramdisk copy because that side of treble gets updated with the platform. generic_ramdisk
+# supplies that copy (plus init_first_stage and toolbox_ramdisk, which is why our generic
+# ramdisk was 13 entries against stock's 37), and compression_with_xor supplies the vendor
+# ramdisk fsck and linker binaries and every ro.virtual_ab property stock reports. Pixels
+# get both from a soc-common tree that has no malibu equivalent, so they are named here.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression_with_xor.mk)
+
+# Measured from the B1 OTA payload manifest; the makefiles above leave both unset.
 PRODUCT_VIRTUAL_AB_COMPRESSION_METHOD := lz4
 PRODUCT_VIRTUAL_AB_COW_VERSION := 3
 
