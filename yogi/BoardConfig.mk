@@ -120,4 +120,4 @@ BOARD_VENDOR_KERNEL_MODULES_LOAD := \
 BOARD_SYSTEM_KERNEL_MODULES := \
     $(wildcard $(KERNEL_MODULE_DIR)/system_dlkm/*.ko)
 
-# TODO: include $(VENDOR_PATH)/BoardConfigVendor.mk once blobs are extracted
+include $(VENDOR_PATH)/BoardConfigVendor.mk
