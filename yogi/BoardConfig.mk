@@ -116,6 +116,21 @@ BOARD_KERNEL_CMDLINE += android_arch_task_struct_size=784 bootconfig
 BOARD_BOOTCONFIG := androidboot.load_modules_parallel=performance
 BOARD_BOOTCONFIG += androidboot.boot_devices=3c2d0000.ufs
 
+# TEMPORARY, for bring-up only. Remove once sepolicy/vendor carries the device policy.
+# Without it init refuses to start any vendor hal: the binaries land as plain vendor_file
+# because our file_contexts has 2 entries against stock's 665, so there is no domain for
+# init to transition into and ComputeContextFromExecutable errors out. That check only
+# aborts when enforcing (init/service.cpp), so permissive lets the 83 affected services
+# run and produces the avc denials the real policy has to be written against.
+BOARD_BOOTCONFIG += androidboot.selinux=permissive
+
+# DIAGNOSTIC, remove with the permissive flag. init's fatal signal handler reboots to
+# init_fatal_reboot_target, which defaults to bootloader -- that is what "enter reason:
+# reboot bootloader" means, and it takes the crash log with it because the bootloader
+# overwrites the console ramoops region on the way through. With this, init triggers
+# sysrq-c instead, so the backtrace lands in the dmesg ramoops region, which survives.
+BOARD_BOOTCONFIG += androidboot.init_fatal_panic=true
+
 # vendor_boot, which on this device also carries recovery: there is no recovery partition.
 # An earlier note here said its ramdisk would need device kernel modules we do not have.
 # That was wrong. Stock's is 530 entries of first-stage userspace and zero .ko, because
