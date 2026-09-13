@@ -59,6 +59,17 @@ PRODUCT_PACKAGES += \
     hostapd \
     wpa_supplicant
 
+# HAL services this tree builds but nothing installed. The default KeyMint is the one
+# that matters most: FBE key derivation goes through it, and only the strongbox instance
+# was present. Gatekeeper verifies lockscreen credentials, and without the sensors
+# multihal the device has no sensors at all.
+PRODUCT_PACKAGES += \
+    android.hardware.security.keymint-service.rust.trusty \
+    android.hardware.gatekeeper-service.trusty \
+    android.hardware.security.secretkeeper.trusty \
+    android.hardware.sensors-service.multihal \
+    android.hardware.drm-service.clearkey
+
 # Vendor AIDs.
 TARGET_FS_CONFIG_GEN += $(DEVICE_PATH)/config.fs
 
