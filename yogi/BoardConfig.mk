@@ -95,4 +95,10 @@ BOARD_VENDOR_SEPOLICY_DIRS += \
     hardware/google/pixel-sepolicy/touch \
     hardware/google/pixel-sepolicy/wifi_ext
 
+# Reverse wireless charging. init.malibu.rc chowns this node to system, and the stock
+# wireless_charger HAL drives the same one.
+SOONG_CONFIG_NAMESPACES += lineage_powershare
+SOONG_CONFIG_lineage_powershare += powershare_path
+SOONG_CONFIG_lineage_powershare_powershare_path := /sys/class/power_supply/wireless/device/rtx
+
 # TODO: include $(VENDOR_PATH)/BoardConfigVendor.mk once blobs are extracted
