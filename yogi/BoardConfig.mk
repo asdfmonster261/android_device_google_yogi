@@ -161,4 +161,6 @@ BOARD_VENDOR_KERNEL_MODULES_LOAD := \
 BOARD_SYSTEM_KERNEL_MODULES := \
     $(wildcard $(KERNEL_MODULE_DIR)/system_dlkm/*.ko)
 
+include $(DEVICE_PATH)/wifi/BoardConfig-wifi.mk
+
 include $(VENDOR_PATH)/BoardConfigVendor.mk

@@ -54,6 +54,11 @@ PRODUCT_PACKAGES += \
 # and would silently not be built, leaving bacon to link a file that was never produced.
 PRODUCT_BUILD_GENERIC_OTA_PACKAGE := true
 
+# The wifi daemons. BoardConfig-wifi.mk decides how they are built; these install them.
+PRODUCT_PACKAGES += \
+    hostapd \
+    wpa_supplicant
+
 # Vendor AIDs.
 TARGET_FS_CONFIG_GEN += $(DEVICE_PATH)/config.fs
 
