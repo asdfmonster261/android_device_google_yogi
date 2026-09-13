@@ -102,4 +102,7 @@ SOONG_CONFIG_NAMESPACES += lineage_powershare
 SOONG_CONFIG_lineage_powershare += powershare_path
 SOONG_CONFIG_lineage_powershare_powershare_path := /sys/class/power_supply/wireless/device/rtx
 
+# dtbo. Stock's, from the B1 OTA -- we build no device tree of our own.
+BOARD_PREBUILT_DTBOIMAGE := device/google/yogi-kernels/6.12/dtbo.img
+
 # TODO: include $(VENDOR_PATH)/BoardConfigVendor.mk once blobs are extracted
