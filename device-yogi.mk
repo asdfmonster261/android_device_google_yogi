@@ -269,3 +269,7 @@ PRODUCT_PACKAGES += \
 # vendor_dlkm, not vendor, so the blob list does not reach it.
 PRODUCT_COPY_FILES += \
     device/google/yogi/init.insmod.yogi.cfg:$(TARGET_COPY_OUT_VENDOR_DLKM)/etc/init.insmod.yogi.cfg
+
+# Vendor properties recovered from stock. See the header in that file for why the gap
+# mattered: without ro.hardware.egl there is no display at all.
+include device/google/yogi/vendor_props.mk
