@@ -1,0 +1,3 @@
+vendor.thermal.             u:object_r:vendor_thermal_prop:s0
+vendor.debug.ssrdump.       u:object_r:vendor_ssrdump_prop:s0
+persist.vendor.sys.ssr.     u:object_r:vendor_ssrdump_prop:s0

@@ -1,0 +1,2 @@
+/dev/thermal(/.*)?      u:object_r:thermal_link_device:s0
+/vendor/firmware(/.*)?  u:object_r:vendor_fw_file:s0
