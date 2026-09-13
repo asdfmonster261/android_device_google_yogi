@@ -79,6 +79,10 @@ TARGET_NO_BOOTLOADER := true
 # Boot image header, read off the stock boot and init_boot rather than assumed.
 BOARD_BOOT_HEADER_VERSION := 4
 BOARD_INIT_BOOT_HEADER_VERSION := 4
+# The version is inert on its own: init_boot gets BOARD_MKBOOTIMG_INIT_ARGS, not
+# BOARD_MKBOOTIMG_ARGS, so without this line mkbootimg defaults to a v0 header and the
+# bootloader rejects the image before it reaches the kernel.
+BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
 # The vendor_boot cmdline and bootconfig, read off stock. Leaving these unset builds a
