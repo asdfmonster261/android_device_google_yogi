@@ -14,6 +14,16 @@ TARGET_SCREEN_DENSITY := 420
 BOOT_SECURITY_PATCH := 2026-09-01
 VENDOR_SECURITY_PATCH := $(BOOT_SECURITY_PATCH)
 
+# This deliberately does NOT match PLATFORM_SECURITY_PATCH, which the aosp tag puts two
+# quarters earlier, and the gap is not a bug to close. Raising the platform one to agree
+# would claim aosp patches this tree does not carry. Lowering this one is the direction
+# that costs /data, and it also feeds BOARD_AVB_ROLLBACK_INDEX below, which has to stay
+# at stock's value. The only cost of the split is that /data must be wiped on install,
+# because keymint binds keys to the platform level and the older one cannot unwrap keys
+# minted under the newer. That is standard practice for a rom install anyway. None of
+# this touches bootloader anti-rollback, which keys off partitions this build never
+# writes.
+
 # Architecture: arm64 only, there is no 32-bit userspace on this device
 # (ro.product.cpu.abilist is arm64-v8a, ro.zygote is zygote64).
 TARGET_ARCH := arm64
