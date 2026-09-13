@@ -79,12 +79,13 @@ BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
 # AVB. Read off the stock B1 vbmeta: boot, init_boot, vbmeta_system and vbmeta_vendor
 # are chained at rollback index locations 2, 4, 1 and 3, everything else carries a hash
-# or hashtree descriptor in the main vbmeta. Stock signs MLDSA65 with keys we do not
-# have, and the bootloader is unlocked so the signature is not enforced -- only the
-# footer properties are read. So keep stock's structure and sign with the AOSP test key.
+# or hashtree descriptor in the main vbmeta. Signed MLDSA65, which is what stock uses --
+# the key is ours rather than Google's, so the signature buys nothing on an unlocked
+# bootloader, but the images then match stock's structure down to the algorithm type.
+# Needs openssl 3.5 or newer on the build host: avbtool delegates ML-DSA to it.
 BOARD_AVB_ENABLE := true
-BOARD_AVB_ALGORITHM := SHA256_RSA4096
-BOARD_AVB_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_ALGORITHM := MLDSA65
+BOARD_AVB_KEY_PATH := external/avb/test/data/testkey_mldsa65.pem
 
 # Stock's rollback index is the security patch date as a Unix epoch, so deriving it from
 # BOOT_SECURITY_PATCH reproduces stock's 1788220800 exactly. Do not lower it: a rollback
