@@ -258,3 +258,14 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     vndservicemanager \
     rebalance_interrupts-vendor
+
+# The device module-load config. insmod_sh_yogi runs insmod.sh against this file
+# (init.yogi.rc:28). What it is really for is the three properties it sets,
+# vendor.device.modules.ready / vendor.all.modules.ready / vendor.all.devices.ready, which
+# gate large on-property blocks in init.yogi.rc and init.malibu.rc. One of those blocks
+# enables the vibrator HAL, so with the file absent system_server waits on
+# IVibratorManager forever. Its modprobe lines are redundant here, measured: all five
+# modules load anyway because vendor_dlkm modules.load already names them. It lives in
+# vendor_dlkm, not vendor, so the blob list does not reach it.
+PRODUCT_COPY_FILES += \
+    device/google/yogi/init.insmod.yogi.cfg:$(TARGET_COPY_OUT_VENDOR_DLKM)/etc/init.insmod.yogi.cfg
