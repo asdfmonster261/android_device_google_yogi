@@ -33,7 +33,11 @@ AB_OTA_PARTITIONS += \
     vendor_dlkm
 
 # The LineageOS HALs this device can serve. touch uses the pixel implementation rather
-# than the default one, since the touch driver is Google's.
+# than the default one, since the touch driver is Google's. That implementation lives in
+# a soong namespace, so the namespace has to be declared for PRODUCT_PACKAGES to find it.
+PRODUCT_SOONG_NAMESPACES += \
+    hardware/google/pixel
+
 PRODUCT_PACKAGES += \
     vendor.lineage.health-service.default \
     vendor.lineage.powershare-service.default \
