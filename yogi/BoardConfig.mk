@@ -143,6 +143,14 @@ TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 # bootloader, but the images then match stock's structure down to the algorithm type.
 # Needs openssl 3.5 or newer on the build host: avbtool delegates ML-DSA to it.
 BOARD_AVB_ENABLE := true
+
+# Disable verification and hashtree checking in the top-level vbmeta. Our vbmeta is signed
+# with a key the bootloader does not trust, and this bootloader reports
+# avb-hastree-error-mode:restart, so with verification on it restarts rather than boots and
+# the only symptom is "boot failure" at the bootloader. AOSP only adds the flag for eng
+# builds, so a userdebug build has to ask. Measured against a working Pixel 11 rom, which
+# ships flags=3 where ours shipped 0.
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 BOARD_AVB_ALGORITHM := MLDSA65
 BOARD_AVB_KEY_PATH := external/avb/test/data/testkey_mldsa65.pem
 
