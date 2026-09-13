@@ -85,6 +85,14 @@ BOARD_INIT_BOOT_HEADER_VERSION := 4
 BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
+# Zero os_version in the boot header, which is what stock does here and what a working
+# Pixel 11 rom does. The build hardcodes it from PLATFORM_SECURITY_PATCH, which would claim
+# a patch level below the one the device last ran, and it disagrees with the security_patch
+# in our own avb footer. mkbootimg's parsers return 0 for anything non-numeric, and these
+# land after the internal args so they win. init_boot is deliberately left alone: stock and
+# the reference rom both populate it there.
+BOARD_MKBOOTIMG_ARGS += --os_version none --os_patch_level none
+
 # The vendor_boot cmdline and bootconfig, read off stock. Leaving these unset builds a
 # vendor_boot with an empty header, and the one that matters is boot_devices: first-stage
 # init resolves /dev/block/by-name through it, so without it no partition is found, system
