@@ -930,3 +930,46 @@ vendor/firmware/u100FwUpdate.bin
 vendor/firmware/u100FwUpdate_test.bin
 vendor/firmware/usb_phy_fw.bin
 vendor/firmware/usb_phy_fw_2.27.0.bin
+
+# Recovered from the skip list. That list is comet's, and comet gets these from the
+# zumapro soc-common tree; malibu has no equivalent, so skipping them dropped them
+# outright. storageproxyd matters most: keymint reaches trusty secure storage through
+# it, so /data cannot come up without it.
+vendor/bin/misc_writer
+vendor/bin/rebalance_interrupts-vendor
+vendor/bin/storageproxyd
+vendor/bin/trusty_apploader
+vendor/bin/vndservice
+vendor/bin/vndservicemanager
+vendor/etc/fstab.zram.2g
+vendor/etc/fstab.zram.3g
+vendor/etc/fstab.zram.40p
+vendor/etc/fstab.zram.4g
+vendor/etc/fstab.zram.50p
+vendor/etc/fstab.zram.50p-1g
+vendor/etc/fstab.zram.50p-2g
+vendor/etc/fstab.zram.5g
+vendor/etc/fstab.zram.60p
+vendor/etc/fstab.zram.6g
+vendor/etc/init/android.hardware.wifi.supplicant-service.rc
+vendor/etc/init/init.pixel.rc
+vendor/etc/init/pixel-mm-gki.rc
+vendor/etc/permissions/android.hardware.sensor.accelerometer.xml
+vendor/etc/permissions/android.hardware.sensor.compass.xml
+vendor/etc/sysconfig/component-overrides.xml
+vendor/lib64/libOpenCL.so
+vendor/lib64/libwpa_client.so
+vendor/lib64/soundfx/libbundleaidl.so
+vendor/lib64/soundfx/libdownmixaidl.so
+vendor/lib64/soundfx/libdynamicsprocessingaidl.so
+vendor/lib64/soundfx/libloudnessenhanceraidl.so
+vendor/lib64/soundfx/libreverbaidl.so
+vendor/lib64/soundfx/libvisualizeraidl.so
+vendor/etc/sysconfig/vendor-apex-allowlist-lyric.xml
+vendor/etc/res/images/charger/battery_overheat.png
+vendor/etc/res/images/charger/main_font.png
+vendor/lib64/hw/sensors.dynamic_sensor_hal.so
+vendor/lib64/libhidparser.so
+vendor/bin/flood.control.hal
+vendor/etc/init/init.flood.control.rc
+vendor/etc/vintf/manifest/flood_control.xml

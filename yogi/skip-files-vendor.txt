@@ -13,7 +13,6 @@ bin/cal
 bin/cat
 bin/chattr
 bin/chcon
-bin/checkpoint_gc
 bin/chgrp
 bin/chmod
 bin/chown
@@ -110,7 +109,6 @@ bin/lsusb
 bin/md5sum
 bin/memeater
 bin/microcom
-bin/misc_writer
 bin/mkdir
 bin/mkfifo
 bin/mknod
@@ -144,7 +142,6 @@ bin/pwd
 bin/readelf
 bin/readlink
 bin/realpath
-bin/rebalance_interrupts-vendor
 bin/renice
 bin/restorecon
 bin/rm
@@ -171,7 +168,6 @@ bin/split
 bin/start
 bin/stat
 bin/stop
-bin/storageproxyd
 bin/strings
 bin/stty
 bin/swapoff
@@ -193,7 +189,6 @@ bin/toybox_vendor
 bin/tr
 bin/true
 bin/truncate
-bin/trusty_apploader
 bin/tty
 bin/uclampset
 bin/ulimit
@@ -210,8 +205,6 @@ bin/uuencode
 bin/uuidgen
 bin/vi
 bin/vmstat
-bin/vndservice
-bin/vndservicemanager
 bin/watch
 bin/wc
 bin/which
@@ -227,7 +220,6 @@ etc/aconfig/flag.map
 etc/aconfig/flag.val
 etc/aconfig/package.map
 etc/aconfig_flags.pb
-etc/atrace/atrace_categories.txt
 etc/boringssl_self_test.no_zygote.rc
 etc/boringssl_self_test.zygote32.rc
 etc/boringssl_self_test.zygote64.rc
@@ -237,16 +229,6 @@ etc/build_flags.json
 etc/default_volume_tables.xml
 etc/fs_config_dirs
 etc/fs_config_files
-etc/fstab.zram.2g
-etc/fstab.zram.3g
-etc/fstab.zram.40p
-etc/fstab.zram.4g
-etc/fstab.zram.50p
-etc/fstab.zram.50p-1g
-etc/fstab.zram.50p-2g
-etc/fstab.zram.5g
-etc/fstab.zram.60p
-etc/fstab.zram.6g
 etc/fstab.zuma
 etc/fstab.zuma-fips
 etc/fstab.zumapro
@@ -258,26 +240,17 @@ etc/init/android.hardware.secure_element_gto.rc
 etc/init/android.hardware.security.keymint-service.rust.trusty.rc
 etc/init/android.hardware.security.secretkeeper.trusty.rc
 etc/init/android.hardware.sensors-service-multihal.rc
-etc/init/android.hardware.wifi.supplicant-service.rc
-etc/init/atrace_categories.rc
 etc/init/boringssl_self_test.rc
 etc/init/health-storage-default.rc
 etc/init/hostapd.android.rc
 etc/init/hw/init.efs.rc
 etc/init/hw/init.zuma.soc.rc
-etc/init/init.pixel.rc
-etc/init/nfc2-service-default.rc
-etc/init/pixel-mm-gki.rc
-etc/init/rebalance_interrupts-vendor.gs101.rc
-etc/init/vndservicemanager.rc
 etc/linker.config.pb
 etc/mkshrc
 etc/passwd
 etc/permissions/android.hardware.audio.low_latency.xml
 etc/permissions/android.hardware.audio.pro.xml
-etc/permissions/android.hardware.bluetooth.prebuilt.xml
 etc/permissions/android.hardware.bluetooth_le.channel_sounding.xml
-etc/permissions/android.hardware.bluetooth_le.prebuilt.xml
 etc/permissions/android.hardware.camera.concurrent.xml
 etc/permissions/android.hardware.camera.flash-autofocus.xml
 etc/permissions/android.hardware.camera.front.xml
@@ -294,9 +267,7 @@ etc/permissions/android.hardware.nfc.xml
 etc/permissions/android.hardware.opengles.aep.xml
 etc/permissions/android.hardware.se.omapi.ese.xml
 etc/permissions/android.hardware.se.omapi.uicc.xml
-etc/permissions/android.hardware.sensor.accelerometer.xml
 etc/permissions/android.hardware.sensor.barometer.xml
-etc/permissions/android.hardware.sensor.compass.xml
 etc/permissions/android.hardware.sensor.dynamic.head_tracker.xml
 etc/permissions/android.hardware.sensor.gyroscope.xml
 etc/permissions/android.hardware.sensor.hifi_sensors.xml
@@ -325,7 +296,6 @@ etc/permissions/android.software.opengles.deqp.level.xml
 etc/permissions/android.software.verified_boot.xml
 etc/permissions/android.software.vulkan.deqp.level.xml
 etc/permissions/com.nxp.mifare.xml
-etc/permissions/features_com.android.virt.xml
 etc/permissions/handheld_core_hardware.xml
 etc/selinux/genfs_labels_version.txt
 etc/selinux/plat_pub_versioned.cil
@@ -345,7 +315,6 @@ etc/selinux/vendor_sepolicy.cil
 etc/selinux/vendor_service_contexts
 etc/selinux/vendor_tee_service_contexts
 etc/selinux/vndservice_contexts
-etc/sysconfig/component-overrides.xml
 etc/vintf/compatibility_matrix.xml
 etc/vintf/manifest.xml
 etc/vintf/manifest/android.hardware.drm-service.clearkey.xml
@@ -358,7 +327,6 @@ etc/vintf/manifest/android.hardware.wifi.hostapd.xml
 etc/vintf/manifest/android.hardware.wifi.supplicant.xml
 etc/vintf/manifest/health-storage-default.xml
 etc/vintf/manifest/nfc-service-default.xml
-etc/wifi/wpa_supplicant.conf
 lib64/android.frameworks.stats-V1-ndk.so
 lib64/android.frameworks.stats-V2-ndk.so
 lib64/android.hardware.boot-V1-ndk.so
@@ -404,7 +372,6 @@ lib64/hw/gralloc.default.so
 lib64/hw/local_time.default.so
 lib64/hw/power.default.so
 lib64/hw/vibrator.default.so
-lib64/libOpenCL.so
 lib64/libaconfig_storage_read_api_cc.so
 lib64/libaho_corasick.dylib.so
 lib64/libandroid_log_sys.dylib.so
@@ -434,7 +401,6 @@ lib64/liblog_rust.dylib.so
 lib64/libmedia_helper.so
 lib64/libmemchr.dylib.so
 lib64/libnl.so
-lib64/libonce_cell.dylib.so
 lib64/libpng.so
 lib64/libpower.so
 lib64/libprocessgroup.so
@@ -454,30 +420,22 @@ lib64/libtrusty.so
 lib64/libusbhost.so
 lib64/libutils.so
 lib64/libvibratorutils.so
-lib64/libwpa_client.so
 lib64/libxml2.so
 lib64/libz.so
 lib64/mediacas/libclearkeycasplugin.so
 lib64/mediadrm/libdrmclearkeyplugin.so
 lib64/nfc_nci.st21nfc.default.so
-lib64/pixel-power-ext-V1-ndk.so
 lib64/server_configurable_flags.so
 lib64/soundfx/libaudiopreprocessing.so
-lib64/soundfx/libbundleaidl.so
 lib64/soundfx/libbundlewrapper.so
 lib64/soundfx/libdownmix.so
-lib64/soundfx/libdownmixaidl.so
-lib64/soundfx/libdynamicsprocessingaidl.so
 lib64/soundfx/libdynproc.so
 lib64/soundfx/libeffectproxy.so
 lib64/soundfx/libhapticgenerator.so
 lib64/soundfx/libhapticgeneratoraidl.so
 lib64/soundfx/libldnhncr.so
-lib64/soundfx/libloudnessenhanceraidl.so
-lib64/soundfx/libreverbaidl.so
 lib64/soundfx/libreverbwrapper.so
 lib64/soundfx/libvisualizer.so
-lib64/soundfx/libvisualizeraidl.so
 odm_dlkm/etc/build.prop
 
 # Exclude overlays, symlinks and extra files that we override
@@ -556,13 +514,10 @@ lib64/android.hardware.bluetooth.socket-V2-ndk.so
 lib64/hardware.google.bluetooth.bt_channel_avoidance@1.0.so
 
 # Camera
-etc/sysconfig/vendor-apex-allowlist-lyric.xml
 
 # Charger
 etc/res/images/charger/battery_fail.png
-etc/res/images/charger/battery_overheat.png
 etc/res/images/charger/battery_scale.png
-etc/res/images/charger/main_font.png
 etc/res/values/charger/animation.txt
 
 # Codec2
@@ -584,7 +539,6 @@ lib64/libcodec2_hidl@1.0.so
 lib64/libcodec2_hidl_plugin.so
 lib64/libcodec2_soft_common.so
 lib64/libcodec2_vndk.so
-lib64/libmedia_ecoservice.so
 lib64/libmedia_omx.so
 lib64/libminijail.so
 lib64/libsfplugin_ccodec_utils.so
@@ -606,7 +560,6 @@ lib64/libdumpstateutil.so
 etc/permissions/android.hardware.fingerprint.xml
 
 # GPS
-etc/permissions/android.hardware.location.gps.prebuilt.xml
 lib64/android.hardware.gnss-V7-ndk.so
 lib64/android.hardware.gnss.measurement_corrections@1.0.so
 lib64/android.hardware.gnss.measurement_corrections@1.1.so
@@ -652,8 +605,6 @@ lib64/libziparchive.so
 
 # Sensors
 lib64/android.frameworks.sensorservice-V1-ndk.so
-lib64/hw/sensors.dynamic_sensor_hal.so
-lib64/libhidparser.so
 lib64/libsensorndkbridge.so
 
 # Trusty
@@ -727,10 +678,7 @@ lib64/android.hardware.vibrator-V3-ndk.so
 lib64/android.hardware.weaver-V3-ndk.so
 lib64/android.hidl.token@1.0-utils.so
 lib64/android.hidl.token@1.0.so
-lib64/com.google.hardware.pixel.display-V15-ndk.so
 lib64/com.google.hardware.pixel.display-V21-ndk.so
-lib64/hardware.google.ril_ext-V2-ndk.so
-lib64/pixel-power-ext-V2-ndk.so
 
 # Misc
 lib64/libdrm.so
@@ -746,33 +694,19 @@ framework/oat/arm64/com.google.android.camera.experimental2026.odex
 framework/oat/arm64/com.google.android.camera.experimental2026.vdex
 
 # Rust
-lib64/libaconfig_storage_file.dylib.so
-lib64/libaconfig_storage_protos.dylib.so
-lib64/libaconfig_storage_read_api.dylib.so
 lib64/libanstyle.dylib.so
-lib64/libanyhow.dylib.so
 lib64/libbionic_bindgen.dylib.so
 lib64/libbitflags.dylib.so
-lib64/libbytes.dylib.so
-lib64/libclap.dylib.so
 lib64/libclap_builder.dylib.so
 lib64/libclap_lex.dylib.so
 lib64/libcutils_bindgen.dylib.so
-lib64/libcxx.dylib.so
 lib64/libenv_logger.dylib.so
-lib64/libfoldhash.dylib.so
-lib64/liblazy_static.dylib.so
 lib64/liblibc.dylib.so
 lib64/liblogger.dylib.so
-lib64/libmemmap2.dylib.so
 lib64/libmemoffset.dylib.so
 lib64/libnix.dylib.so
-lib64/libprotobuf.dylib.so
-lib64/libprotobuf_support.dylib.so
 lib64/libregex_automata.dylib.so
 lib64/librustutils.dylib.so
-lib64/libserde.dylib.so
-lib64/libserde_core.dylib.so
 lib64/libstrsim.dylib.so
 lib64/libsystem_properties_bindgen_sys.dylib.so
 lib64/libthiserror.dylib.so
@@ -780,9 +714,6 @@ lib64/libthiserror.dylib.so
 # Completely skip files that are not required
 
 # Flood control
-bin/flood.control.hal
-etc/init/init.flood.control.rc
-etc/vintf/manifest/flood_control.xml
 # Auto-generated RRO overlays: the ROM regenerates these from its own overlay/ dir.
 overlay/CrossDeviceAccessServicePrimary__yogi__auto_generated_rro_vendor.apk
 overlay/DMService__yogi__auto_generated_rro_vendor.apk
@@ -800,7 +731,6 @@ overlay/UwbOverlayPKK4/UwbOverlayPKK4Gsi.apk
 overlay/framework-res__yogi__auto_generated_rro_vendor.apk
 
 # Built from source in the tree
-etc/permissions/android.hardware.telephony.ims.prebuilt.xml
 lib64/android.hardware.light-V3-ndk.so
 lib64/android.hardware.npu-V1-ndk.so
 lib64/android.hardware.power@1.0.so
@@ -808,7 +738,39 @@ lib64/android.hardware.power@1.1.so
 lib64/android.hardware.power@1.2.so
 lib64/android.hardware.radio.ims-V4-ndk.so
 lib64/android.hardware.radio.ims.media-V2-ndk.so
-lib64/google.hardware.image-V1-ndk.so
 lib64/libmnl.so
 lib64/libperfetto_c.so
 lib64/libutilscallstack.so
+lib64/hardware.google.ril_ext-V2-ndk.so
+lib64/libmedia_ecoservice.so
+lib64/pixel-power-ext-V1-ndk.so
+lib64/pixel-power-ext-V2-ndk.so
+lib64/com.google.hardware.pixel.display-V15-ndk.so
+lib64/google.hardware.image-V1-ndk.so
+lib64/libanyhow.dylib.so
+lib64/libbytes.dylib.so
+lib64/libcxx.dylib.so
+lib64/liblazy_static.dylib.so
+lib64/libserde_core.dylib.so
+lib64/libprotobuf.dylib.so
+lib64/libaconfig_storage_read_api.dylib.so
+lib64/libclap.dylib.so
+lib64/libmemmap2.dylib.so
+lib64/libaconfig_storage_protos.dylib.so
+lib64/libfoldhash.dylib.so
+lib64/libprotobuf_support.dylib.so
+lib64/libonce_cell.dylib.so
+lib64/libaconfig_storage_file.dylib.so
+lib64/libserde.dylib.so
+bin/checkpoint_gc
+etc/atrace/atrace_categories.txt
+etc/init/atrace_categories.rc
+etc/init/nfc2-service-default.rc
+etc/init/rebalance_interrupts-vendor.gs101.rc
+etc/init/vndservicemanager.rc
+etc/permissions/android.hardware.bluetooth.prebuilt.xml
+etc/permissions/android.hardware.bluetooth_le.prebuilt.xml
+etc/permissions/android.hardware.location.gps.prebuilt.xml
+etc/permissions/android.hardware.telephony.ims.prebuilt.xml
+etc/permissions/features_com.android.virt.xml
+etc/wifi/wpa_supplicant.conf
