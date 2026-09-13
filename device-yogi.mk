@@ -143,6 +143,19 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     com.android.extensions.computercontrol
 
+# EuiccPolicy feeds partner customisation to the LPA and disables Google's one when
+# GMS is absent, so it is what decides which LPA serves. LineageOS ships it but no
+# product pulls it in, since it only makes sense on a device that has an eUICC.
+PRODUCT_PACKAGES += \
+    EuiccPolicy
+
+# EuiccGoogle is presigned, so it cannot pick up a signature|privileged permission by
+# signature the way a platform-signed app does, and stock keeps its allowlist in a gms
+# file. With ro.control_privapp_permissions=enforce the first missing entry throws out
+# of system_server on boot, so it needs one of its own.
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/permissions/privapp-permissions-google-euicc.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-google-euicc.xml
+
 # The embedded secure element behind ISecureElement/eSE1. Built from source; its
 # libse-gto-hal.conf is already among the blobs.
 PRODUCT_PACKAGES += \

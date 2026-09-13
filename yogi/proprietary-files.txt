@@ -1,8 +1,8 @@
 # System-side blobs from the same build as proprietary-files-vendor.txt.
-# First cut: system_ext libraries and binaries only. Product apps
-# (Pixel camera, AICore, euicc and friends) are deliberately NOT here yet:
-# they are optional features, and the euicc stack is the known gap from
-# the GSI test. Revisit once the tree boots.
+# First cut: system_ext libraries and binaries only. The remaining product apps
+# (Pixel camera, AICore and friends) are deliberately NOT here: they are optional
+# features. The euicc stack below is the exception, since without it there is no
+# way to manage a profile at all.
 system_ext/bin/backup_ota_log.sh
 system_ext/bin/bluetooth_gci
 system_ext/bin/gs_watchdogd
@@ -98,3 +98,21 @@ system_ext/framework/com.google.pixel.camera.services.cameraidremapper.jar
 system_ext/framework/com.google.pixel.camera.services.lyricconfigprovider.jar
 system_ext/framework/google-ril.jar
 system_ext/framework/org.carconnectivity.android.digitalkey.timesync.jar
+
+# eSIM. Two separate things. EuiccSupportPixel is the low-level half: eUICC firmware
+# and applet updates, its own privapp allowlist, and a malibu overlay. It runs with or
+# without GMS. EuiccGoogle is the LPA, and it only works with GMS, which is what
+# EuiccPolicy gates it on. The malibu overlay moves to product/app because extract_utils
+# only has package rules for app and priv-app, and an apk cannot go through
+# PRODUCT_COPY_FILES. It is a static rro, so it applies from anywhere on a system
+# partition, and stock already ships the other euicc overlay out of priv-app.
+product/priv-app/EuiccGoogle/EuiccGoogle.apk;PRESIGNED
+product/overlay/EuiccSupportPixelOverlay/EuiccSupportPixelOverlay.apk:product/app/EuiccSupportPixelOverlay/EuiccSupportPixelOverlay.apk
+system_ext/etc/default-permissions/default-permissions-euiccpixel.xml
+system_ext/etc/permissions/com.google.euiccpixel.permissions.xml
+system_ext/etc/permissions/com.google.euiccpixel.xml
+system_ext/priv-app/EuiccGoogleOverlay/EuiccGoogleOverlay.apk
+system_ext/priv-app/EuiccSupportPixel-P23/DKA_0303_03x_25.up
+system_ext/priv-app/EuiccSupportPixel-P23/EuiccSupportPixel-P23.apk;PRESIGNED
+system_ext/priv-app/EuiccSupportPixel-P23/esim-full-v1.img
+system_ext/priv-app/EuiccSupportPixelPermissions/EuiccSupportPixelPermissions.apk;PRESIGNED
