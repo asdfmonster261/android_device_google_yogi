@@ -208,6 +208,15 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.euicc.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.hardware.telephony.euicc.xml \
     frameworks/native/data/etc/android.hardware.telephony.euicc.mep.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.hardware.telephony.euicc.mep.xml
 
+# Libraries the vendor partition hands to apex namespaces. The camera HAL runs from an apex
+# with namespace mnt, so it sees only what this grants, and libgoog_catpipe dlopens the gxp
+# and edgetpu accelerators for computational photography. Stock ships a linker.config.pb
+# carrying these six names; the blob list drops it and the tree generates an empty one, so
+# every dlopen failed, the provider dereferenced the null it got back and crash-looped, and
+# the framework saw zero cameras. public.libraries.txt lists them too but does not cover an
+# apex namespace on its own.
+PRODUCT_VENDOR_LINKER_CONFIG_FRAGMENTS += $(DEVICE_PATH)/linker.config.json
+
 # Vendor AIDs.
 TARGET_FS_CONFIG_GEN += $(DEVICE_PATH)/config.fs
 
