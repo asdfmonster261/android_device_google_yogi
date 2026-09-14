@@ -505,3 +505,10 @@ type wifi_sniffer, domain;
 init_daemon_domain(wifi_sniffer)
 permissive wifi_sniffer;
 
+# The widevine DRM HAL. Its binary was labelled but no domain was declared, so init had
+# nowhere to transition into and fell back to execute_no_trans, which AOSP forbids: under
+# enforcing the service does not start, and under permissive it runs as init. Stock declares
+# both halves. Its rules come from the stock policy like the rest, and were being skipped
+# while the domain did not exist.
+type hal_drm_widevine, domain;
+init_daemon_domain(hal_drm_widevine)

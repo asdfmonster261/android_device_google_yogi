@@ -15,6 +15,7 @@ reimplementing the policy compiler.
 Run from the tree root, after a build.
 """
 
+import glob
 import os
 import re
 import sys
@@ -51,6 +52,10 @@ def known_names():
         body = open(cil).read()
         names |= set(re.findall(r"\(type\s+([A-Za-z0-9_-]+)\)", body))
         names |= set(re.findall(r"\(typeattribute\s+([A-Za-z0-9_-]+)\)", body))
+    # Our own sources too: a type declared since the last build is not in the built policy
+    # yet, and without this its rules stay skipped until a second build has gone by.
+    for f in glob.glob("device/google/yogi/sepolicy/vendor/*.te"):
+        names |= set(re.findall(r"^\s*type\s+([A-Za-z0-9_-]+)", open(f).read(), re.M))
     return names
 
 

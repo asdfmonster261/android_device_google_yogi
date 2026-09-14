@@ -1249,6 +1249,12 @@ allow hal_drm_default hal_codec2_server:fd { use };
 allow hal_drm_default hal_drm_default_exec:file { entrypoint execute getattr map open read };
 allow hal_drm_default hal_omx_server:fd { use };
 
+# hal_drm_widevine
+allow hal_drm_widevine dmabuf_system_heap_device:chr_file { getattr ioctl lock map open read watch watch_reads };
+allow hal_drm_widevine hal_drm_widevine_exec:file { entrypoint execute getattr map open read };
+allow hal_drm_widevine mediadrm_vendor_data_file:dir { add_name create getattr ioctl lock open read remove_name rename reparent rmdir search setattr watch watch_reads write };
+allow hal_drm_widevine mediadrm_vendor_data_file:file { append create getattr ioctl lock map open read rename setattr unlink watch watch_reads write };
+
 # hal_dumpstate
 allow hal_dumpstate dump_gsc:memfd_file { getattr map read write };
 
@@ -1562,7 +1568,6 @@ allow hal_graphics_composer_default traced:unix_stream_socket { connectto };
 allow hal_graphics_composer_default traced_producer_socket:sock_file { write };
 allow hal_graphics_composer_default traced_tmpfs:file { getattr map read write };
 allow hal_graphics_composer_default vendor_aical_plugin:process { rlimitinh siginh transition };
-allow hal_graphics_composer_default vendor_aical_plugin_exec:file { execute getattr map open read };
 allow hal_graphics_composer_default vendor_display_prop:file { getattr map open read };
 allow hal_graphics_composer_default vendor_display_prop:property_service { set };
 allow hal_graphics_composer_default vendor_hwc_log_file:dir { add_name create getattr ioctl lock open read remove_name rename reparent rmdir search setattr watch watch_reads write };
@@ -2194,7 +2199,6 @@ allow hal_vibrator_default vndbinder_device:chr_file { append getattr ioctl lock
 allow hal_vibrator_default vndservicemanager:binder { call transfer };
 
 # hal_vm_capabilities_default
-allow hal_vm_capabilities_default crosvm_vendor:fd { use };
 allow hal_vm_capabilities_default hal_vm_capabilities_default_exec:file { entrypoint execute getattr map open read };
 
 # hal_vr_default
@@ -2440,7 +2444,7 @@ allow init hal_drm_clearkey_aidl_exec:file { execute getattr map open read };
 allow init hal_drm_clearkey_exec:file { execute getattr map open read };
 allow init hal_drm_default:process { rlimitinh siginh transition };
 allow init hal_drm_default_exec:file { execute getattr map open read };
-allow init hal_drm_widevine_exec:file { execute getattr map open read };
+allow init hal_drm_widevine:process { rlimitinh siginh transition };
 allow init hal_dumpstate_default:process { rlimitinh siginh transition };
 allow init hal_dumpstate_default_exec:file { execute getattr map open read };
 allow init hal_evs_default:process { rlimitinh siginh transition };
