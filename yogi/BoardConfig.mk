@@ -123,12 +123,11 @@ BOARD_KERNEL_CMDLINE += android_arch_task_struct_size=784 bootconfig
 BOARD_BOOTCONFIG := androidboot.load_modules_parallel=performance
 BOARD_BOOTCONFIG += androidboot.boot_devices=3c2d0000.ufs
 
-# TEMPORARY, for bring-up only. Remove once sepolicy/vendor carries the device policy.
-# Without it init refuses to start any vendor hal: the binaries land as plain vendor_file
-# because our file_contexts has 2 entries against stock's 665, so there is no domain for
-# init to transition into and ComputeContextFromExecutable errors out. That check only
-# aborts when enforcing (init/service.cpp), so permissive lets the 83 affected services
-# run and produces the avc denials the real policy has to be written against.
+# TEMPORARY, for bring-up. Removing it makes every AOSP domain enforce, and they have no
+# device rules yet: the boot then hangs on the logo rather than panicking, so init_fatal_panic
+# below produces nothing and there is no log to work from. It comes out once the allow rules
+# are written, not before. Note it is only honoured at all because this is a userdebug build;
+# a user build enforces whatever the bootconfig says.
 BOARD_BOOTCONFIG += androidboot.selinux=permissive
 
 # DIAGNOSTIC, remove with the permissive flag. init's fatal signal handler reboots to
