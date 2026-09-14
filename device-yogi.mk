@@ -36,7 +36,14 @@ PRODUCT_SYSTEM_PROPERTIES += \
 # framework tells the inner panel from the cover one. Note the usual fallback that would
 # have hidden the slot bug, raising numPhysicalSlots to the phone count, is skipped on
 # anything launched after VENDOR_API_2024_Q2, so this device gets no safety net.
-DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
+#
+# Shipped as an RRO rather than compiled in with DEVICE_PACKAGE_OVERLAYS. A static overlay
+# only reaches packages this tree builds, so it cannot express an override for anything
+# installed later, and an unmatched resource name is ADDED to the target rather than
+# ignored. An RRO installs as its own apk, stays dormant with no idmap while its target is
+# absent, and binds automatically if the target appears.
+PRODUCT_PACKAGES += \
+    FrameworkResOverlayVendorYogi
 
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
