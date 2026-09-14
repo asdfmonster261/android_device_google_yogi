@@ -99,6 +99,54 @@ system_ext/framework/com.google.pixel.camera.services.lyricconfigprovider.jar
 system_ext/framework/google-ril.jar
 system_ext/framework/org.carconnectivity.android.digitalkey.timesync.jar
 
+# IMS, which is what makes voice calls work. Nothing here implemented
+# android.telephony.ims.ImsService, so the framework never registered IMS: on a VoLTE
+# network that leaves SMS and data working and voice calls failing to connect, because
+# SMS rides the CS domain and needs no IMS. ImsStack and Iwlan are built from source
+# (packages/modules/ImsStack, packages/services/Iwlan) and bring their own permissions
+# and sysconfig with them, so they are named in PRODUCT_PACKAGES rather than listed
+# here. These two have no source in the tree. qns is what
+# config_qualified_networks_service_package already points at.
+#
+# Both are platform-signed, so they re-sign with our key rather than needing PRESIGNED.
+# The permissions file is load-bearing: a priv-app holding a signature|privileged
+# permission that nothing allowlists throws out of system_server at boot.
+system_ext/etc/permissions/com.android.qns.xml
+system_ext/etc/sysconfig/preinstalled-packages-pixelimsmedia.xml
+system_ext/priv-app/PixelImsMediaService/PixelImsMediaService.apk
+system_ext/priv-app/PixelQualifiedNetworksService/PixelQualifiedNetworksService.apk
+
+# The rest of the telephony stack. None of these have source in the tree. PixelModemService
+# is the same shape as ImsStack was: its shared library and the jar behind it were already
+# here, the app that uses them was not. grilservice and ril-extension are the Google RIL
+# extensions the modem talks through, and the two satellite services are what the satellite
+# HAL and config expect. All are platform-signed, so they re-sign with our key.
+system_ext/etc/permissions/com.google.android.modem.pms.xml
+system_ext/etc/permissions/com.google.android.rilextension.xml
+system_ext/etc/permissions/privapp-permissions-google-se.xml
+system_ext/etc/permissions/privapp-permlist_com.google.android.grilservice.xml
+system_ext/etc/sysconfig/preinstalled-packages-gril.xml
+system_ext/etc/sysconfig/preinstalled-packages-pixel-modem-service.xml
+system_ext/etc/sysconfig/preinstalled-packages-ril.xml
+system_ext/priv-app/CarrierSetup/CarrierSetup.apk
+system_ext/priv-app/PixelModemService/PixelModemService.apk
+system_ext/priv-app/PixelSatelliteService/PixelSatelliteService.apk
+system_ext/priv-app/VendorImplSatelliteService/VendorImplSatelliteService.apk
+system_ext/priv-app/grilservice/grilservice.apk
+system_ext/priv-app/ril-extension/ril-extension.apk
+
+
+# Carrier config. The framework loads it from the package named by
+# platform_carrier_config_package, which is com.google.android.carrier, and with that
+# package absent nothing is applied at all: carrier_config_applied_bool stays false and
+# every value falls back to its AOSP default. carrier_volte_available_bool defaults to
+# false, so the framework will not attempt IMS voice registration and calls do not
+# connect even with a working ImsService and a network advertising VoPS. PRESIGNED
+# because it is signed with Google's key and carrier privilege rules are certificate
+# based, so re-signing would change what the SIM grants it.
+product/etc/sysconfig/preinstalled-packages-pixel-carrier.xml
+product/priv-app/CarrierSettings/CarrierSettings.apk;PRESIGNED
+
 # eSIM. Two separate things. EuiccSupportPixel is the low-level half: eUICC firmware
 # and applet updates, its own privapp allowlist, and a malibu overlay. It runs with or
 # without GMS. EuiccGoogle is the LPA, and it only works with GMS, which is what

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+
+     CarrierSettings is what the framework means by platform_carrier_config_package, and
+     it is presigned rather than platform signed, so it cannot pick these up by signature.
+     Stock keeps them in privapp-permissions-google-p.xml, which is Google's own allowlist
+     for the whole of GMS and not something this build should carry, so the entries it
+     needs are here instead. Without them ro.control_privapp_permissions=enforce throws
+     out of system_server at boot.
+-->
+<permissions>
+    <privapp-permissions package="com.google.android.carrier">
+        <permission name="android.permission.CHANGE_COMPONENT_ENABLED_STATE"/>
+        <permission name="android.permission.INTERACT_ACROSS_USERS"/>
+        <permission name="android.permission.MODIFY_PHONE_STATE"/>
+        <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
+        <permission name="android.permission.WRITE_APN_SETTINGS"/>
+        <permission name="com.android.permission.INSTALL_EXISTING_PACKAGES"/>
+    </privapp-permissions>
+</permissions>

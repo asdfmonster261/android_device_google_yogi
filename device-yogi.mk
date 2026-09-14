@@ -174,6 +174,15 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     com.android.nfc_extras
 
+# IMS, which is what voice calls go over. ImsStack implements
+# android.telephony.ims.ImsService and Iwlan is the same for calling over wifi; both
+# are built from source and bring their own permissions and sysconfig, but no product
+# was requesting them, so nothing implemented ImsService and the framework never
+# registered IMS. SMS and data were unaffected because SMS rides the CS domain.
+PRODUCT_PACKAGES += \
+    ImsStack \
+    Iwlan
+
 # The wifi daemons and the supplicant config template. BoardConfig-wifi.mk decides how they
 # are built; these install them. wpa_supplicant.conf is not optional: the supplicant copies
 # it to /data on first use, and with no template anywhere addStaInterface fails outright, so
@@ -210,7 +219,8 @@ PRODUCT_PACKAGES += \
 # file. With ro.control_privapp_permissions=enforce the first missing entry throws out
 # of system_server on boot, so it needs one of its own.
 PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/permissions/privapp-permissions-google-euicc.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-google-euicc.xml
+    $(DEVICE_PATH)/permissions/privapp-permissions-google-euicc.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-google-euicc.xml \
+    $(DEVICE_PATH)/permissions/privapp-permissions-google-carrier.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-google-carrier.xml
 
 # The embedded secure element behind ISecureElement/eSE1. Built from source; its
 # libse-gto-hal.conf is already among the blobs.

@@ -59,6 +59,10 @@ module = ExtractUtilsModule(
     blob_fixups=blob_fixups,
     lib_fixups=lib_fixups,
     namespace_imports=namespace_imports,
+    # The per-carrier protobufs under product/etc/CarrierSettings. CarrierSettings only
+    # reads them, so without the data the framework applies no carrier config at all and
+    # every value falls back to its AOSP default, including carrier_volte_available_bool.
+    add_generated_carriersettings_file=True,
 )
 
 module.add_generated_proprietary_file(
