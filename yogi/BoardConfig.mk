@@ -232,6 +232,15 @@ SOONG_CONFIG_NAMESPACES += lineage_powershare
 SOONG_CONFIG_lineage_powershare += powershare_path
 SOONG_CONFIG_lineage_powershare_powershare_path := /sys/class/power_supply/wireless/device/rtx
 
+# Boot animation on both panels. bootanimation is native and reads no framework resource:
+# it asks SurfaceFlinger for the physical display list and then drops everything after the
+# first unless this flag is set, so on a fold it draws only on whichever panel the composer
+# orders first, which here is the inner one. That leaves the cover dark through the whole
+# boot even when the device is closed. LineageOS already carries the ENABLED flag value in
+# vendor/lineage/release/aconfig and gates it on this soong config bool, so opting in is the
+# whole change. The flag is is_fixed_read_only, hence build time rather than a setprop.
+$(call soong_config_set_bool,bootanimation,multidisplay,true)
+
 # Charging control. The defaults are supports_toggle and supports_bypass, and the
 # ChargingControl constructor probes their node lists in a loop with no exit condition, so
 # on a device with none of them the service never reaches addService. LineageOS
