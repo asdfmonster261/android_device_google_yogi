@@ -232,6 +232,29 @@ SOONG_CONFIG_NAMESPACES += lineage_powershare
 SOONG_CONFIG_lineage_powershare += powershare_path
 SOONG_CONFIG_lineage_powershare_powershare_path := /sys/class/power_supply/wireless/device/rtx
 
+# Charging control. The defaults are supports_toggle and supports_bypass, and the
+# ChargingControl constructor probes their node lists in a loop with no exit condition, so
+# on a device with none of them the service never reaches addService. LineageOS
+# HealthInterfaceService then blocks system_server's main thread on IChargingControl and the
+# watchdog kills it every 66 seconds, which reads as a boot loop rather than a missing
+# feature. yogi has neither toggle node, and drives charging through the deadline and limit
+# nodes instead; both of those already default to the paths yogi uses, so only the mode flags
+# need setting. charge_deadline is system:system 0644 and the charge_*_level pair is
+# system:system 0660, and the HAL runs as user and group system, so it can write all three.
+#
+# These go through soong_config_set_bool rather than a plain assignment because the select()
+# branches in the HAL are typed bool, and a plain assignment declares a string. Note the
+# macro spells false as the empty value, so it cannot be written out by hand. The origin
+# check is here because an undefined function expands to nothing, which would leave the
+# defaults in place and put the boot loop back without failing the build.
+ifeq ($(filter undefined,$(origin soong_config_set_bool)),undefined)
+  $(error soong_config_set_bool is not defined at BoardConfig time)
+endif
+$(call soong_config_set_bool,lineage_health,charging_control_supports_toggle,false)
+$(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,false)
+$(call soong_config_set_bool,lineage_health,charging_control_supports_deadline,true)
+$(call soong_config_set_bool,lineage_health,charging_control_supports_limit,true)
+
 # dtbo. Stock's, from the B1 OTA -- we build no device tree of our own.
 BOARD_PREBUILT_DTBOIMAGE := device/google/yogi-kernels/6.12/dtbo.img
 
