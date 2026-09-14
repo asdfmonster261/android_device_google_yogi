@@ -1,0 +1,12 @@
+# Named to sort after device_domains.te. The .te files are processed in order and
+# device.te comes first, so a hal_client_domain naming one of our own domains there fails
+# with "unknown type" before the domain has been declared.
+# Four HALs on this device use another HAL, and stock grants it by allowing the service
+# lookup directly. AOSP forbids that shape: the access has to come through the client
+# attribute, so the stock rules are in device_allow.drop and the relationship is declared
+# here instead. Dropping them without this would leave the accesses genuinely denied --
+# the power HAL does read thermal.
+hal_client_domain(hal_power_default, hal_thermal)
+hal_client_domain(hal_audio_default, hal_codec2)
+hal_client_domain(hal_neuralnetworks_darwinn, hal_graphics_allocator)
+hal_client_domain(edgetpu_tachyon_server, hal_npu_scheduling)

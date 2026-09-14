@@ -1,0 +1,9 @@
+# Rules stock grants that AOSP will not accept in that shape, harvested from the build.
+# The four service_manager ones are replaced by hal_client_domain declarations in device.te;
+# the isolated_compute_app one belongs to AOSP, which requires isolated_app_all rather than
+# a direct grant, and is not ours to express.
+edgetpu_tachyon_server hal_npu_scheduling_service:service_manager
+hal_audio_default hal_codec2_service:service_manager
+hal_neuralnetworks_darwinn hal_graphics_allocator_service:service_manager
+hal_power_default hal_thermal_service:service_manager
+isolated_compute_app edgetpu_tachyon_server:binder
