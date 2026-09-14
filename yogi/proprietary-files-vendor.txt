@@ -637,7 +637,7 @@ vendor/etc/vintf/manifest/modem_logging.xml
 vendor/etc/vintf/manifest/mtk_lbs_service.xml
 vendor/etc/vintf/manifest/nfc2-service-default.xml;EXTRACT_ONLY
 vendor/etc/vintf/manifest/pixel-display-default.xml;EXTRACT_ONLY
-vendor/etc/vintf/manifest/pixel-display-secondary.xml
+vendor/etc/vintf/manifest/pixel-display-secondary.xml;EXTRACT_ONLY
 vendor/etc/vintf/manifest/shared_modem_platform.xml
 vendor/etc/vintf/manifest/vendor.dolby.media.c2-default-service.xml
 vendor/etc/vintf/manifest/vendor.google.ambience_hub-default.xml
