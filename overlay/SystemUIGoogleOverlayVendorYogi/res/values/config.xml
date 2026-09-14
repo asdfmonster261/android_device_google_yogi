@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="config_cameraProtectionExcludedPackages">com.google.android.as</string>
+    <integer-array name="config_doze_brightness_sensor_to_scrim_opacity">
+        <item>-1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+    </integer-array>
+    <integer-array name="config_doze_brightness_sensor_to_wallpaper_scrim_opacity">
+        <item>-1</item>
+        <item>51</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+    </integer-array>
+    <bool name="config_enableDisplayCutoutProtection">true</bool>
+    <integer-array name="config_face_auth_props">
+        <item>540</item>
+        <item>80</item>
+        <item>51</item>
+    </integer-array>
+    <string name="config_frontBuiltInDisplayCutoutProtection">m 590,91 a 50.5,50.5 0 0 0 -101,0 50.5,50.5 0 0 0 101,0 z</string>
+    <string name="config_innerBuiltInDisplayCutoutProtection">m 2040,80 a 52.5,52.5 0 0 0 -105,0 52.5,52.5 0 0 0 105,0 z</string>
+    <integer-array name="config_inner_face_auth_props">
+        <item>1988</item>
+        <item>80</item>
+        <item>53</item>
+    </integer-array>
+    <string name="config_lowLightMonitorLightSensorName">Auto Brightness 0</string>
+    <string name="config_protectedCameraId">1</string>
+    <string name="config_protectedInnerCameraId">1</string>
+    <string name="config_protectedInnerPhysicalCameraId">6</string>
+    <string name="config_protectedInnerScreenUniqueId">local:4619827677550801152</string>
+    <string name="config_protectedPhysicalCameraId">5</string>
+    <string name="config_protectedScreenUniqueId">local:4619827677550801153</string>
+    <bool name="config_restToUnlockSupported">true</bool>
+    <string name="config_rounded_mask">M21,0C19.94,0.01 18.83,0.04 17.73,0.11C16.91,0.17 16.09,0.25 15.3,0.36C14.5,0.48 13.72,0.62 12.95,0.81C11.42,1.19 9.97,1.72 8.65,2.43C7.32,3.14 6.12,4.02 5.08,5.07C4.04,6.11 3.15,7.31 2.44,8.64C1.73,9.97 1.19,11.42 0.82,12.94C0.63,13.7 0.48,14.49 0.37,15.29C0.25,16.09 0.17,16.9 0.12,17.72C0.05,18.82 0.02,19.93 0.01,21.55</string>
+    <bool name="config_useBackGestureML">false</bool>
+    <string-array name="doze_brightness_sensor_name_posture_mapping">
+        <item></item>
+        <item>Binned Brightness 1 (wake-up)</item>
+        <item>Binned Brightness 0 (wake-up)</item>
+        <item>Binned Brightness 0 (wake-up)</item>
+    </string-array>
+    <string name="doze_brightness_sensor_type">com.google.sensor.binned_brightness</string>
+    <bool name="doze_display_state_supported">true</bool>
+    <integer-array name="doze_single_tap_uses_prox_posture_mapping">
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+    </integer-array>
+    <bool name="doze_suspend_display_state_supported">false</bool>
+    <dimen name="keyguard_carrier_text_margin">70.000000px</dimen>
+    <dimen name="physical_fingerprint_sensor_center_screen_location_x">1080.000000px</dimen>
+    <dimen name="physical_fingerprint_sensor_center_screen_location_y">800.000000px</dimen>
+    <string-array name="proximity_sensor_posture_mapping">
+        <item></item>
+        <item>android.sensor.light</item>
+        <item></item>
+        <item></item>
+    </string-array>
+    <string-array name="proximity_sensor_secondary_posture_mapping">
+        <item></item>
+        <item>android.sensor.proximity</item>
+        <item></item>
+        <item></item>
+    </string-array>
+    <item name="proximity_sensor_secondary_threshold" type="dimen" format="float">5</item>
+    <string name="proximity_sensor_secondary_type"></string>
+    <item name="proximity_sensor_threshold" type="dimen" format="float">12</item>
+    <item name="proximity_sensor_threshold_latch" type="dimen" format="float">24</item>
+    <string name="proximity_sensor_type"></string>
+    <dimen name="status_bar_padding_top">1.000000dp</dimen>
+</resources>

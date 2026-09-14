@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="def_backup_transport">com.google.android.gms/.backup.BackupTransportService</string>
+    <bool name="def_double_tap_to_sleep">true</bool>
+    <bool name="def_screen_brightness_automatic_mode">true</bool>
+    <integer name="def_screen_off_timeout">30000</integer>
+    <bool name="def_vibrate_when_ringing">true</bool>
+    <string name="def_wireless_charging_started_sound"></string>
+</resources>

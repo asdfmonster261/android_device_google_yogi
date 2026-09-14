@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ambientcue_first_time_edu_text">Magic Cue uses AI to proactively suggest info and actions relevant to what you’re doing on screen</string>
+    <dimen name="biometric_dialog_fingerprint_icon_height">150.000000dp</dimen>
+    <dimen name="biometric_dialog_fingerprint_icon_width">150.000000dp</dimen>
+    <dimen name="biometric_dialog_height">408.000000dp</dimen>
+    <dimen name="biometric_dialog_width">560.000000dp</dimen>
+    <string-array name="config_controlsPreferredPackages">
+        <item>com.google.android.apps.chromecast.app</item>
+    </string-array>
+    <bool name="config_minmode_enabled">true</bool>
+    <bool name="config_notificationToContents">true</bool>
+    <string-array name="config_pluginAllowlist">
+        <item>com.android.systemui</item>
+        <item>com.android.systemui.plugin.globalactions.wallet</item>
+        <item>com.android.systemui.clocks</item>
+        <item>com.android.systemui.clocks.debug</item>
+        <item>com.android.systemui.clocks.bignum</item>
+        <item>com.android.systemui.clocks.calligraphy</item>
+        <item>com.android.systemui.clocks.flex</item>
+        <item>com.android.systemui.clocks.growth</item>
+        <item>com.android.systemui.clocks.handwritten</item>
+        <item>com.android.systemui.clocks.inflate</item>
+        <item>com.android.systemui.clocks.metro</item>
+        <item>com.android.systemui.clocks.numoverlap</item>
+        <item>com.android.systemui.clocks.weather</item>
+    </string-array>
+    <string name="config_preferredScreenshotEditor">com.google.android.apps.pixel.creativeassistant/com.google.android.apps.pixel.creativeassistant.ExternalEditActivity</string>
+    <string name="config_remoteCopyPackage">com.google.android.gms/.nearby.sharing.RemoteCopyShareSheetActivity</string>
+    <string name="config_screenshotEditor">com.google.android.markup/com.google.android.markup.AnnotateActivity</string>
+    <string name="config_screenshotFilesApp">com.google.android.apps.nbu.files/com.google.android.apps.nbu.files.home.HomeActivity</string>
+    <integer name="config_showTemperatureWarning">1</integer>
+    <integer name="config_showUsbPortAlarm">1</integer>
+    <bool name="config_vibrateOnIconAnimation">true</bool>
+    <bool name="use_custom_bp_size">true</bool>
+    <dimen name="yogi_unfolded_biometric_auth_pattern_view_size">348.000000dp</dimen>
+    <bool name="yogi_unfolded_config_use_split_notification_shade">true</bool>
+    <dimen name="yogi_unfolded_control_list_horizontal_spacing">16.000000dp</dimen>
+    <dimen name="yogi_unfolded_control_list_vertical_spacing">8.000000dp</dimen>
+    <dimen name="yogi_unfolded_controls_content_margin_horizontal">24.000000dp</dimen>
+    <dimen name="yogi_unfolded_controls_content_padding">24.000000dp</dimen>
+    <dimen name="yogi_unfolded_controls_header_horizontal_padding">12.000000dp</dimen>
+    <dimen name="yogi_unfolded_controls_panel_corner_radius">42.000000dp</dimen>
+    <dimen name="yogi_unfolded_keyguard_split_shade_top_margin">68.000000dp</dimen>
+    <dimen name="yogi_unfolded_large_screen_shade_header_height">42.000000dp</dimen>
+    <dimen name="yogi_unfolded_large_screen_shade_header_left_padding">@dimen/qs_horizontal_margin</dimen>
+    <dimen name="yogi_unfolded_lockscreen_shade_keyguard_transition_vertical_offset">83.000000dp</dimen>
+    <dimen name="yogi_unfolded_lockscreen_shade_max_over_scroll_amount">32.000000dp</dimen>
+    <dimen name="yogi_unfolded_notification_panel_margin_bottom">48.000000dp</dimen>
+    <dimen name="yogi_unfolded_notification_panel_margin_horizontal">24.000000dp</dimen>
+    <dimen name="yogi_unfolded_notification_section_divider_height">@dimen/notification_side_paddings</dimen>
+    <dimen name="yogi_unfolded_notification_side_paddings">16.000000dp</dimen>
+    <dimen name="yogi_unfolded_qqs_layout_padding_bottom">16.000000dp</dimen>
+    <dimen name="yogi_unfolded_qs_content_horizontal_padding">24.000000dp</dimen>
+    <dimen name="yogi_unfolded_qs_horizontal_margin">24.000000dp</dimen>
+    <dimen name="yogi_unfolded_qs_media_session_height_expanded">172.000000dp</dimen>
+    <dimen name="yogi_unfolded_split_shade_notifications_scrim_margin_bottom">16.000000dp</dimen>
+    <dimen name="yogi_unfolded_status_bar_icon_horizontal_margin">0.000000sp</dimen>
+</resources>

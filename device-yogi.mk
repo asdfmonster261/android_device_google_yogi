@@ -42,8 +42,25 @@ PRODUCT_SYSTEM_PROPERTIES += \
 # installed later, and an unmatched resource name is ADDED to the target rather than
 # ignored. An RRO installs as its own apk, stays dormant with no idmap while its target is
 # absent, and binds automatically if the target appears.
+#
+# The rest are the same recovery for the other targets stock overlays. The product
+# framework-res one carries the fold state machine (config_foldedDeviceStates, the hinge
+# in config_display_features, the posture map) and the large-screen letterbox config;
+# TeleService carries emergency call routing and RTT; SettingsProvider carries the screen
+# timeout and satellite-mode defaults. Each is filtered to names the target actually
+# declares, since Google builds these against its own packages and the surplus would
+# never idmap. Priorities are stock own: vendor 0, product 1, so product wins.
 PRODUCT_PACKAGES += \
-    FrameworkResOverlayVendorYogi
+    FrameworkResOverlayVendorYogi \
+    FrameworkResOverlayProductYogi \
+    SystemUIGoogleOverlayVendorYogi \
+    SystemUIGoogleOverlayProductYogi \
+    SettingsGoogleOverlayVendorYogi \
+    SettingsGoogleOverlayProductYogi \
+    TeleServiceOverlayVendorYogi \
+    TeleServiceOverlayProductYogi \
+    SettingsProviderOverlayVendorYogi \
+    SettingsProviderOverlayProductYogi
 
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
