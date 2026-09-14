@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <string name="app_name">Face Unlock setup</string>
+    <string name="enroll_title">Position your face in the circle</string>
+    <string name="enroll_starting">Starting the camera</string>
+    <string name="enroll_remaining">Keep going, %1$d more</string>
+    <string name="enroll_done">Face added</string>
+    <string name="enroll_preview_description">Camera preview</string>
+</resources>

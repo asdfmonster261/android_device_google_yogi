@@ -14,4 +14,13 @@
          as a 153 byte stub with no layers, so it is overridden alongside this.
     -->
     <bool name="config_face_education_use_lottie">true</bool>
+
+    <!--
+         Enrollment goes to our own activity rather than AOSP's. The HAL here opens the
+         camera itself and renders the preview into a surface it is handed; AOSP opens the
+         camera from Settings and passes no surface, so the HAL is evicted as well as
+         refused. This is the hook AOSP provides for replacing that screen, so nothing in
+         Settings has to be patched.
+    -->
+    <string name="config_face_enroll" translatable="false">org.lineageos.faceenroll/.FaceEnrollActivity</string>
 </resources>

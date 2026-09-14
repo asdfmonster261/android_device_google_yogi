@@ -65,6 +65,12 @@ PRODUCT_PACKAGES += \
     LineageSdkOverlayYogi \
     SettingsOverlayLineageYogi
 
+# Face enrollment. The HAL here opens the camera itself and draws the preview into a
+# surface it is handed, which is the opposite of what AOSP's own enrollment screen
+# does, so Settings is pointed at this one through config_face_enroll instead.
+PRODUCT_PACKAGES += \
+    FaceEnrollYogi
+
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \

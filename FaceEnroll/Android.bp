@@ -1,0 +1,22 @@
+//
+// SPDX-FileCopyrightText: The LineageOS Project
+// SPDX-License-Identifier: Apache-2.0
+//
+
+android_app {
+    name: "FaceEnrollYogi",
+    srcs: ["src/**/*.java"],
+    resource_dirs: ["res"],
+    // FaceManager.enroll and its preview surface argument are hidden API.
+    platform_apis: true,
+    // MANAGE_BIOMETRIC is signature protected, so the platform certificate is
+    // what grants it. Deliberately not privileged: nothing here needs it, and a
+    // priv-app with no allowlist entry throws out of system_server on boot.
+    certificate: "platform",
+    // system_ext rather than product: platform_apis cannot satisfy the product partition
+    // interface, and this sits beside Settings anyway.
+    system_ext_specific: true,
+    optimize: {
+        enabled: false,
+    },
+}
