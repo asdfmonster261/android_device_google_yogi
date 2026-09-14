@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!--
+         AOSP declares these and ships them empty, because the text describing how a
+         particular sensor behaves is the OEM's to write. Stock fills them from Google's
+         own Settings build rather than an overlay, so there is nothing to port and they
+         are written here. yogi's face sensor reports oemStrength 15, so it is Class 3 and
+         the wording is the strong-sensor one: usable for app authentication and payments.
+         Phrasing follows the private_space_* variants, which AOSP does fill and which are
+         the same slots.
+    -->
+    <string name="security_settings_face_enroll_introduction_info_title">Keep in mind</string>
+    <string name="security_settings_face_enroll_introduction_info_glasses">Face Unlock works with most glasses. If you only wear glasses some of the time, set up your face while wearing them.</string>
+    <string name="security_settings_face_enroll_introduction_info_looking">Looking at your phone can unlock it even when you don\u2019t intend to. Your phone can also be unlocked by someone who looks a lot like you, such as an identical sibling, or if someone holds it up to your face.</string>
+    <string name="security_settings_face_enroll_introduction_info_gaze">To make Face Unlock harder to use without you, turn on Require eyes to be open so your phone unlocks only when your eyes are open.</string>
+    <string name="security_settings_face_enroll_introduction_info_less_secure">Using your face to unlock your phone may be less secure than a strong pattern, PIN, or password.</string>
+
+    <string name="security_settings_face_enroll_introduction_how_title">How it works</string>
+    <string name="security_settings_face_enroll_introduction_how_message">Face Unlock uses the front camera to build a model of your face. The model is kept on your phone. It is not shared with apps and is not sent off the device.</string>
+
+    <string name="security_settings_face_enroll_introduction_control_title">You\u2019re in control</string>
+    <string name="security_settings_face_enroll_introduction_control_message">You can turn off Face Unlock or delete your face model at any time in Settings. While it is on, the model is used only to confirm that it\u2019s you.</string>
+
+    <string name="security_settings_face_enroll_education_message">Hold your phone about an arm\u2019s length away and look at the screen. Move your head slowly in a circle so that the outline fills in completely.</string>
+    <string name="security_settings_face_enroll_education_message_accessibility">Hold your phone about an arm\u2019s length away and look at the screen. You can finish setup without moving your head, though it may take longer.</string>
+
+    <string name="security_settings_face_description">Use your face to unlock your phone or to verify it\u2019s you in apps</string>
+    <string name="security_settings_face_settings_gaze">Require eyes to be open</string>
+    <string name="security_settings_face_settings_gaze_details">Your eyes must be open for your face to unlock your phone.</string>
+
+    <!-- The parental consent flow shows the same points, addressed to the parent. -->
+    <string name="security_settings_face_enroll_introduction_info_consent_glasses">Face Unlock works with most glasses. If your child only wears glasses some of the time, set up their face while they are wearing them.</string>
+    <string name="security_settings_face_enroll_introduction_info_consent_looking">Looking at the phone can unlock it even when your child doesn\u2019t intend to. The phone can also be unlocked by someone who looks a lot like them, such as an identical sibling, or if someone holds it up to their face.</string>
+    <string name="security_settings_face_enroll_introduction_info_consent_gaze">To make Face Unlock harder to use without your child, turn on Require eyes to be open so the phone unlocks only when their eyes are open.</string>
+    <string name="security_settings_face_enroll_introduction_info_consent_less_secure">Using a face to unlock the phone may be less secure than a strong pattern, PIN, or password.</string>
+    <string name="security_settings_face_enroll_introduction_how_consent_message">Face Unlock uses the front camera to build a model of your child\u2019s face. The model is kept on the phone. It is not shared with apps and is not sent off the device.</string>
+    <string name="security_settings_face_enroll_introduction_control_consent_title">You\u2019re in control</string>
+    <string name="security_settings_face_enroll_introduction_control_consent_message">You can turn off Face Unlock or delete your child\u2019s face model at any time in Settings. While it is on, the model is used only to confirm that it\u2019s them.</string>
+</resources>

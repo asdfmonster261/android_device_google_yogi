@@ -62,7 +62,8 @@ PRODUCT_PACKAGES += \
     SettingsProviderOverlayVendorYogi \
     SettingsProviderOverlayProductYogi \
     FrameworkResOverlayLineageYogi \
-    LineageSdkOverlayYogi
+    LineageSdkOverlayYogi \
+    SettingsOverlayLineageYogi
 
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \

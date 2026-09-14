@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!--
+         The education page draws its illustration from raw/face_education.mp4 by default,
+         and AOSP ships that file at zero bytes, so nothing renders. The lottie path is the
+         only one with a real asset behind it. It picks face_education_lottie_expressive
+         under glif expressive styling and face_education_lottie otherwise; expressive is
+         decided by a SetupWizard content provider that does not exist without GMS, so it
+         resolves false here and the plain name is the one that gets used. AOSP ships that
+         as a 153 byte stub with no layers, so it is overridden alongside this.
+    -->
+    <bool name="config_face_education_use_lottie">true</bool>
+</resources>
