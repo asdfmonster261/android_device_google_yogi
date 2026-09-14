@@ -62,139 +62,141 @@ init_daemon_domain(dmd)
 permissive dmd;
 
 type dump_aoc, domain;
-init_daemon_domain(dump_aoc)
+# Domains whose parent is not init use domain_auto_trans with the parent stock
+# gives them. init_daemon_domain here would mean no transition ever happens.
+domain_auto_trans(hal_dumpstate_default, dump_aoc_exec, dump_aoc)
 permissive dump_aoc;
 
 type dump_bcmbt, domain;
-init_daemon_domain(dump_bcmbt)
+domain_auto_trans(hal_dumpstate_default, dump_bcmbt_exec, dump_bcmbt)
 permissive dump_bcmbt;
 
 type dump_bootlogs_bldr, domain;
-init_daemon_domain(dump_bootlogs_bldr)
+domain_auto_trans(hal_dumpstate_default, dump_bootlogs_bldr_exec, dump_bootlogs_bldr)
 permissive dump_bootlogs_bldr;
 
 type dump_camera, domain;
-init_daemon_domain(dump_camera)
+domain_auto_trans(hal_dumpstate_default, dump_camera_exec, dump_camera)
 permissive dump_camera;
 
 type dump_cpm, domain;
-init_daemon_domain(dump_cpm)
+domain_auto_trans(hal_dumpstate_default, dump_cpm_exec, dump_cpm)
 permissive dump_cpm;
 
 type dump_devfreq, domain;
-init_daemon_domain(dump_devfreq)
+domain_auto_trans(hal_dumpstate_default, dump_devfreq_exec, dump_devfreq)
 permissive dump_devfreq;
 
 type dump_dwc3, domain;
-init_daemon_domain(dump_dwc3)
+domain_auto_trans(hal_dumpstate_default, dump_dwc3_exec, dump_dwc3)
 permissive dump_dwc3;
 
 type dump_firmware, domain;
-init_daemon_domain(dump_firmware)
+domain_auto_trans(hal_dumpstate_default, dump_firmware_exec, dump_firmware)
 permissive dump_firmware;
 
 type dump_gps, domain;
-init_daemon_domain(dump_gps)
+domain_auto_trans(hal_dumpstate_default, dump_gps_exec, dump_gps)
 permissive dump_gps;
 
 type dump_gsa, domain;
-init_daemon_domain(dump_gsa)
+domain_auto_trans(hal_dumpstate_default, dump_gsa_exec, dump_gsa)
 permissive dump_gsa;
 
 type dump_gsc, domain;
-init_daemon_domain(dump_gsc)
+domain_auto_trans(hal_dumpstate_default, dump_gsc_exec, dump_gsc)
 permissive dump_gsc;
 
 type dump_gxp, domain;
-init_daemon_domain(dump_gxp)
+domain_auto_trans(hal_dumpstate_default, dump_gxp_exec, dump_gxp)
 permissive dump_gxp;
 
 type dump_interrupts_traces, domain;
-init_daemon_domain(dump_interrupts_traces)
+domain_auto_trans(hal_dumpstate_default, dump_interrupts_traces_exec, dump_interrupts_traces)
 permissive dump_interrupts_traces;
 
 type dump_iommu, domain;
-init_daemon_domain(dump_iommu)
+domain_auto_trans(hal_dumpstate_default, dump_iommu_exec, dump_iommu)
 permissive dump_iommu;
 
 type dump_mailbox, domain;
-init_daemon_domain(dump_mailbox)
+domain_auto_trans(hal_dumpstate_default, dump_mailbox_exec, dump_mailbox)
 permissive dump_mailbox;
 
 type dump_memory, domain;
-init_daemon_domain(dump_memory)
+domain_auto_trans(hal_dumpstate_default, dump_memory_exec, dump_memory)
 permissive dump_memory;
 
 type dump_modem_log, domain;
-init_daemon_domain(dump_modem_log)
+domain_auto_trans(hal_dumpstate_default, dump_modem_log_exec, dump_modem_log)
 permissive dump_modem_log;
 
 type dump_modem_syslog, domain;
-init_daemon_domain(dump_modem_syslog)
+domain_auto_trans(hal_dumpstate_default, dump_modem_syslog_exec, dump_modem_syslog)
 permissive dump_modem_syslog;
 
 type dump_pcie, domain;
-init_daemon_domain(dump_pcie)
+domain_auto_trans(hal_dumpstate_default, dump_pcie_exec, dump_pcie)
 permissive dump_pcie;
 
 type dump_perf, domain;
-init_daemon_domain(dump_perf)
+domain_auto_trans(hal_dumpstate_default, dump_perf_exec, dump_perf)
 permissive dump_perf;
 
 type dump_pixel_display, domain;
-init_daemon_domain(dump_pixel_display)
+domain_auto_trans(hal_dumpstate_default, dump_pixel_display_exec, dump_pixel_display)
 permissive dump_pixel_display;
 
 type dump_pixel_display_userdebug, domain;
-init_daemon_domain(dump_pixel_display_userdebug)
+domain_auto_trans(hal_dumpstate_default, dump_pixel_display_userdebug_exec, dump_pixel_display_userdebug)
 permissive dump_pixel_display_userdebug;
 
 type dump_pixel_metrics, domain;
-init_daemon_domain(dump_pixel_metrics)
+domain_auto_trans(hal_dumpstate_default, dump_pixel_metrics_exec, dump_pixel_metrics)
 permissive dump_pixel_metrics;
 
 type dump_pixel_second_display, domain;
-init_daemon_domain(dump_pixel_second_display)
+domain_auto_trans(hal_dumpstate_default, dump_pixel_second_display_exec, dump_pixel_second_display)
 permissive dump_pixel_second_display;
 
 type dump_power, domain;
-init_daemon_domain(dump_power)
+domain_auto_trans(hal_dumpstate_default, dump_power_exec, dump_power)
 permissive dump_power;
 
 type dump_ramdump, domain;
-init_daemon_domain(dump_ramdump)
+domain_auto_trans(hal_dumpstate_default, dump_ramdump_exec, dump_ramdump)
 permissive dump_ramdump;
 
 type dump_sensors, domain;
-init_daemon_domain(dump_sensors)
+domain_auto_trans(hal_dumpstate_default, dump_sensors_exec, dump_sensors)
 permissive dump_sensors;
 
 type dump_soc, domain;
-init_daemon_domain(dump_soc)
+domain_auto_trans(hal_dumpstate_default, dump_soc_exec, dump_soc)
 permissive dump_soc;
 
 type dump_storage, domain;
-init_daemon_domain(dump_storage)
+domain_auto_trans(hal_dumpstate_default, dump_storage_exec, dump_storage)
 permissive dump_storage;
 
 type dump_telemetry, domain;
-init_daemon_domain(dump_telemetry)
+domain_auto_trans(hal_dumpstate_default, dump_telemetry_exec, dump_telemetry)
 permissive dump_telemetry;
 
 type dump_thermal, domain;
-init_daemon_domain(dump_thermal)
+domain_auto_trans(hal_dumpstate_default, dump_thermal_exec, dump_thermal)
 permissive dump_thermal;
 
 type dump_tpu, domain;
-init_daemon_domain(dump_tpu)
+domain_auto_trans(hal_dumpstate_default, dump_tpu_exec, dump_tpu)
 permissive dump_tpu;
 
 type dump_trusty, domain;
-init_daemon_domain(dump_trusty)
+domain_auto_trans(hal_dumpstate_default, dump_trusty_exec, dump_trusty)
 permissive dump_trusty;
 
 type dump_uwb, domain;
-init_daemon_domain(dump_uwb)
+domain_auto_trans(hal_dumpstate_default, dump_uwb_exec, dump_uwb)
 permissive dump_uwb;
 
 type edgetpu_dba_server, domain;
@@ -486,7 +488,7 @@ init_daemon_domain(vcd)
 permissive vcd;
 
 type vendor_aical_plugin, domain;
-init_daemon_domain(vendor_aical_plugin)
+domain_auto_trans(hal_graphics_composer_default, vendor_aical_plugin_exec, vendor_aical_plugin)
 permissive vendor_aical_plugin;
 
 type vendor_uwb_init, domain;

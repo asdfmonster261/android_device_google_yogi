@@ -123,12 +123,10 @@ BOARD_KERNEL_CMDLINE += android_arch_task_struct_size=784 bootconfig
 BOARD_BOOTCONFIG := androidboot.load_modules_parallel=performance
 BOARD_BOOTCONFIG += androidboot.boot_devices=3c2d0000.ufs
 
-# TEMPORARY, for bring-up. Removing it makes every AOSP domain enforce, and they have no
-# device rules yet: the boot then hangs on the logo rather than panicking, so init_fatal_panic
-# below produces nothing and there is no log to work from. It comes out once the allow rules
-# are written, not before. Note it is only honoured at all because this is a userdebug build;
-# a user build enforces whatever the bootconfig says.
-BOARD_BOOTCONFIG += androidboot.selinux=permissive
+# The global permissive flag is gone. The device domains remain individually permissive in
+# sepolicy/vendor/device_domains.te while their rules are finished, but every AOSP domain
+# now enforces. It was only ever honoured because this is a userdebug build; a user build
+# enforces whatever the bootconfig says.
 
 # DIAGNOSTIC, remove with the permissive flag. init's fatal signal handler reboots to
 # init_fatal_reboot_target, which defaults to bootloader -- that is what "enter reason:
