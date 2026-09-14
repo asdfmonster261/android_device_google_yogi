@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Framework resource values for yogi, recovered from the vendor overlay
+     the stock build ships. config_num_physical_slots is the one that keeps
+     com.android.phone alive; config_displayUniqueIdArray is what lets the
+     framework tell the two panels apart. -->
+<resources>
+    <dimen name="status_bar_height_default">24.000000dp</dimen>
+    <dimen name="status_bar_height_landscape">24.000000dp</dimen>
+    <dimen name="status_bar_height_portrait">24.000000dp</dimen>
+</resources>

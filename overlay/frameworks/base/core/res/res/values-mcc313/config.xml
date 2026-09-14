@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Framework resource values for yogi, recovered from the vendor overlay
+     the stock build ships. config_num_physical_slots is the one that keeps
+     com.android.phone alive; config_displayUniqueIdArray is what lets the
+     framework tell the two panels apart. -->
+<resources>
+    <bool name="config_safe_media_volume_enabled">true</bool>
+</resources>

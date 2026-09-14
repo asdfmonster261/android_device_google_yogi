@@ -11,6 +11,17 @@ TARGET_KERNEL_DEVICE := yogi
 TARGET_KERNEL_DIR := device/google/$(TARGET_KERNEL_DEVICE)-kernels/$(TARGET_LINUX_KERNEL_VERSION)
 # TODO: stage the prebuilt Image/dtbo/modules into that directory.
 
+# Framework resources. Recovered from the vendor overlay the stock build ships, which
+# the blob list drops because it is an auto_generated_rro carrying the codename. Nothing
+# replaced it, so all 190 values fell back to the AOSP defaults, and two of those are
+# load-bearing. config_num_physical_slots defaults to 1 while RIL reports physical slot 1,
+# which throws out of UiccController, kills com.android.phone, and takes rild and then the
+# modem down with it about every six seconds. config_displayUniqueIdArray is how the
+# framework tells the inner panel from the cover one. Note the usual fallback that would
+# have hidden the slot bug, raising numPhysicalSlots to the phone count, is skipped on
+# anything launched after VENDOR_API_2024_Q2, so this device gets no safety net.
+DEVICE_PACKAGE_OVERLAYS += $(DEVICE_PATH)/overlay
+
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
