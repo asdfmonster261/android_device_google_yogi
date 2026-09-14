@@ -11,6 +11,22 @@ TARGET_KERNEL_DEVICE := yogi
 TARGET_KERNEL_DIR := device/google/$(TARGET_KERNEL_DEVICE)-kernels/$(TARGET_LINUX_KERNEL_VERSION)
 # TODO: stage the prebuilt Image/dtbo/modules into that directory.
 
+# Two logical slots by default, which is what makes the eSIM reachable. This device has a
+# physical tray and a non-removable eUICC, but the framework sizes its phone count from
+# persist.radio.multisim.config, and on a fresh /data that is empty, which means one logical
+# slot. The single slot goes to the tray, the eUICC port is left unmapped, and the profile
+# list never reaches SubscriptionManagerService: no subscription, no service, and a slot
+# remapping that silently reverts because there is nowhere to put it. The framework only
+# writes this property itself once something calls switchMultiSimConfig, so without a default
+# a clean install has no mobile service until the user knows to enable dual SIM by hand.
+#
+# Both HAL slot instances register and the vendor side advertises two SIMs
+# (ro.vendor.mtk_sim_card_onoff=3, persist.vendor.radio.mtk_dsbp_support=3,
+# telephony.active_modems.max_count=2), so this matches the hardware rather than forcing it.
+# A value persisted in /data still wins, so this only supplies the initial state.
+PRODUCT_SYSTEM_PROPERTIES += \
+    persist.radio.multisim.config=dsds
+
 # Framework resources. Recovered from the vendor overlay the stock build ships, which
 # the blob list drops because it is an auto_generated_rro carrying the codename. Nothing
 # replaced it, so all 190 values fell back to the AOSP defaults, and two of those are
