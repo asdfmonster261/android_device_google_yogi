@@ -28,6 +28,7 @@ lib_fixups: lib_fixups_user_type = {
     **lib_fixups,
     (
         "com.google.hardware.pixel.display-V22-ndk",
+        "hardware.google.ril_ext-V2-ndk",
         "pixel-power-ext-V1-ndk",
         "pixel-power-ext-V2-ndk",
         "com.google.hardware.pixel.display-V15-ndk",

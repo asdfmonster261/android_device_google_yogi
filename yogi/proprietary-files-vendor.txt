@@ -972,6 +972,7 @@ vendor/lib64/libhidparser.so
 vendor/bin/flood.control.hal
 vendor/etc/init/init.flood.control.rc
 vendor/etc/vintf/manifest/flood_control.xml
+vendor/lib64/hardware.google.ril_ext-V2-ndk.so;MODULE_SUFFIX=_vendor
 vendor/lib64/com.google.hardware.pixel.display-V15-ndk.so;MODULE_SUFFIX=_vendor
 vendor/lib64/google.hardware.image-V1-ndk.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libmedia_ecoservice.so;MODULE_SUFFIX=_vendor

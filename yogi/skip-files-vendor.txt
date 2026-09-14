@@ -741,7 +741,6 @@ lib64/android.hardware.radio.ims.media-V2-ndk.so
 lib64/libmnl.so
 lib64/libperfetto_c.so
 lib64/libutilscallstack.so
-lib64/hardware.google.ril_ext-V2-ndk.so
 lib64/libanyhow.dylib.so
 lib64/libbytes.dylib.so
 lib64/libcxx.dylib.so
