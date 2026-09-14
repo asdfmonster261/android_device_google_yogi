@@ -150,10 +150,14 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     com.android.nfc_extras
 
-# The wifi daemons. BoardConfig-wifi.mk decides how they are built; these install them.
+# The wifi daemons and the supplicant config template. BoardConfig-wifi.mk decides how they
+# are built; these install them. wpa_supplicant.conf is not optional: the supplicant copies
+# it to /data on first use, and with no template anywhere addStaInterface fails outright, so
+# wifi never turns on.
 PRODUCT_PACKAGES += \
     hostapd \
-    wpa_supplicant
+    wpa_supplicant \
+    wpa_supplicant.conf
 
 # HAL services this tree builds but nothing installed. The default KeyMint is the one
 # that matters most: FBE key derivation goes through it, and only the strongbox instance
