@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ours, not recovered from stock. EuiccSupportPixel registers a content observer on
+     Google Services Framework at startup, so without GMS it throws and restarts in a
+     loop. It does eUICC firmware and applet updates, not profile management, so the
+     eSIM works without it; silencing the report just stops the crash dialog. -->
+<resources>
+    <string name="config_appsNotReportingCrashes">com.google.android.euicc</string>
+</resources>

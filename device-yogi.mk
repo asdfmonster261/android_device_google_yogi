@@ -60,7 +60,9 @@ PRODUCT_PACKAGES += \
     TeleServiceOverlayVendorYogi \
     TeleServiceOverlayProductYogi \
     SettingsProviderOverlayVendorYogi \
-    SettingsProviderOverlayProductYogi
+    SettingsProviderOverlayProductYogi \
+    FrameworkResOverlayLineageYogi \
+    LineageSdkOverlayYogi
 
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
