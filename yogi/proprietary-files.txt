@@ -135,6 +135,13 @@ system_ext/priv-app/VendorImplSatelliteService/VendorImplSatelliteService.apk
 system_ext/priv-app/grilservice/grilservice.apk
 system_ext/priv-app/ril-extension/ril-extension.apk
 
+# The side fingerprint sensor overlay. yogi reads fingerprints from the power button, and
+# this is what tells Settings so: the per-stage guidance strings, the lottie animations
+# showing which way to move, and the message timing that stops it repeating one line. The
+# HAL enrolls fine without it (samples count down normally), the enrollment just gives no
+# useful direction. Moved to product/app because extract_utils has package rules for app
+# and priv-app only; it is a static rro, so it applies from anywhere on a system partition.
+product/overlay/SfpsOverlay.apk:product/app/SfpsOverlay/SfpsOverlay.apk
 
 # Carrier config. The framework loads it from the package named by
 # platform_carrier_config_package, which is com.google.android.carrier, and with that
