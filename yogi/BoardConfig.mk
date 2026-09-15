@@ -123,17 +123,15 @@ BOARD_KERNEL_CMDLINE += android_arch_task_struct_size=784 bootconfig
 BOARD_BOOTCONFIG := androidboot.load_modules_parallel=performance
 BOARD_BOOTCONFIG += androidboot.boot_devices=3c2d0000.ufs
 
-# The global permissive flag is gone. The device domains remain individually permissive in
-# sepolicy/vendor/device_domains.te while their rules are finished, but every AOSP domain
-# now enforces. It was only ever honoured because this is a userdebug build; a user build
-# enforces whatever the bootconfig says.
-
-# DIAGNOSTIC, remove with the permissive flag. init's fatal signal handler reboots to
-# init_fatal_reboot_target, which defaults to bootloader -- that is what "enter reason:
-# reboot bootloader" means, and it takes the crash log with it because the bootloader
-# overwrites the console ramoops region on the way through. With this, init triggers
-# sysrq-c instead, so the backtrace lands in the dmesg ramoops region, which survives.
-BOARD_BOOTCONFIG += androidboot.init_fatal_panic=true
+# No selinux flag here. The global permissive one went first, then the per-domain permissive
+# lines in sepolicy/vendor/device_domains.te, so everything enforces on its own merits.
+#
+# androidboot.init_fatal_panic went with them. It made init trigger sysrq-c on a fatal error
+# instead of rebooting to init_fatal_reboot_target, which defaults to bootloader and takes the
+# crash log with it, because the bootloader overwrites the console ramoops region in passing.
+# That is exactly what is wanted while a boot is still expected to fail and worth nothing once
+# it is not, since it turns a recoverable init abort into a panic. Put it back for bring-up:
+# it is the only way to read why init died.
 
 # vendor_boot, which on this device also carries recovery: there is no recovery partition.
 # An earlier note here said its ramdisk would need device kernel modules we do not have.
