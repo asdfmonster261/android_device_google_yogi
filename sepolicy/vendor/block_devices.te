@@ -1,0 +1,40 @@
+# Assert in policy what this project has always enforced by discipline: almost nothing may
+# write the bootloader chain. A bad write to abl is one of the few genuine hard-brick paths on
+# a Pixel, with no fastboot and no recovery to come back through.
+#
+# These are neverallows, so they cost nothing at runtime and are checked when the policy is
+# built. A future rule that opened one of these up fails the build instead of shipping.
+#
+# The exemption lists are not guesses. Written without them, the build named every domain that
+# has the access today, which is the short and defensible set below. Three of the four exist
+# only in the recovery policy, so they are not reachable from a booted system at all.
+#
+#   update_engine / update_engine_common   applying an OTA, the sanctioned path
+#   recovery                               sideloading a package
+#   fastbootd                              fastboot flash
+#   fsck                                   modem is a filesystem it is expected to repair
+#
+# custom_ab_block_device is the whole bootloader chain on this device -- abl, bl31, tzsw,
+# gsa_bl1, gsa_fw, pvmfw, dbl, dbc, cap, cpm, dpm, gdmc, gc, dram_train, dram_phy -- and also
+# vendor_boot, which shares the type.
+neverallow {
+    domain
+    -update_engine
+    -recovery
+    -fastbootd
+} custom_ab_block_device:blk_file { write append };
+
+neverallow {
+    domain
+    -update_engine_common
+    -recovery
+    -fastbootd
+} boot_block_device:blk_file { write append };
+
+neverallow {
+    domain
+    -update_engine
+    -fsck
+    -recovery
+    -fastbootd
+} modem_block_device:blk_file { write append };
