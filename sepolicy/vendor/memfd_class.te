@@ -1,0 +1,21 @@
+# Label memfds with the context of the process that created them, class
+# memfd_file, rather than leaving them at the filesystem default of tmpfs:file.
+#
+# This is the gate on selinux_inode_init_security_anon() in the kernel
+# (security/selinux/hooks.c): with the capability off the hook returns early
+# without touching the inode, so every memfd falls back to u:object_r:tmpfs:s0
+# and the memfd_file rules recovered from the stock policy never apply.
+#
+# It matters because memfds cross process boundaries as binder fds.
+# security_binder_transfer_file() checks the receiving domain against the
+# inode's own label, so an unlabelled memfd makes binder_translate_fd() return
+# -EPERM, the reply fails with FAILED_TRANSACTION, and the sender sees a
+# transaction error with no obvious cause. The camera HAL dies that way: the
+# GXP/Tachyon session reply carries a MessageQueue memfd, the fd cannot be
+# installed, "Unable to create dsp context" follows, and a CHECK aborts the
+# provider, leaving zero camera devices.
+#
+# The obvious fix, granting tmpfs:file to the receiving domains, is wrong. It
+# would open every tmpfs file to them rather than the one fd being passed, and
+# it diverges from the stock policy this device's HALs were written against.
+policycap memfd_class;
