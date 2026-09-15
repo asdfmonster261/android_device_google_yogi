@@ -1,0 +1,35 @@
+# Early boot accesses that the generated rules do not cover.
+#
+# The residual generator drops anything aimed at a generic type, on the grounds that the
+# object wants labelling rather than the type opening up. That is right for a HAL reaching
+# an unlabelled node and wrong here: devtmpfs really is type device, and kdevtmpfs really
+# does populate it. Refused, no device nodes appear and the boot stalls with nothing to
+# show for it, which is not a failure that leaves a log.
+allow kernel device:dir { add_name create remove_name write };
+allow kernel device:chr_file { create getattr setattr unlink };
+# Not blk_file: AOSP forbids the kernel creating block nodes under device outright
+# (coredomain.te), so that denial happens on a correct system too and is not ours to grant.
+allow kernel device:blk_file getattr;
+
+# ueventd sets thread priorities while it works through cold boot.
+allow ueventd self:capability sys_nice;
+
+# vendor_init reads the root directory while importing the init scripts.
+allow vendor_init rootfs:dir read;
+
+# The charger UI runs before anything is mounted, and reads the charging telemetry node.
+allow charger self:capability2 wake_alarm;
+allow charger sysfs_gcdd_dev_stat:file { getattr open read };
+
+# The type behind the displaycolor vndservice above. Attribute from stock.
+type vendor_displaycolor_service, vndservice_manager_type;
+
+# One HAL using another. Stock grants the service lookup directly, which AOSP only accepts
+# through the client attribute.
+hal_client_domain(hal_audio_default, hal_health)
+hal_client_domain(hal_audio_default, hal_thermal)
+hal_client_domain(hal_thermal_default, hal_power)
+hal_client_domain(hal_graphics_composer_default, hal_graphics_allocator)
+
+# Widevine reads its own configuration property.
+allow hal_drm_widevine drm_service_config_prop:file { getattr map open read };

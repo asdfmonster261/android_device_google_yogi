@@ -1,0 +1,4 @@
+# The graphics composer registers displaycolor as a vndservice. Unlabelled it falls to
+# default_android_vndservice and the add is refused, so the composer fails and the
+# display never comes up: a hang on the logo with nothing logged.
+displaycolor    u:object_r:vendor_displaycolor_service:s0

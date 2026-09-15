@@ -1,0 +1,41 @@
+# What enforcing turned up that permissive could not: with the system permissive these
+# never appeared, because a permissive domain logs a denial and proceeds.
+
+# HALs using other HALs. AOSP wants this through the client attribute, not a direct grant.
+hal_client_domain(hal_graphics_composer_default, hal_power)
+hal_client_domain(hal_graphics_composer_default, hal_thermal)
+hal_client_domain(hal_contexthub_default, hal_bluetooth)
+hal_client_domain(platform_app, hal_power_stats)
+
+# NOT granted: reading default_prop. AOSP forbids it (property.te) for every one of these
+# domains, so the denial happens on a correct system too. The properties they are reaching
+# for want labels of their own, which stock gives them in product policy -- a partition we
+# do not replicate, so these stay denied until that is ported.
+# NOT granted: setting default_prop. AOSP forbids it outright (property.te), so these
+# processes are meant to be refused and stock is refused too. The property wants a label of
+# its own, which stock gives it in product policy, a partition we do not replicate.
+
+# OPEN, and the one regression enforcing introduces: the camera HAL looks up
+# com.google.pixel.camera.services.binder.IServiceBinder and reports no devices without it.
+# Granting the lookup is not possible -- domain.te forbids finding default_android_service
+# -- so the service has to be labelled instead. Stock labels it camera_binder_service in
+# PRODUCT policy, a partition whose sepolicy we do not replicate, so this needs a
+# product_service_contexts entry and the type to go with it.
+
+# Shared memory passed between these HALs and their clients as an fd.
+allow { hal_audio_default hal_camera_default hal_power_default mediaswcodec } tmpfs:file
+    { map read write };
+
+# The rest, each narrow and named.
+# NOT granted: crash_dump reaching vendor data, forbidden by domain.te.
+allow hal_drm_widevine self:process execmem;
+# NOT granted: net_admin for a HAL, forbidden by hal_neverallows.te.
+allow init debugfs:file getattr;
+allow init vendor_mdota_custom_dir:dir ioctl;
+allow kernel device:dir rmdir;
+allow { lmkd logd } proc_vendor_sched:dir search;
+# mediacodeclist_generator is not exported to vendor policy, so only mediaserver here.
+allow mediaserver mediacodec_google:binder call;
+allow rild self:packet_socket create;
+# NOT granted: surfaceflinger reading vendor_display_prop, forbidden by property.te.
+allow toolbox ram_device:blk_file { read write };
