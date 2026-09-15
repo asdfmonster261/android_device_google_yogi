@@ -65,8 +65,6 @@ allow hal_gnss_default hal_gnss_default:capability2 { wake_alarm };
 # hal_graphics_composer_default
 allow hal_graphics_composer_default ambience_hub_default:binder { call transfer };
 allow hal_graphics_composer_default hal_graphics_mapper_service:service_manager { find };
-allow hal_graphics_composer_default proc_vendor_sched:dir { search };
-allow hal_graphics_composer_default proc_vendor_sched:file { open write };
 
 # hal_health_default
 allow hal_health_default battery_mitigation:binder { call };
@@ -117,7 +115,6 @@ allow hal_usb_impl sysfs_usb_pd:dir { search };
 # init
 allow init debugfs_wakeup_sources:file { getattr };
 allow init dmabuf_system_heap_device:chr_file { ioctl open read };
-allow init proc_vendor_sched:file { open write };
 allow init servicemanager:binder { call transfer };
 allow init vendor_devices_deferred_debugfs:file { getattr };
 allow init vendor_mdota_custom_dir:dir { ioctl };
@@ -205,8 +202,6 @@ allow shared_modem_platform keystore:keystore2_key { get_info };
 allow shared_modem_platform servicemanager:binder { call transfer };
 
 # surfaceflinger
-allow surfaceflinger proc_vendor_sched:dir { search };
-allow surfaceflinger proc_vendor_sched:file { open write };
 
 # system_server
 allow system_server edgetpu_tachyon_server:binder { call };
@@ -215,16 +210,12 @@ allow system_server hal_usb_gadget_impl:binder { call transfer };
 allow system_server hal_usb_impl:binder { call transfer };
 allow system_server hal_uwb_vendor_default:binder { call };
 allow system_server mediacodec_google:binder { call transfer };
-allow system_server proc_vendor_sched:dir { search };
-allow system_server proc_vendor_sched:file { open write };
 
 # twoshay
 allow twoshay touchflow_logger_service:service_manager { add };
 
 # update_engine
 allow update_engine platform_app:binder { call };
-allow update_engine proc_vendor_sched:dir { search };
-allow update_engine proc_vendor_sched:file { open write };
 
 # usbd
 allow usbd hal_usb_gadget_impl:binder { call };
@@ -238,8 +229,6 @@ allow vendor_init system_prop:property_service { set };
 allow vendor_init vendor_nos_citadel_updates_tried:property_service { set };
 
 # zygote
-allow zygote proc_vendor_sched:dir { search };
-allow zygote proc_vendor_sched:file { open write };
 
 # Deliberately not granted:
 #   audioserver tmpfs:file  -- generic target, wants a label not a rule

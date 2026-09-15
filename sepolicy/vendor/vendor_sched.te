@@ -1,0 +1,33 @@
+# /proc/vendor_sched is Google's scheduler tuning interface on this SoC: uclamp limits,
+# prefer_idle, dvfs_headroom, boost_at_fork and the rest. task_profiles.json writes
+# /proc/vendor_sched/groups and sched_qos when an app moves between foreground and background,
+# and system_server and zygote are what do the writing.
+#
+# KEPT DELIBERATELY, AND IT DIVERGES FROM STOCK. Google blocks surfaceflinger, system_server
+# and zygote here and records all three in their own selinux_denial_metadata as known open
+# bugs, so on a stock Pixel these writes fail and the hints never reach the scheduler. On this
+# rom they land.
+#
+# The rules arrived by accident, from a generator that granted whatever it saw denied, and the
+# decision to keep them was made afterwards and on purpose: this is a custom rom, the access is
+# a scheduler tuning knob rather than anything sensitive, and having the hints apply is
+# plausibly better than having them silently dropped.
+#
+# It is UNMEASURED. Nothing here has been shown to be faster, and the honest position is that
+# we diverge on a reasonable guess. Measure it against a build with this file removed before
+# claiming otherwise, the way bbr3 and the uclamp floor were measured rather than assumed.
+#
+# Of the domains below, stock leaves surfaceflinger, system_server and zygote denied. The other
+# three are not in Google's list; stock appears to grant them through an attribute that cannot
+# be expanded from a shipped policy, so they are probably not a divergence at all.
+allow hal_graphics_composer_default proc_vendor_sched:dir { search };
+allow hal_graphics_composer_default proc_vendor_sched:file { open write };
+allow init proc_vendor_sched:file { open write };
+allow surfaceflinger proc_vendor_sched:dir { search };
+allow surfaceflinger proc_vendor_sched:file { open write };
+allow system_server proc_vendor_sched:dir { search };
+allow system_server proc_vendor_sched:file { open write };
+allow update_engine proc_vendor_sched:dir { search };
+allow update_engine proc_vendor_sched:file { open write };
+allow zygote proc_vendor_sched:dir { search };
+allow zygote proc_vendor_sched:file { open write };
