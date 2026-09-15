@@ -9,6 +9,21 @@
 #   yogi/provider-absent   the service exists only if a Google app we do not ship registers it
 #   aosp/neverallow        AOSP forbids granting it, so it cannot be fixed by a rule
 #
+# A fifth tag, for the one case that is not simply "stock has no rule": stock DOES grant
+# platform_app find on gril_antenna_tuning_service, but the denial comes from platform_app_36.
+# A versioned app domain carries platform_app_all, not platform_app, so stock's rule does not
+# reach it either and stock takes the same denial. Do not "fix" this by comparing the
+# unversioned name; that reads as a gap and is not one.
+#   yogi/versioned-app-domain   stock has a rule, but on a name that does not cover this domain
+#
+# A limit worth knowing before trusting this file as a completeness check: logd can only
+# annotate denials it receives over the audit netlink socket, which means kernel-object
+# classes. service_manager decisions are made in userspace by servicemanager through
+# libselinux, so the kernel emits no audit record and those denials reach logcat already
+# formatted, under the SELinux tag, with no chance to be tagged. The service_manager entries
+# below are therefore inert in practice and kept only so this file is a full record of what
+# the device is expected to be refused.
+#
 # Denials from the adb shell reaching HALs are deliberately absent: they happen only
 # while someone is running dumpsys, not during a boot, and listing them would hide a
 # real shell-domain problem later.
@@ -41,6 +56,8 @@ insmod proc_cmdline file yogi/stock-denies
 
 logd proc_vendor_sched file yogi/stock-denies
 
+lmkd proc_vendor_sched file yogi/stock-denies
+
 rebalance_interrupts_vendor rebalance_interrupts_vendor capability yogi/stock-denies
 
 rild default_prop file aosp/neverallow
@@ -55,3 +72,12 @@ toolbox ram_device blk_file yogi/stock-denies
 
 vendor_init default_prop file aosp/neverallow
 vendor_init default_prop property_service aosp/neverallow
+
+hal_drm_widevine shell_exec file yogi/stock-denies
+
+hardware_info_app hardware_info_app anon_inode yogi/stock-denies
+
+mediacodec_google traced_producer_socket sock_file yogi/stock-denies
+
+platform_app_36 gril_antenna_tuning_service service_manager yogi/versioned-app-domain
+platform_app_36 hal_shared_modem_platform_service service_manager yogi/stock-denies
