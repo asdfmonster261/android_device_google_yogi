@@ -512,5 +512,12 @@ permissive wifi_sniffer;
 # enforcing the service does not start, and under permissive it runs as init. Stock declares
 # both halves. Its rules come from the stock policy like the rest, and were being skipped
 # while the domain did not exist.
+#
+# hal_server_domain supplies the three attributes stock carries beyond domain, and they are
+# what the HAL actually runs on: the rules it needs are AOSP's, written against hal_drm_server
+# rather than against this domain, so declaring the type alone left them inert. Without them
+# it cannot reach servicemanager, addService returns -129, and it aborts on its own CHECK
+# every five seconds. Stock's own vendor policy adds only four rules on top of these.
 type hal_drm_widevine, domain;
+hal_server_domain(hal_drm_widevine, hal_drm)
 init_daemon_domain(hal_drm_widevine)
