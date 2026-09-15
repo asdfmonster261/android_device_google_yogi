@@ -334,6 +334,12 @@ PRODUCT_COPY_FILES += \
     $(VENDOR_PATH)/proprietary/vendor/firmware/usb_phy_fw.bin:$(TARGET_COPY_OUT_RECOVERY)/root/lib/firmware/usb_phy_fw.bin \
     $(VENDOR_PATH)/proprietary/vendor/firmware/usb_phy_fw_2.27.0.bin:$(TARGET_COPY_OUT_RECOVERY)/root/lib/firmware/usb_phy_fw_2.27.0.bin
 
+# HALs fastbootd waits for. See recovery/Android.bp for why they are needed at all.
+PRODUCT_PACKAGES += \
+    android.hardware.boot-service.default_recovery-pixel \
+    android.hardware.health-service.malibu_recovery \
+    android.hardware.fastboot@1.1-impl.pixel
+
 # The first-stage fstab, byte-identical to the copy in stock's vendor_boot, so it is
 # taken from the blob rather than duplicated where the two could drift apart.
 PRODUCT_COPY_FILES += \

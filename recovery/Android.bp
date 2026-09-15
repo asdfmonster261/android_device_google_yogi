@@ -1,0 +1,35 @@
+// fastbootd acquires the boot control, health and fastboot HALs in its constructor
+// before it serves anything, and recovery has no vendor init to start them. Without a
+// server for each, construction never completes, sys.usb.ffs.ready is never set and
+// "fastboot reboot fastboot" sits at the logo. These two are taken from the stock
+// recovery ramdisk; the fastboot HAL implementation builds from source instead, see
+// PRODUCT_PACKAGES in device-yogi.mk.
+
+cc_prebuilt_binary {
+    name: "android.hardware.boot-service.default_recovery-pixel",
+    owner: "google",
+    srcs: ["prebuilt/android.hardware.boot-service.default_recovery-pixel"],
+    // check_elf_files is off for a prebuilt, so soong does not read DT_NEEDED and will
+    // not install this on its own. Everything else it needs is already in the ramdisk.
+    shared_libs: ["libtrusty"],
+    init_rc: ["prebuilt/android.hardware.boot-service.default_recovery-pixel.rc"],
+    vintf_fragments: ["prebuilt/android.hardware.boot-service.default_recovery-pixel.xml"],
+    relative_install_path: "hw",
+    compile_multilib: "64",
+    check_elf_files: false,
+    strip: { none: true },
+    recovery: true,
+}
+
+cc_prebuilt_binary {
+    name: "android.hardware.health-service.malibu_recovery",
+    owner: "google",
+    srcs: ["prebuilt/android.hardware.health-service.malibu_recovery"],
+    init_rc: ["prebuilt/android.hardware.health-service.malibu_recovery.rc"],
+    vintf_fragments: ["prebuilt/android.hardware.health-service.malibu_recovery.xml"],
+    relative_install_path: "hw",
+    compile_multilib: "64",
+    check_elf_files: false,
+    strip: { none: true },
+    recovery: true,
+}
