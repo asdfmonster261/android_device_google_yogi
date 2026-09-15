@@ -10,3 +10,76 @@ hal_client_domain(hal_power_default, hal_thermal)
 hal_client_domain(hal_audio_default, hal_codec2)
 hal_client_domain(hal_neuralnetworks_darwinn, hal_graphics_allocator)
 hal_client_domain(edgetpu_tachyon_server, hal_npu_scheduling)
+
+# The rest of this file closes a gap found by diffing every domain's attributes against a
+# LineageOS build for a sibling Pixel 11, which runs with no permissive domains at all. Our
+# device domains were generated as a bare "type X, domain;" plus init_daemon_domain(X), which
+# declares the domain but gives it none of the client or server attributes the HAL framework
+# keys its rules on. The rules themselves are already present, in AOSP's policy and in the
+# set recovered from stock: they simply never applied, because no type carried the attribute.
+# That is the same shape as the missing memfd_class capability and the missing hal_drm_server
+# on the widevine domain, and it is why those 123 domains had to be marked permissive.
+#
+# A domain is only listed here where the hal_X base attribute already exists in this build.
+# Nine more relationships need hal_ambience_hub, hal_gia, hal_face_debug, hal_modem_logging
+# or hal_shared_modem_platform declared first, which stock does and we do not yet.
+
+# Clients. hal_client_domain also emits the memfd_file rules for passing shared memory
+# between the two, which is the access the camera provider dies without.
+hal_client_domain(battery_mitigation, hal_health)
+hal_client_domain(battery_mitigation, hal_thermal)
+hal_client_domain(dump_gsc, hal_dumpstate)
+hal_client_domain(dumpstate, hal_telephony)
+hal_client_domain(dumpstate, hal_threadnetwork)
+hal_client_domain(dumpstate, hal_usb)
+hal_client_domain(dumpstate, hal_usb_gadget)
+hal_client_domain(edgetpu_dba_server, hal_power)
+hal_client_domain(gnss_manager, hal_contexthub)
+hal_client_domain(hal_audio_default, hal_graphics_allocator)
+hal_client_domain(hal_camera_default, hal_graphics_allocator)
+hal_client_domain(hal_camera_default, hal_graphics_composer)
+hal_client_domain(hal_camera_default, hal_power)
+hal_client_domain(hal_camera_default, hal_thermal)
+hal_client_domain(hal_contexthub_default, hal_bluetooth_lpp)
+hal_client_domain(hal_contexthub_default, hal_graphics_allocator)
+hal_client_domain(hal_face_default, hal_graphics_allocator)
+hal_client_domain(hal_face_default, hal_power)
+hal_client_domain(hal_face_default, hal_thermal)
+hal_client_domain(hal_fingerprint_default, hal_power)
+hal_client_domain(hal_neuralnetworks_darwinn, hal_power)
+hal_client_domain(hal_sensors_default, hal_graphics_allocator)
+hal_client_domain(hal_sensors_default, hal_thermal)
+hal_client_domain(hal_usb_impl, hal_thermal)
+hal_client_domain(hal_wlcservice, hal_health)
+hal_client_domain(imagecodec_google, hal_graphics_allocator)
+hal_client_domain(mediacodec_google, hal_graphics_allocator)
+hal_client_domain(modem_ml_svc_sit, hal_neuralnetworks)
+hal_client_domain(radio, hal_power)
+hal_client_domain(system_app, hal_fingerprint)
+
+# Servers. Without halserverdomain and the hal_X_server attribute a HAL cannot register its
+# own service, so every one of these was a service_manager add that only succeeded because
+# the domain was permissive. edgetpu_tachyon_server was declared a client of
+# hal_npu_scheduling above when it is the server: it registers IScheduling/default.
+hal_server_domain(edgetpu_tachyon_server, hal_npu_scheduling)
+hal_server_domain(hal_contexthub_default, hal_bluetooth_lpp)
+hal_server_domain(hal_drm_clearkey, hal_drm)
+hal_server_domain(hal_neuralnetworks_darwinn, hal_neuralnetworks)
+hal_server_domain(hal_secure_element_st54spi_aidl, hal_secure_element)
+hal_server_domain(hal_secure_element_uicc, hal_secure_element)
+hal_server_domain(hal_usb_gadget_impl, hal_usb)
+hal_server_domain(hal_usb_gadget_impl, hal_usb_gadget)
+hal_server_domain(hal_usb_impl, hal_usb)
+hal_server_domain(hal_usb_impl, hal_usb_gadget)
+hal_server_domain(hal_uwb_vendor_default, hal_uwb)
+hal_server_domain(imsmediahaldaemon, hal_telephony)
+hal_server_domain(mediacodec_google, hal_codec2)
+hal_server_domain(mtk_hal_secure_element, hal_secure_element)
+
+# Three more, from the same diff run against the stock policy rather than the sibling build.
+# The sibling is a different Pixel 11 and does not carry hal_fingerprint_capacitance at all,
+# so a diff against it alone has a blind spot for anything specific to this device. Without
+# these the fingerprint HAL cannot register its own service.
+hal_client_domain(aocxd, hal_graphics_allocator)
+hal_client_domain(hal_fingerprint_capacitance, hal_power)
+hal_server_domain(hal_fingerprint_capacitance, hal_fingerprint)
