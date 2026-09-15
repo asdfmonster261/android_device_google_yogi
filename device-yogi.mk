@@ -327,6 +327,13 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/recovery/init.recovery.device.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.yogi.rc \
     $(DEVICE_PATH)/recovery/init.recovery.malibu.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.malibu.rc
 
+# The USB PHY needs its firmware before the controller will enumerate, and recovery runs
+# off the ramdisk with /vendor unmounted, so the copy in /vendor/firmware is unreachable
+# there. Without this there is no adb in recovery and therefore no sideload.
+PRODUCT_COPY_FILES += \
+    $(VENDOR_PATH)/proprietary/vendor/firmware/usb_phy_fw.bin:$(TARGET_COPY_OUT_RECOVERY)/root/lib/firmware/usb_phy_fw.bin \
+    $(VENDOR_PATH)/proprietary/vendor/firmware/usb_phy_fw_2.27.0.bin:$(TARGET_COPY_OUT_RECOVERY)/root/lib/firmware/usb_phy_fw_2.27.0.bin
+
 # The first-stage fstab, byte-identical to the copy in stock's vendor_boot, so it is
 # taken from the blob rather than duplicated where the two could drift apart.
 PRODUCT_COPY_FILES += \
