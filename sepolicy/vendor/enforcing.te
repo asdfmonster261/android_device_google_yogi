@@ -15,16 +15,15 @@ hal_client_domain(platform_app, hal_power_stats)
 # processes are meant to be refused and stock is refused too. The property wants a label of
 # its own, which stock gives it in product policy, a partition we do not replicate.
 
-# OPEN, and the one regression enforcing introduces: the camera HAL looks up
-# com.google.pixel.camera.services.binder.IServiceBinder and reports no devices without it.
-# Granting the lookup is not possible -- domain.te forbids finding default_android_service
-# -- so the service has to be labelled instead. Stock labels it camera_binder_service in
-# PRODUCT policy, a partition whose sepolicy we do not replicate, so this needs a
-# product_service_contexts entry and the type to go with it.
-
-# Shared memory passed between these HALs and their clients as an fd.
-allow { hal_audio_default hal_camera_default hal_power_default mediaswcodec } tmpfs:file
-    { map read write };
+# The IServiceBinder lookup these domains are refused is not a gap: stock's provider is
+# vendor_pbcs_app, an app this build does not ship, so the service cannot exist here whatever
+# it is labelled. It was mistaken for the camera regression; the cause was the memfd label.
+#
+# NOT granted: tmpfs:file to hal_audio_default, hal_camera_default, hal_power_default and
+# mediaswcodec. That was written here to pass shared memory between a HAL and its client as
+# an fd, and it worked, but it opens every tmpfs file to those domains rather than the one fd
+# being transferred. With memfd_class declared the fd carries its creator's label instead and
+# the memfd_file rules taken from stock apply, which is both narrower and what stock does.
 
 # The rest, each narrow and named.
 # NOT granted: crash_dump reaching vendor data, forbidden by domain.te.
