@@ -23,6 +23,11 @@ allow charger sysfs_gcdd_dev_stat:file { getattr open read };
 
 # The type behind the displaycolor vndservice above. Attribute from stock.
 type vendor_displaycolor_service, vndservice_manager_type;
+# Labelling it was enough to get the composer past its own registration, but the add was
+# still refused. Stock's rule, verbatim, and note the class: the name is labelled in
+# vndservice_contexts while the composer also registers it with the ordinary
+# servicemanager, so service_manager is the class the denial names.
+allow hal_graphics_composer_default vendor_displaycolor_service:service_manager { add find };
 
 # One HAL using another. Stock grants the service lookup directly, which AOSP only accepts
 # through the client attribute.
