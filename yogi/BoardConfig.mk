@@ -222,6 +222,10 @@ BOARD_VENDOR_SEPOLICY_DIRS += \
     hardware/google/pixel-sepolicy/touch \
     hardware/google/pixel-sepolicy/wifi_ext
 
+# Platform-side rules stock carries in its own system_ext and platform policy, where they
+# meet this device's HALs. The vendor policy cannot name the platform's private types.
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
+
 # Reverse wireless charging. init.malibu.rc chowns this node to system, and the stock
 # wireless_charger HAL drives the same one.
 SOONG_CONFIG_NAMESPACES += lineage_powershare

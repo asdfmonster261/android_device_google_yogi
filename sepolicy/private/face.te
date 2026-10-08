@@ -1,0 +1,6 @@
+# The camera service passes the face HAL its capture queues and buffers as shared memory,
+# in both directions. Without this the face HAL never receives a frame and its watchdog
+# aborts it. Stock carries the same lines in its system_ext policy.
+hal_client_domain(cameraserver, hal_face)
+allow cameraserver hal_face:memfd_file { read write getattr map };
+allow hal_face cameraserver:memfd_file { read write getattr map };
