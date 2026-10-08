@@ -32,7 +32,6 @@ allow hal_drm_widevine self:process execmem;
 allow init debugfs:file getattr;
 allow init vendor_mdota_custom_dir:dir ioctl;
 allow kernel device:dir rmdir;
-allow { lmkd logd } proc_vendor_sched:dir search;
 # mediacodeclist_generator is not exported to vendor policy, so only mediaserver here.
 allow mediaserver mediacodec_google:binder call;
 allow rild self:packet_socket create;
