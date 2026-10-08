@@ -28,6 +28,9 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+    <!-- Full width, because the preview's size is the camera stream's and the camera only
+         takes the sizes it offers. On the cover screen that is 1080x1080, which it does;
+         a 954 square failed the session. -->
     <org.lineageos.faceenroll.SquareFrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -44,6 +47,14 @@
             android:id="@+id/mask"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <!-- In the band the mask leaves beside the circle. -->
+        <org.lineageos.faceenroll.PoseLightsView
+            android:id="@+id/poses"
+            android:layout_width="@dimen/pose_band"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:contentDescription="@string/enroll_poses_description" />
 
     </org.lineageos.faceenroll.SquareFrameLayout>
 

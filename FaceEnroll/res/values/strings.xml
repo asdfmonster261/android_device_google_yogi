@@ -7,7 +7,20 @@
     <string name="app_name">Face Unlock setup</string>
     <string name="enroll_title">Position your face in the circle</string>
     <string name="enroll_starting">Starting the camera</string>
-    <string name="enroll_remaining">Keep going, %1$d more</string>
+    <string name="enroll_center">Look straight at your phone and hold still</string>
+    <string name="enroll_tilt_up">Slowly tilt your head up</string>
+    <string name="enroll_tilt_down">Slowly tilt your head down</string>
+    <string name="enroll_keep_looking">Keep looking at your phone</string>
+    <string name="enroll_too_close">Move your phone farther away</string>
+    <string name="enroll_too_far">Move your phone closer</string>
+    <string name="enroll_move_lower">Move your phone lower</string>
+    <string name="enroll_move_higher">Move your phone higher</string>
+    <string name="enroll_move_right">Move your phone to the right</string>
+    <string name="enroll_move_left">Move your phone to the left</string>
+    <string name="enroll_too_dark">Your face is too dark to make out. Try brighter light.</string>
+    <string name="enroll_look_at_phone">Look more directly at your phone</string>
+    <string name="enroll_clean_camera">Clean the camera at the top of the screen</string>
     <string name="enroll_done">Face added</string>
     <string name="enroll_preview_description">Camera preview</string>
+    <string name="enroll_poses_description">Head positions captured so far</string>
 </resources>

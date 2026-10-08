@@ -29,6 +29,8 @@ public class CircleMaskView extends View {
 
     private final int mMaskColor;
     private final float mStroke;
+    // Kept clear on both sides of the circle, so the pose lights have somewhere to sit.
+    private final float mBand;
     private float mFraction;
 
     public CircleMaskView(Context context, AttributeSet attrs) {
@@ -38,6 +40,7 @@ public class CircleMaskView extends View {
 
         mStroke = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6,
                 getResources().getDisplayMetrics());
+        mBand = getResources().getDimension(R.dimen.pose_band);
         mMaskColor = resolve(context, android.R.attr.colorBackground, 0xFF000000);
         final int accent = resolve(context, android.R.attr.colorAccent, 0xFF8AB4F8);
 
@@ -51,7 +54,7 @@ public class CircleMaskView extends View {
         mProgress.setColor(accent);
     }
 
-    private static int resolve(Context context, int attr, int fallback) {
+    static int resolve(Context context, int attr, int fallback) {
         final TypedValue value = new TypedValue();
         if (context.getTheme().resolveAttribute(attr, value, true)) {
             return value.data;
@@ -69,7 +72,7 @@ public class CircleMaskView extends View {
     protected void onDraw(Canvas canvas) {
         final float cx = getWidth() / 2f;
         final float cy = getHeight() / 2f;
-        final float radius = Math.min(cx, cy) - mStroke;
+        final float radius = Math.min(cx, cy) - mStroke - mBand;
 
         canvas.drawColor(mMaskColor);
         canvas.drawCircle(cx, cy, radius, mHole);
