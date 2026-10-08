@@ -362,6 +362,12 @@ PRODUCT_PACKAGES += \
     vndservicemanager \
     rebalance_interrupts-vendor
 
+# The HIDL memory allocator. The tree builds the same service stock ships in system_ext,
+# with an identical init file and the manifest stock's is generated from, so it comes
+# from source; the blob manifest's module would collide with the tree's by name.
+PRODUCT_PACKAGES += \
+    android.hidl.allocator@1.0-service
+
 # The device module-load config. insmod_sh_yogi runs insmod.sh against this file
 # (init.yogi.rc:28). What it is really for is the three properties it sets,
 # vendor.device.modules.ready / vendor.all.modules.ready / vendor.all.devices.ready, which
