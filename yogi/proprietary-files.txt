@@ -13,9 +13,11 @@ system_ext/bin/mosey_server
 system_ext/bin/sconed
 system_ext/bin/userdata_alias_remove
 system_ext/etc/init/init.gs_watchdogd.rc
+system_ext/etc/init/android.hidl.allocator@1.0-service.rc
 system_ext/etc/init/init.pms.rc
 system_ext/etc/init/vendor.google.edgetpu_app_service@1.0-service.rc
 system_ext/etc/init/vendor.google.whitechapel.audio.hal.parserservice.rc
+system_ext/etc/vintf/manifest/android.hidl.allocator@1.0-service.xml
 system_ext/etc/vintf/manifest/vendor.google.edgetpu_app_service@1.0-service.xml
 system_ext/lib64/com.google.edgetpu_app_service-V10-ndk.so
 system_ext/lib64/com.google.edgetpu_vendor_service-V2-ndk.so
