@@ -3,13 +3,16 @@
      SPDX-FileCopyrightText: The LineageOS Project
      SPDX-License-Identifier: Apache-2.0
 -->
+<!-- Runs as the system user, as stock's enroll app does. The face HAL calls into the
+     preview window this app hands it, and the policy lets the face HAL call system
+     apps, not platform apps. The platform certificate is what allows a non-privileged
+     app to join the system user. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="org.lineageos.faceenroll">
+          package="org.lineageos.faceenroll"
+          android:sharedUserId="android.uid.system">
 
     <uses-permission android:name="android.permission.MANAGE_BIOMETRIC" />
-    <!-- FaceManager reads the sensor properties before it will enroll. Both of these
-         are signature protected, so the platform certificate is what grants them and
-         no privapp allowlist entry is involved. -->
+    <!-- FaceManager reads the sensor properties before it will enroll. -->
     <uses-permission android:name="android.permission.USE_BIOMETRIC_INTERNAL" />
 
     <application
