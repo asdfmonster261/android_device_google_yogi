@@ -235,7 +235,7 @@ vendor/etc/earcheek_classifier.tflite
 vendor/etc/ecc_list.xml
 vendor/etc/edgetpu/custom_kernel.pbtxt
 vendor/etc/fstab.gem5
-vendor/etc/fstab.malibu
+vendor/etc/fstab.malibu;EXTRACT_ONLY
 vendor/etc/fstab.malibu-fips
 vendor/etc/fstab.modem
 vendor/etc/fstab.modem_data

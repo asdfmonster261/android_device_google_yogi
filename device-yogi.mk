@@ -75,7 +75,7 @@ PRODUCT_PACKAGES += \
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
-    FILESYSTEM_TYPE_system=erofs \
+    FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
 
 AB_OTA_PARTITIONS += \
@@ -340,10 +340,13 @@ PRODUCT_PACKAGES += \
     android.hardware.health-service.malibu_recovery \
     android.hardware.fastboot@1.1-impl.pixel
 
-# The first-stage fstab, byte-identical to the copy in stock's vendor_boot, so it is
-# taken from the blob rather than duplicated where the two could drift apart.
+# The fstab, for first-stage init and vendor/etc. It is stock's with ext4 entries added
+# for system_ext and product, which stock only mounts as EROFS. Stock's copy is still
+# extracted, so a firmware update that changes it shows up in the vendor repo; carry the
+# change over here.
 PRODUCT_COPY_FILES += \
-    $(VENDOR_PATH)/proprietary/vendor/etc/fstab.malibu:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/system/etc/fstab.malibu
+    $(DEVICE_PATH)/fstab.malibu:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.malibu \
+    $(DEVICE_PATH)/fstab.malibu:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/system/etc/fstab.malibu
 
 
 # Two services ship as blobs whose init rc never lands. The rc path is owned by a tree

@@ -61,12 +61,14 @@ BOARD_SUPER_PARTITION_METADATA_DEVICE := super
 # TARGET_USES_VIRTUAL_AB is not a build variable and was silently doing nothing.
 BOARD_USES_RECOVERY_AS_BOOT :=
 
-# Filesystems: the dynamic partitions ship EROFS on this device, userdata is f2fs.
+# Filesystems: userdata is f2fs, and vendor and the dlkm partitions ship EROFS as on stock.
+# system, system_ext and product are ext4, since GApps installs into them after the ROM
+# and EROFS cannot be written to at all.
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := erofs
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
 BOARD_SYSTEM_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
 
