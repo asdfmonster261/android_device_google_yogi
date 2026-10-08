@@ -1,0 +1,3 @@
+# Apps hand the DRM HALs their buffers as memfds, which carry the app's domain. Stock's
+# platform policy allows this; the AOSP one this tree builds from does not yet.
+allow hal_drm_server { appdomain -isolated_app }:memfd_file { read write getattr map };
