@@ -17,19 +17,20 @@ TARGET_BOOTLOADER_BOARD_NAME := yogi
 TARGET_BOARD_PLATFORM := malibu
 TARGET_SCREEN_DENSITY := 420
 
-# From the running B1 build (ro.build.version.security_patch).
-BOOT_SECURITY_PATCH := 2026-09-01
+# From the stock build the phone's firmware comes from, CD1A.261005.003
+# (ro.vendor.build.security_patch).
+BOOT_SECURITY_PATCH := 2026-10-05
 VENDOR_SECURITY_PATCH := $(BOOT_SECURITY_PATCH)
 
-# This deliberately does NOT match PLATFORM_SECURITY_PATCH, which the aosp tag puts two
-# quarters earlier, and the gap is not a bug to close. Raising the platform one to agree
-# would claim aosp patches this tree does not carry. Lowering this one is the direction
-# that costs /data, and it also feeds BOARD_AVB_ROLLBACK_INDEX below, which has to stay
-# at stock's value. The only cost of the split is that /data must be wiped on install,
-# because keymint binds keys to the platform level and the older one cannot unwrap keys
-# minted under the newer. That is standard practice for a rom install anyway. None of
-# this touches bootloader anti-rollback, which keys off partitions this build never
-# writes.
+# This deliberately does NOT match the platform security patch, which LineageOS's
+# release config sets and which trails it, and the gap is not a bug to close. Raising
+# the platform one to agree would claim aosp patches this tree does not carry. Lowering
+# this one is the direction that costs /data, and it also feeds BOARD_AVB_ROLLBACK_INDEX
+# below, which has to stay at stock's value. The only cost of the split is that /data
+# must be wiped on install, because keymint binds keys to the platform level and the
+# older one cannot unwrap keys minted under the newer. That is standard practice for a
+# rom install anyway. None of this touches bootloader anti-rollback, which keys off
+# partitions this build never writes.
 
 # Architecture: arm64 only, there is no 32-bit userspace on this device
 # (ro.product.cpu.abilist is arm64-v8a, ro.zygote is zygote64).
@@ -172,7 +173,7 @@ BOARD_AVB_ALGORITHM := MLDSA65
 BOARD_AVB_KEY_PATH := external/avb/test/data/testkey_mldsa65.pem
 
 # Stock's rollback index is the security patch date as a Unix epoch, so deriving it from
-# BOOT_SECURITY_PATCH reproduces stock's 1788220800 exactly. Do not lower it: a rollback
+# BOOT_SECURITY_PATCH reproduces stock's 1791158400 exactly. Do not lower it: a rollback
 # index or patch level below what the device recorded is the direction that costs /data.
 BOARD_AVB_ROLLBACK_INDEX := $(shell date -u -d "$(BOOT_SECURITY_PATCH)" +%s)
 
@@ -259,7 +260,7 @@ $(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,fal
 $(call soong_config_set_bool,lineage_health,charging_control_supports_deadline,true)
 $(call soong_config_set_bool,lineage_health,charging_control_supports_limit,true)
 
-# dtbo. Stock's, from the B1 OTA -- we build no device tree of our own.
+# dtbo. Stock's, from the CD1A.261005.003 OTA -- we build no device tree of our own.
 BOARD_PREBUILT_DTBOIMAGE := device/google/yogi-kernels/6.12/dtbo.img
 
 # Loadable modules. vendor_dlkm is stock's -- those are built from private/, which no
