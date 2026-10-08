@@ -28,6 +28,7 @@ PRODUCT_VENDOR_PROPERTIES += \
     dalvik.vm.heapstartsize=16m \
     dalvik.vm.heaptargetutilization=0.5 \
     debug.c2.use_dmabufheaps=1 \
+    debug.hwc.m2m_cfg=single_layer:true,gca_only:true,tile:false,buffer_prealloc:true \
     debug.hwui.use_hint_manager=true \
     debug.renderengine.graphite=true \
     debug.sf.dim_in_gamma_in_enhanced_screenshots=1 \
