@@ -20,6 +20,14 @@ PRODUCT_SYSTEM_NAME := generic_system_google
 TARGET_SCREEN_HEIGHT := 2342
 TARGET_SCREEN_WIDTH := 1080
 
+# Report the stock build these blobs come from, so GApps sees a build Google certified.
+# Update it with the blobs.
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    BuildDesc="yogi-user 17 CD1A.261005.003 16262255 release-keys" \
+    BuildFingerprint=google/yogi/yogi:17/CD1A.261005.003/16262255:user/release-keys \
+    BuildSystemFingerprint=google/generic_system_google/generic:17/CD1A.261005.003/16262255:user/release-keys \
+    DeviceProduct=$(DEVICE_CODENAME)
+
 # Sign with our own keys instead of AOSP's testkey, which every AOSP tree ships and whose
 # private half is public. That is what ro.build.tags reports, and it is the last thing the
 # Trust page still flags: config.mk maps a certificate under vendor/lineage-priv/ to
