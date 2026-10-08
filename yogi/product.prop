@@ -1,8 +1,7 @@
 # Product properties, from stock's product/build.prop for hardware this build has:
 # Bluetooth (an unset bluetooth.profile.*.enabled reads as disabled), zram through mmd,
 # FUSE passthrough, StrongBox and the power and thermal settings. Props for Google apps
-# this build does not ship are left out, and so is anything for a daemon it does not ship
-# yet.
+# this build does not ship are left out.
 persist.vendor.bluetooth.bluetooth_hal.enabled=true
 bluetooth.hardware.degraded_performance_mode.enabled=true
 bluetooth.hci.timeout_milliseconds=5000
@@ -87,3 +86,4 @@ persist.vendor.audio.leaudio_sw_offload=true
 persist.bluetooth.leaudio.notify.idle.during.call=true
 bluetooth.sco.managed_by_audio=true
 ro.audio.ihaladaptervendorextension_enabled=true
+persist.vendor.intelligence=on
