@@ -1,0 +1,56 @@
+# Attributes stock gives these types that our generated declarations left out. Recovered
+# from stock's policy source, not the compiled policy, because the compiler expands some
+# attributes away. Each one is what lets an existing rule reach the type: apps calling the
+# TPU services rely on binderservicedomain and app_api_service, for example.
+
+typeattribute edgetpu_dba_server binderservicedomain;
+typeattribute edgetpu_tachyon_server binderservicedomain;
+typeattribute edgetpu_vendor_server binderservicedomain;
+typeattribute edgetpu_device isolated_compute_allowed_device;
+typeattribute edgetpu_device mlstrustedobject;
+typeattribute edgetpu_nnapi_service app_api_service;
+typeattribute edgetpu_nnapi_service isolated_compute_allowed_service;
+typeattribute edgetpu_tachyon_service app_api_service;
+typeattribute edgetpu_tachyon_service isolated_compute_allowed_service;
+
+typeattribute hal_face_ext_service protected_service;
+typeattribute mtk_wwan_device mlstrustedobject;
+
+typeattribute lbs_service netdomain;
+typeattribute mdl_coll netdomain;
+typeattribute metad netdomain;
+
+# The bugreport helpers.
+typeattribute dump_aoc hal_dumpstate;
+typeattribute dump_bcmbt hal_dumpstate;
+typeattribute dump_bootlogs_bldr hal_dumpstate;
+typeattribute dump_camera hal_dumpstate;
+typeattribute dump_cpm hal_dumpstate;
+typeattribute dump_devfreq hal_dumpstate;
+typeattribute dump_dwc3 hal_dumpstate;
+typeattribute dump_firmware hal_dumpstate;
+typeattribute dump_gps hal_dumpstate;
+typeattribute dump_gsa hal_dumpstate;
+typeattribute dump_gxp hal_dumpstate;
+typeattribute dump_interrupts_traces hal_dumpstate;
+typeattribute dump_iommu hal_dumpstate;
+typeattribute dump_mailbox hal_dumpstate;
+typeattribute dump_memory hal_dumpstate;
+typeattribute dump_modem_log hal_dumpstate;
+typeattribute dump_modem_syslog hal_dumpstate;
+typeattribute dump_pcie hal_dumpstate;
+typeattribute dump_perf hal_dumpstate;
+typeattribute dump_pixel_display hal_dumpstate;
+typeattribute dump_pixel_display_userdebug hal_dumpstate;
+typeattribute dump_pixel_metrics hal_dumpstate;
+typeattribute dump_pixel_second_display hal_dumpstate;
+typeattribute dump_power hal_dumpstate;
+typeattribute dump_ramdump hal_dumpstate;
+typeattribute dump_sensors hal_dumpstate;
+typeattribute dump_soc hal_dumpstate;
+typeattribute dump_storage hal_dumpstate;
+typeattribute dump_telemetry hal_dumpstate;
+typeattribute dump_thermal hal_dumpstate;
+typeattribute dump_tpu hal_dumpstate;
+typeattribute dump_trusty hal_dumpstate;
+typeattribute dump_uwb hal_dumpstate;
