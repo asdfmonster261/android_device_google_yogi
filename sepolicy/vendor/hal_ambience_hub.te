@@ -1,0 +1,15 @@
+# Stock grants these in its product policy, which this build has no equivalent of. Its
+# rules for pcc_component are left out: that domain is private to the platform policy,
+# so vendor policy can't name it, and nothing this build ships runs in it.
+allow hal_ambience_hub_client hal_ambience_hub_server:binder { call transfer };
+allow hal_ambience_hub_server hal_ambience_hub_client:binder transfer;
+allow hal_ambience_hub_client hal_ambience_hub_server:fd use;
+allow hal_ambience_hub_server hal_ambience_hub_client:binder { call transfer };
+allow hal_ambience_hub_client hal_ambience_hub_server:binder transfer;
+allow hal_ambience_hub_server hal_ambience_hub_client:fd use;
+
+allow hal_ambience_hub_client hal_ambience_hub_service:service_manager find;
+allow hal_ambience_hub_server hal_ambience_hub_service:service_manager { add find };
+
+allow hal_ambience_hub_server servicemanager:binder { call transfer };
+allow servicemanager hal_ambience_hub_server:binder { call transfer };
