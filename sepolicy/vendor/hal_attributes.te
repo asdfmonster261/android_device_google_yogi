@@ -1,0 +1,5 @@
+# Google HAL families stock's vendor policy declares. Named to sort before hal_clients.te,
+# which assigns them.
+hal_attribute(gia)
+hal_attribute(modem_logging)
+hal_attribute(shared_modem_platform)
