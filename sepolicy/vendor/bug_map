@@ -29,8 +29,6 @@
 # real shell-domain problem later.
 
 
-edgetpu_tachyon_server default_android_service service_manager yogi/provider-absent
-
 hal_camera_default default_android_service service_manager yogi/provider-absent
 hal_camera_default default_prop file aosp/neverallow
 hal_camera_default shell_data_file dir yogi/stock-denies
@@ -38,6 +36,8 @@ hal_camera_default system_data_file dir yogi/stock-denies
 hal_camera_default system_userdir_file dir yogi/stock-denies
 
 hal_face_default default_prop file aosp/neverallow
+
+hal_fingerprint_capacitance rootfs dir yogi/stock-denies
 
 hal_graphics_composer_default default_prop file aosp/neverallow
 
@@ -50,13 +50,9 @@ hal_thermal_default default_prop file aosp/neverallow
 init debugfs lnk_file yogi/stock-denies
 init vendor_mdota_custom_dir dir yogi/stock-denies
 
-insmod debugfs_fwtp dir yogi/stock-denies
-insmod insmod key yogi/stock-denies
-insmod proc_cmdline file yogi/stock-denies
-
-logd proc_vendor_sched file yogi/stock-denies
-
-lmkd proc_vendor_sched file yogi/stock-denies
+insmod-sh debugfs_fwtp dir yogi/stock-denies
+insmod-sh insmod-sh key yogi/stock-denies
+insmod-sh proc_cmdline file yogi/stock-denies
 
 rebalance_interrupts_vendor rebalance_interrupts_vendor capability yogi/stock-denies
 
@@ -72,6 +68,7 @@ toolbox ram_device blk_file yogi/stock-denies
 
 vendor_init default_prop file aosp/neverallow
 vendor_init default_prop property_service aosp/neverallow
+vendor_init modem_debug_policy_file dir yogi/stock-denies
 
 hal_drm_widevine shell_exec file yogi/stock-denies
 
