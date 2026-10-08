@@ -1,0 +1,9 @@
+typeattribute vendor_satellite_service coredomain;
+app_domain(vendor_satellite_service)
+
+allow vendor_satellite_service {
+    activity_service
+    deviceidle_service
+    netstats_service
+    radio_service
+}:service_manager find;
