@@ -9,13 +9,6 @@
 #   yogi/provider-absent   the service exists only if a Google app we do not ship registers it
 #   aosp/neverallow        AOSP forbids granting it, so it cannot be fixed by a rule
 #
-# A fifth tag, for the one case that is not simply "stock has no rule": stock DOES grant
-# platform_app find on gril_antenna_tuning_service, but the denial comes from platform_app_36.
-# A versioned app domain carries platform_app_all, not platform_app, so stock's rule does not
-# reach it either and stock takes the same denial. Do not "fix" this by comparing the
-# unversioned name; that reads as a gap and is not one.
-#   yogi/versioned-app-domain   stock has a rule, but on a name that does not cover this domain
-#
 # A limit worth knowing before trusting this file as a completeness check: logd can only
 # annotate denials it receives over the audit netlink socket, which means kernel-object
 # classes. service_manager decisions are made in userspace by servicemanager through
@@ -28,24 +21,22 @@
 # while someone is running dumpsys, not during a boot, and listing them would hide a
 # real shell-domain problem later.
 
+hal_bluetooth_btlinux sysfs file yogi/stock-denies
 
 hal_camera_default default_android_service service_manager yogi/provider-absent
-hal_camera_default default_prop file aosp/neverallow
 hal_camera_default shell_data_file dir yogi/stock-denies
 hal_camera_default system_data_file dir yogi/stock-denies
 hal_camera_default system_userdir_file dir yogi/stock-denies
+
+hal_drm_widevine shell_exec file yogi/stock-denies
 
 hal_face_default default_prop file aosp/neverallow
 
 hal_fingerprint_capacitance rootfs dir yogi/stock-denies
 
-hal_graphics_composer_default default_prop file aosp/neverallow
-
-hal_input_processor_default default_prop file aosp/neverallow
-
 hal_power_default hal_power_default capability yogi/stock-denies
 
-hal_thermal_default default_prop file aosp/neverallow
+hardware_info_app hardware_info_app anon_inode yogi/stock-denies
 
 init debugfs lnk_file yogi/stock-denies
 init vendor_mdota_custom_dir dir yogi/stock-denies
@@ -54,27 +45,18 @@ insmod-sh debugfs_fwtp dir yogi/stock-denies
 insmod-sh insmod-sh key yogi/stock-denies
 insmod-sh proc_cmdline file yogi/stock-denies
 
+mediacodec_google traced_producer_socket sock_file yogi/stock-denies
+
+pixelntnservice_app content_capture_service service_manager yogi/stock-denies
+
 rebalance_interrupts_vendor rebalance_interrupts_vendor capability yogi/stock-denies
 
-rild default_prop file aosp/neverallow
-rild default_prop property_service aosp/neverallow
 rild rild packet_socket yogi/stock-denies
+
+shared_modem_platform vendor_ramdump_prop file yogi/stock-denies
 
 surfaceflinger vendor_display_prop file yogi/stock-denies
 
-system_app default_prop property_service aosp/neverallow
-
-toolbox ram_device blk_file yogi/stock-denies
-
-vendor_init default_prop file aosp/neverallow
-vendor_init default_prop property_service aosp/neverallow
 vendor_init modem_debug_policy_file dir yogi/stock-denies
 
-hal_drm_widevine shell_exec file yogi/stock-denies
-
-hardware_info_app hardware_info_app anon_inode yogi/stock-denies
-
-mediacodec_google traced_producer_socket sock_file yogi/stock-denies
-
-platform_app_36 gril_antenna_tuning_service service_manager yogi/versioned-app-domain
-platform_app_36 hal_shared_modem_platform_service service_manager yogi/stock-denies
+vendor_satellite_service content_capture_service service_manager yogi/stock-denies
