@@ -86,3 +86,4 @@ persist.bluetooth.leaudio_sw_offload=true
 persist.vendor.audio.leaudio_sw_offload=true
 persist.bluetooth.leaudio.notify.idle.during.call=true
 bluetooth.sco.managed_by_audio=true
+ro.audio.ihaladaptervendorextension_enabled=true
