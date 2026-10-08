@@ -18,6 +18,9 @@ dontaudit dumpstate vendor_dmabuf_debugfs:file { getattr ioctl lock map open rea
 # flood_control
 dontaudit flood_control vendor_misc_writer:process { noatsecure };
 
+# grilservice_app
+dontaudit grilservice_app default_android_service:service_manager { find };
+
 # hal_camera_default
 dontaudit hal_camera_default shell_data_file:dir { search };
 dontaudit hal_camera_default system_data_file:dir { add_name create getattr open read search write };

@@ -405,6 +405,7 @@ allow dump_modem_log dumpstate:fd { use };
 allow dump_modem_log dumpstate:fifo_file { getattr write };
 allow dump_modem_log hal_dumpstate_default:fd { use };
 allow dump_modem_log hal_dumpstate_default:process { sigchld };
+allow dump_modem_log hal_modem_logging:memfd_file { getattr map read write };
 allow dump_modem_log mdl_coll_data_vendor_file:dir { getattr ioctl lock open read search watch watch_reads };
 allow dump_modem_log mdl_coll_data_vendor_file:file { getattr ioctl lock map open read watch watch_reads };
 allow dump_modem_log radio_vendor_data_file:dir { add_name create getattr ioctl lock open read remove_name rename reparent rmdir search setattr watch watch_reads write };
@@ -637,10 +638,12 @@ allow dumpstate battery_mitigation:fd { use };
 allow dumpstate flood_control:binder { call transfer };
 allow dumpstate flood_control:fd { use };
 allow dumpstate hal_battery_mitigation_service:service_manager { find };
+allow dumpstate hal_gia:memfd_file { getattr map read write };
 allow dumpstate hal_googlebattery:binder { call transfer };
 allow dumpstate hal_googlebattery:fd { use };
 allow dumpstate hal_googlebattery_service:service_manager { find };
 allow dumpstate hal_secure_element_st54spi_aidl:binder { call };
+allow dumpstate hal_shared_modem_platform:memfd_file { getattr map read write };
 allow dumpstate hal_threadnetwork:memfd_file { getattr map read write };
 allow dumpstate hal_usb:memfd_file { getattr map read write };
 allow dumpstate hal_usb_gadget:memfd_file { getattr map read write };
@@ -789,6 +792,15 @@ allow edgetpu_vendor_server servicemanager:binder { call transfer };
 allow edgetpu_vendor_server vendor_hetero_runtime_prop:file { getattr map open read };
 allow edgetpu_vendor_server vndbinder_device:chr_file { ioctl map open read write };
 
+# euiccpixel_app
+allow euiccpixel_app dck_prop:file { getattr map open read };
+allow euiccpixel_app init:unix_stream_socket { connectto };
+allow euiccpixel_app property_socket:sock_file { write };
+allow euiccpixel_app vendor_modem_prop:file { getattr map open read };
+allow euiccpixel_app vendor_modem_prop:property_service { set };
+allow euiccpixel_app vendor_secure_element_prop:file { getattr map open read };
+allow euiccpixel_app vendor_secure_element_prop:property_service { set };
+
 # fastbootd
 allow fastbootd devpts:chr_file { append getattr ioctl lock map open read watch watch_reads write };
 
@@ -826,6 +838,7 @@ allow fsck userdata_exp_block_device:blk_file { append getattr ioctl lock map op
 allow gia fwk_stats_service:service_manager { find };
 allow gia gia_exec:file { entrypoint execute getattr map open read };
 allow gia gti_ext_status_device:chr_file { getattr ioctl lock map open read watch watch_reads };
+allow gia hal_gia:memfd_file { getattr map read write };
 allow gia proc_touch_gti:dir { getattr ioctl lock open read search watch watch_reads };
 allow gia proc_touch_gti:file { getattr ioctl lock map open read watch watch_reads };
 allow gia servicemanager:binder { call transfer };
@@ -904,6 +917,46 @@ allow gnss_manager vendor_gps_prop:property_service { set };
 # gpuservice
 allow gpuservice hal_camera_default:binder { transfer };
 
+# grilservice_app
+allow grilservice_app activity_service:service_manager { find };
+allow grilservice_app connectivity_service:service_manager { find };
+allow grilservice_app content_capture_service:service_manager { find };
+allow grilservice_app display_service:service_manager { find };
+allow grilservice_app gpu_service:service_manager { find };
+allow grilservice_app gril_antenna_tuning_service:service_manager { find };
+allow grilservice_app hal_audio_default:binder { call transfer };
+allow grilservice_app hal_audio_default:fd { use };
+allow grilservice_app hal_audio_ext_service:service_manager { find };
+allow grilservice_app hal_audiometricext_hwservice:hwservice_manager { find };
+allow grilservice_app hal_bluetooth_btlinux:binder { call transfer };
+allow grilservice_app hal_bluetooth_btlinux:fd { use };
+allow grilservice_app hal_bluetooth_coexistence_service:service_manager { find };
+allow grilservice_app hal_power_stats:memfd_file { getattr map read write };
+allow grilservice_app hal_vendor_radio_external_service:service_manager { find };
+allow grilservice_app hal_wifi_ext:binder { call transfer };
+allow grilservice_app hal_wifi_ext:fd { use };
+allow grilservice_app hal_wifi_ext_hwservice:hwservice_manager { find };
+allow grilservice_app hal_wifi_ext_service:service_manager { find };
+allow grilservice_app init:unix_stream_socket { connectto };
+allow grilservice_app netstats_service:service_manager { find };
+allow grilservice_app network_management_service:service_manager { find };
+allow grilservice_app property_socket:sock_file { write };
+allow grilservice_app radio_service:service_manager { find };
+allow grilservice_app rild:binder { call transfer };
+allow grilservice_app rild:fd { use };
+allow grilservice_app sysfs_irq:dir { getattr ioctl lock open read search watch watch_reads };
+allow grilservice_app sysfs_irq:file { getattr ioctl lock map open read watch watch_reads };
+allow grilservice_app sysfs_irq:lnk_file { getattr ioctl lock map open read watch watch_reads };
+allow grilservice_app sysfs_kernel_metrics:dir { getattr ioctl lock open read search watch watch_reads };
+allow grilservice_app sysfs_kernel_metrics:file { getattr ioctl lock map open read watch watch_reads };
+allow grilservice_app sysfs_kernel_metrics:lnk_file { getattr ioctl lock map open read watch watch_reads };
+allow grilservice_app vendor_logger_prop:file { getattr map open read };
+allow grilservice_app vendor_logger_prop:property_service { set };
+allow grilservice_app vendor_modem_prop:file { getattr map open read };
+allow grilservice_app vendor_modem_prop:property_service { set };
+allow grilservice_app vendor_mtk_radio_prop:file { getattr map open read };
+allow grilservice_app wifi_service:service_manager { find };
+
 # gxp_logging
 allow gxp_logging fwk_stats_service:service_manager { find };
 allow gxp_logging gxp_device:chr_file { append getattr ioctl lock map open read watch watch_reads write };
@@ -918,6 +971,10 @@ allow gxp_logging vendor_gxp_prop:file { getattr map open read };
 # hal_allocator
 allow hal_allocator hal_audio_default:memfd_file { getattr map read write };
 allow hal_allocator mediacodec:memfd_file { getattr map read write };
+
+# hal_ambience_hub
+allow hal_ambience_hub hal_graphics_composer_default:memfd_file { getattr map read write };
+allow hal_ambience_hub twoshay:memfd_file { getattr map read write };
 
 # hal_atrace_default
 allow hal_atrace_default debugfs_tracing:dir { getattr ioctl lock open read search watch watch_reads };
@@ -958,6 +1015,7 @@ allow hal_audio_default edgetpu_vendor_service:service_manager { find };
 allow hal_audio_default fwk_sensor_hwservice:hwservice_manager { find };
 allow hal_audio_default fwk_sensor_service:service_manager { find };
 allow hal_audio_default fwk_stats_service:service_manager { find };
+allow hal_audio_default grilservice_app:binder { transfer };
 allow hal_audio_default hal_allocator:memfd_file { getattr map read write };
 allow hal_audio_default hal_audio_default_exec:file { entrypoint execute getattr map open read };
 allow hal_audio_default hal_audio_ext_service:service_manager { add find };
@@ -1057,6 +1115,7 @@ allow hal_bluetooth hal_audio_default:memfd_file { getattr map read write };
 # hal_bluetooth_btlinux
 allow hal_bluetooth_btlinux aoc_device:chr_file { append getattr ioctl lock map open read watch watch_reads write };
 allow hal_bluetooth_btlinux boot_status_prop:file { getattr map open read };
+allow hal_bluetooth_btlinux grilservice_app:binder { transfer };
 allow hal_bluetooth_btlinux hal_bluetooth_btlinux_exec:file { entrypoint execute getattr map open read };
 allow hal_bluetooth_btlinux hal_bluetooth_coexistence_hwservice:hwservice_manager { add find };
 allow hal_bluetooth_btlinux hal_bluetooth_coexistence_service:service_manager { add find };
@@ -1401,6 +1460,7 @@ allow hal_evs_default zygote_config_prop:file { getattr map open read };
 allow hal_face_default camera_config_prop:file { getattr map open read };
 allow hal_face_default cameraserver:binder { call transfer };
 allow hal_face_default cameraserver:fd { use };
+allow hal_face_default device_config_faceauth_native_prop:file { getattr map open read };
 allow hal_face_default dmabuf_system_heap_device:chr_file { ioctl open read };
 allow hal_face_default edgetpu_device:chr_file { ioctl open read write };
 allow hal_face_default face_vendor_data_file:dir { add_name create getattr ioctl lock open read remove_name rename reparent rmdir search setattr watch watch_reads write };
@@ -1504,6 +1564,22 @@ allow hal_gatekeeper gatekeeper_vendor_data_file:file { append create getattr io
 # hal_gatekeeper_default
 allow hal_gatekeeper_default hal_gatekeeper_default_exec:file { entrypoint execute getattr map open read };
 
+# hal_gia
+allow hal_gia dumpstate:memfd_file { getattr map read write };
+allow hal_gia gia:memfd_file { getattr map read write };
+
+# hal_gia_client
+allow hal_gia_client hal_gia_server:binder { call transfer };
+allow hal_gia_client hal_gia_server:fd { use };
+allow hal_gia_client hal_gia_service:service_manager { find };
+
+# hal_gia_server
+allow hal_gia_server dumpstate:fd { use };
+allow hal_gia_server dumpstate:fifo_file { write };
+allow hal_gia_server hal_gia_client:binder { transfer };
+allow hal_gia_server hal_gia_service:service_manager { add find };
+allow hal_gia_server servicemanager:binder { call transfer };
+
 # hal_gnss_default
 allow hal_gnss_default gnss_daemon:unix_dgram_socket { sendto };
 allow hal_gnss_default gnss_device:chr_file { append getattr ioctl lock map open read watch watch_reads write };
@@ -1576,6 +1652,7 @@ allow hal_graphics_composer_default dump_pixel_display:binder { transfer };
 allow hal_graphics_composer_default dump_pixel_display:fd { use };
 allow hal_graphics_composer_default dump_pixel_display:fifo_file { append write };
 allow hal_graphics_composer_default fwk_stats_service:service_manager { find };
+allow hal_graphics_composer_default hal_ambience_hub:memfd_file { getattr map read write };
 allow hal_graphics_composer_default hal_ambience_hub_service:service_manager { find };
 allow hal_graphics_composer_default hal_face_default:binder { transfer };
 allow hal_graphics_composer_default hal_graphics_allocator:memfd_file { getattr map read write };
@@ -1761,6 +1838,20 @@ allow hal_memtrack_default hal_memtrack_default_exec:file { entrypoint execute g
 allow hal_memtrack_default proc_gpu_img:dir { search };
 allow hal_memtrack_default proc_gpu_img:file { getattr open read };
 
+# hal_modem_logging
+allow hal_modem_logging dump_modem_log:memfd_file { getattr map read write };
+allow hal_modem_logging pixel_modem_app:memfd_file { getattr map read write };
+
+# hal_modem_logging_client
+allow hal_modem_logging_client hal_modem_logging_server:binder { call transfer };
+allow hal_modem_logging_client hal_modem_logging_server:fd { use };
+allow hal_modem_logging_client hal_modem_logging_service:service_manager { find };
+
+# hal_modem_logging_server
+allow hal_modem_logging_server hal_modem_logging_client:binder { transfer };
+allow hal_modem_logging_server hal_modem_logging_service:service_manager { add find };
+allow hal_modem_logging_server servicemanager:binder { call transfer };
+
 # hal_motioncontext_default
 allow hal_motioncontext_default hal_motioncontext_default_exec:file { entrypoint execute getattr map open read };
 allow hal_motioncontext_default hal_motioncontext_service:service_manager { add };
@@ -1908,6 +1999,9 @@ allow hal_power_default vendor_power_prop:file { getattr map open read };
 allow hal_power_default vendor_power_prop:property_service { set };
 allow hal_power_default vendor_thermal_prop:file { getattr map open read };
 allow hal_power_default vendor_thermal_prop:property_service { set };
+
+# hal_power_stats
+allow hal_power_stats grilservice_app:memfd_file { getattr map read write };
 
 # hal_power_stats_default
 allow hal_power_stats_default hal_bluetooth_btlinux:binder { call transfer };
@@ -2064,6 +2158,23 @@ allow hal_sensors_default system_suspend_server:binder { call transfer };
 allow hal_sensors_default system_suspend_server:fd { use };
 allow hal_sensors_default vendor_aoc_prop:file { getattr map open read };
 allow hal_sensors_default vendor_chre_hal_prop:file { getattr map open read };
+
+# hal_shared_modem_platform
+allow hal_shared_modem_platform dumpstate:memfd_file { getattr map read write };
+allow hal_shared_modem_platform pixel_modem_app:memfd_file { getattr map read write };
+
+# hal_shared_modem_platform_client
+allow hal_shared_modem_platform_client hal_shared_modem_platform_server:binder { call transfer };
+allow hal_shared_modem_platform_client hal_shared_modem_platform_server:fd { use };
+allow hal_shared_modem_platform_client hal_shared_modem_platform_service:service_manager { find };
+
+# hal_shared_modem_platform_server
+allow hal_shared_modem_platform_server dumpstate:fd { use };
+allow hal_shared_modem_platform_server dumpstate:fifo_file { write };
+allow hal_shared_modem_platform_server hal_shared_modem_platform_client:binder { call transfer };
+allow hal_shared_modem_platform_server hal_shared_modem_platform_client:fd { use };
+allow hal_shared_modem_platform_server hal_shared_modem_platform_service:service_manager { add find };
+allow hal_shared_modem_platform_server servicemanager:binder { call transfer };
 
 # hal_tetheroffload_default
 allow hal_tetheroffload_default hal_tetheroffload_default_exec:file { entrypoint execute getattr map open read };
@@ -2270,6 +2381,8 @@ allow hal_weaver_default hal_weaver_default_exec:file { entrypoint execute getat
 allow hal_wifi_default hal_wifi_default_exec:file { entrypoint execute getattr map open read };
 
 # hal_wifi_ext
+allow hal_wifi_ext grilservice_app:binder { call transfer };
+allow hal_wifi_ext grilservice_app:fd { use };
 allow hal_wifi_ext hal_contexthub_default:binder { transfer };
 allow hal_wifi_ext hal_wifi_ext_exec:file { entrypoint execute getattr map open read };
 allow hal_wifi_ext hal_wifi_ext_hwservice:hwservice_manager { add find };
@@ -2389,6 +2502,8 @@ allow imagecodec_google shell:binder { transfer };
 
 # imsmediahaldaemon
 allow imsmediahaldaemon imsmediahaldaemon_exec:file { entrypoint execute getattr map open read };
+allow imsmediahaldaemon imsstack_app:fd { use };
+allow imsmediahaldaemon imsstack_app:udp_socket { getattr read write };
 allow imsmediahaldaemon init:unix_stream_socket { connectto };
 allow imsmediahaldaemon mtk_wwan_device:chr_file { append getattr ioctl lock map open read watch watch_reads write };
 allow imsmediahaldaemon property_socket:sock_file { write };
@@ -3005,6 +3120,7 @@ allow modem_img_file self:filesystem { associate };
 # modem_logging
 allow modem_logging mdl_coll:unix_stream_socket { connectto };
 allow modem_logging modem_logging_exec:file { entrypoint execute getattr map open read };
+allow modem_logging pixel_modem_app:binder { transfer };
 
 # modem_ml_svc_sit
 allow modem_ml_svc_sit modem_ml_svc_sit_exec:file { entrypoint execute getattr map open read };
@@ -3149,6 +3265,51 @@ allow pixel_irq_load_balancer self:capability { chown setgid setuid };
 allow pixel_irq_load_balancer sysfs_irq:dir { getattr ioctl lock open read search watch watch_reads };
 allow pixel_irq_load_balancer sysfs_irq:file { getattr ioctl lock map open read watch watch_reads };
 
+# pixel_modem_app
+allow pixel_modem_app app_api_service:service_manager { find };
+allow pixel_modem_app app_data_file:lnk_file { append create getattr ioctl lock map open read rename setattr unlink watch watch_reads write };
+allow pixel_modem_app audioserver_service:service_manager { find };
+allow pixel_modem_app gril_antenna_tuning_service:service_manager { find };
+allow pixel_modem_app hal_modem_logging:memfd_file { getattr map read write };
+allow pixel_modem_app hal_shared_modem_platform:memfd_file { getattr map read write };
+allow pixel_modem_app init:unix_stream_socket { connectto };
+allow pixel_modem_app logd_prop:file { getattr map open read };
+allow pixel_modem_app logd_prop:property_service { set };
+allow pixel_modem_app logpersistd_logging_prop:file { getattr map open read };
+allow pixel_modem_app logpersistd_logging_prop:property_service { set };
+allow pixel_modem_app mdl_coll_data_vendor_file:dir { getattr ioctl lock open read search watch watch_reads };
+allow pixel_modem_app mdl_coll_data_vendor_file:file { getattr ioctl lock map open read watch watch_reads };
+allow pixel_modem_app mdl_coll_data_vendor_file:lnk_file { getattr ioctl lock map open read watch watch_reads };
+allow pixel_modem_app modem_logging:binder { call transfer };
+allow pixel_modem_app modem_logging:fd { use };
+allow pixel_modem_app property_socket:sock_file { write };
+allow pixel_modem_app radio_service:service_manager { find };
+allow pixel_modem_app radio_vendor_data_file:dir { add_name getattr ioctl lock open read remove_name search watch watch_reads write };
+allow pixel_modem_app radio_vendor_data_file:file { append create getattr ioctl lock map open read rename setattr unlink watch watch_reads write };
+allow pixel_modem_app shared_modem_platform:binder { call transfer };
+allow pixel_modem_app shared_modem_platform:fd { use };
+allow pixel_modem_app sscoredump_vendor_data_coredump_file:dir { getattr ioctl lock open read search watch watch_reads };
+allow pixel_modem_app sscoredump_vendor_data_coredump_file:file { getattr ioctl lock map open read watch watch_reads };
+allow pixel_modem_app sscoredump_vendor_data_coredump_file:lnk_file { getattr ioctl lock map open read watch watch_reads };
+allow pixel_modem_app sscoredump_vendor_data_crashinfo_file:dir { getattr ioctl lock open read search watch watch_reads };
+allow pixel_modem_app sscoredump_vendor_data_crashinfo_file:file { getattr ioctl lock map open read watch watch_reads };
+allow pixel_modem_app sscoredump_vendor_data_crashinfo_file:lnk_file { getattr ioctl lock map open read watch watch_reads };
+allow pixel_modem_app sscoredump_vendor_data_logcat_file:dir { getattr ioctl lock open read search watch watch_reads };
+allow pixel_modem_app sscoredump_vendor_data_logcat_file:file { getattr ioctl lock map open read watch watch_reads };
+allow pixel_modem_app sscoredump_vendor_data_logcat_file:lnk_file { getattr ioctl lock map open read watch watch_reads };
+allow pixel_modem_app sysfs_pms_displayport:file { getattr ioctl lock map open read watch watch_reads };
+allow pixel_modem_app tcpdump_vendor_data_file:dir { add_name create getattr ioctl lock open read remove_name rename reparent rmdir search setattr watch watch_reads write };
+allow pixel_modem_app tcpdump_vendor_data_file:file { getattr ioctl lock map open read watch watch_reads };
+allow pixel_modem_app tcpdump_vendor_data_file:lnk_file { getattr ioctl lock map open read watch watch_reads };
+allow pixel_modem_app twoshay:binder { call transfer };
+allow pixel_modem_app twoshay:fd { use };
+allow pixel_modem_app vendor_modem_prop:file { getattr map open read };
+allow pixel_modem_app vendor_modem_prop:property_service { set };
+allow pixel_modem_app vendor_pms_data_file:dir { add_name getattr ioctl lock open read remove_name search watch watch_reads write };
+allow pixel_modem_app vendor_pms_data_file:file { append create getattr ioctl lock map open read rename setattr unlink watch watch_reads write };
+allow pixel_modem_app wifi_logging_data_file:dir { add_name create getattr ioctl lock open read remove_name rename reparent rmdir search setattr watch watch_reads write };
+allow pixel_modem_app wifi_logging_data_file:file { append create getattr ioctl lock map open read rename setattr unlink watch watch_reads write };
+
 # pixelstats_vendor
 allow pixelstats_vendor battery_history_device:chr_file { getattr ioctl lock map open read watch watch_reads };
 allow pixelstats_vendor block_device:dir { search };
@@ -3274,6 +3435,7 @@ allow radio hal_audio_default:binder { call transfer };
 allow radio hal_audio_default:fd { use };
 allow radio hal_audio_ext_service:service_manager { find };
 allow radio imsmediahaldaemon:binder { transfer };
+allow radio imsstack_app:udp_socket { getattr read setopt shutdown write };
 allow radio scheduling_policy_service:service_manager { find };
 
 # rebalance_interrupts_vendor
@@ -3291,11 +3453,14 @@ allow rfsd rfsd_exec:file { entrypoint execute getattr map open read };
 allow rild anr_data_file:file { append };
 allow rild dumpstate:fd { use };
 allow rild dumpstate:fifo_file { append write };
+allow rild grilservice_app:binder { transfer };
 allow rild hal_audio_default:binder { call transfer };
 allow rild hal_audio_default:fd { use };
 allow rild hal_audio_ext_service:service_manager { find };
 allow rild hal_ril_ext_service:service_manager { add find };
 allow rild hal_vendor_radio_external_service:service_manager { add find };
+allow rild ims_prop:file { getattr map open read };
+allow rild ims_prop:property_service { set };
 allow rild incidentd:fd { use };
 allow rild incidentd:fifo_file { append write };
 allow rild init:unix_stream_socket { connectto };
@@ -3307,9 +3472,15 @@ allow rild netutils_wrapper_exec:file { execute getattr map open read };
 allow rild proc_net:file { write };
 allow rild property_socket:sock_file { write };
 allow rild rild_exec:file { entrypoint execute getattr map open read };
+allow rild rilextensionservice_app:binder { call transfer };
+allow rild rilextensionservice_app:fd { use };
 allow rild sota_prop:file { getattr map open read };
 allow rild sysfs_modem:file { append getattr ioctl lock map open read watch watch_reads write };
+allow rild system_ril_ext_prop:file { getattr map open read };
+allow rild system_ril_ext_prop:property_service { set };
 allow rild system_server:fifo_file { append write };
+allow rild telephony_ntn_demo_mode_prop:file { getattr map open read };
+allow rild telephony_ril_ntn_sim_deact_prop:file { getattr map open read };
 allow rild tombstone_data_file:file { append };
 allow rild tombstoned:fd { use };
 allow rild tombstoned:unix_stream_socket { connectto };
@@ -3330,8 +3501,19 @@ allow rild vendor_mtk_ril_vote_prop:file { getattr map open read };
 allow rild vendor_mtk_ril_vote_prop:property_service { set };
 allow rild vendor_mtk_ss_vendor_prop:file { getattr map open read };
 allow rild vendor_mtk_ss_vendor_prop:property_service { set };
+allow rild vendor_satellite_service:binder { call transfer };
+allow rild vendor_satellite_service:fd { use };
 allow rild vndbinder_device:chr_file { append getattr ioctl lock map open read watch watch_reads write };
 allow rild vndservicemanager:binder { call transfer };
+
+# rilextensionservice_app
+allow rilextensionservice_app hal_ril_ext_service:service_manager { find };
+allow rilextensionservice_app init:unix_stream_socket { connectto };
+allow rilextensionservice_app property_socket:sock_file { write };
+allow rilextensionservice_app rild:binder { call transfer };
+allow rilextensionservice_app rild:fd { use };
+allow rilextensionservice_app vendor_mtk_radio_prop:file { getattr map open read };
+allow rilextensionservice_app vendor_mtk_radio_prop:property_service { set };
 
 # sap_log
 allow sap_log init:unix_stream_socket { connectto };
@@ -3368,14 +3550,17 @@ allow servicemanager hal_camera_default:binder { call transfer };
 allow servicemanager hal_contexthub_default:binder { call transfer };
 allow servicemanager hal_evs_default:binder { call transfer };
 allow servicemanager hal_face_default:binder { call transfer };
+allow servicemanager hal_gia_server:binder { call transfer };
 allow servicemanager hal_googlebattery:binder { transfer };
 allow servicemanager hal_hwcrypto_server:binder { call transfer };
 allow servicemanager hal_ivn_default:binder { transfer };
 allow servicemanager hal_macsec_default:binder { transfer };
+allow servicemanager hal_modem_logging_server:binder { call transfer };
 allow servicemanager hal_neuralnetworks_darwinn:binder { call transfer };
 allow servicemanager hal_plat_security:binder { call transfer };
 allow servicemanager hal_remoteaccess_default:binder { transfer };
 allow servicemanager hal_sensors_default:binder { call transfer };
+allow servicemanager hal_shared_modem_platform_server:binder { call transfer };
 allow servicemanager hal_thermal_default:binder { transfer };
 allow servicemanager hal_tv_tuner_default:binder { call transfer };
 allow servicemanager hal_usb_impl:binder { call transfer };
@@ -3411,6 +3596,9 @@ allow shared_modem_platform mnt_vendor_file:dir { search };
 allow shared_modem_platform modem_stat_data_file:dir { add_name getattr ioctl lock open read remove_name search watch watch_reads write };
 allow shared_modem_platform modem_stat_data_file:file { append create getattr ioctl lock map open read rename setattr unlink watch watch_reads write };
 allow shared_modem_platform mtk_wwan_device:chr_file { append getattr ioctl lock map open read watch watch_reads write };
+allow shared_modem_platform pixel_modem_app:binder { transfer };
+allow shared_modem_platform pixel_modem_app:dir { search };
+allow shared_modem_platform pixel_modem_app:file { getattr open read };
 allow shared_modem_platform property_socket:sock_file { write };
 allow shared_modem_platform radio_device:chr_file { append getattr ioctl lock map open read watch watch_reads write };
 allow shared_modem_platform radio_vendor_data_file:dir { add_name getattr ioctl lock open read remove_name search watch watch_reads write };
@@ -3496,7 +3684,12 @@ allow storage_intelligence vendor_intelligence_prop:file { getattr map open read
 allow storage_intelligence vendor_intelligence_prop:property_service { set };
 allow storage_intelligence vendor_toolbox_exec:file { execute_no_trans };
 
+# su
+allow su imsstack_app:udp_socket { create relabelfrom relabelto setattr };
+
 # system_app
+allow system_app fingerprint_sp_prop:file { getattr map open read };
+allow system_app fingerprint_sp_prop:property_service { set };
 allow system_app hal_face_default:binder { transfer };
 allow system_app hal_fingerprint:memfd_file { getattr map read write };
 allow system_app hal_googlebattery:binder { call transfer };
@@ -3617,8 +3810,11 @@ allow twoshay dumpstate:fd { use };
 allow twoshay dumpstate:fifo_file { write };
 allow twoshay fwk_stats_service:service_manager { find };
 allow twoshay gril_antenna_tuning_service:service_manager { add find };
+allow twoshay hal_ambience_hub:memfd_file { getattr map read write };
 allow twoshay hal_contexthub_default:unix_stream_socket { connectto };
 allow twoshay hal_dumpstate_default:binder { transfer };
+allow twoshay pixel_modem_app:binder { call transfer };
+allow twoshay pixel_modem_app:fd { use };
 allow twoshay platform_app:binder { call transfer };
 allow twoshay platform_app:fd { use };
 allow twoshay screen_protector_detector_service:service_manager { add find };
@@ -3681,6 +3877,8 @@ allow vendor_init proc_tmi_log:lnk_file { getattr };
 allow vendor_init proc_vendor_sched:file { append lock map open write };
 allow vendor_init proc_watermark_boost_factor:file { append lock map open write };
 allow vendor_init proc_watermark_scale_factor:file { append lock map open write };
+allow vendor_init setupwizard_feature_prop:file { getattr map open read };
+allow vendor_init setupwizard_feature_prop:property_service { set };
 allow vendor_init sg_device:chr_file { getattr ioctl lock map open read watch watch_reads };
 allow vendor_init system_boot_reason_prop:file { getattr map open read };
 allow vendor_init tee_data_file:lnk_file { read };
@@ -3779,6 +3977,12 @@ allow vendor_rootdev sysfs_dm:dir { getattr ioctl lock open read search watch wa
 allow vendor_rootdev sysfs_dm:file { getattr ioctl lock map open read watch watch_reads };
 allow vendor_rootdev sysfs_loop:dir { search };
 allow vendor_rootdev sysfs_loop:file { getattr ioctl lock map open read watch watch_reads };
+
+# vendor_satellite_service
+allow vendor_satellite_service gpu_service:service_manager { find };
+allow vendor_satellite_service hal_vendor_radio_external_service:service_manager { find };
+allow vendor_satellite_service rild:binder { call transfer };
+allow vendor_satellite_service rild:fd { use };
 
 # vendor_uwb_init
 allow vendor_uwb_init uwb_data_vendor:dir { add_name lock open remove_name search write };
