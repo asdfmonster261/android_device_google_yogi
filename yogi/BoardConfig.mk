@@ -118,7 +118,7 @@ BOARD_KERNEL_CMDLINE += swiotlb=noforce disable_dma32=on rodata=on
 BOARD_KERNEL_CMDLINE += sysctl.kernel.sched_pelt_multiplier=4 arm64.nomops
 BOARD_KERNEL_CMDLINE += aoc_core.aoc_panic_on_ssr_failure=1 aoc_core.aoc_enable_gsa_boot=1
 BOARD_KERNEL_CMDLINE += ufs.async_probe=1 vs_drm.async_probe=1 gs_governor_dsulat.async_probe=1
-BOARD_KERNEL_CMDLINE += arm64.nosme kasan=off at24.write_timeout=100 log_buf_len=1024K
+BOARD_KERNEL_CMDLINE += kasan=off at24.write_timeout=100 log_buf_len=1024K
 BOARD_KERNEL_CMDLINE += android_arch_task_struct_size=784 bootconfig
 
 BOARD_BOOTCONFIG := androidboot.load_modules_parallel=performance
