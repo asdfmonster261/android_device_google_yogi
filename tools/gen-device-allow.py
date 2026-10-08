@@ -63,7 +63,14 @@ def known_names():
     # The public dir is the system_ext public policy, which the vendor policy can name.
     for f in glob.glob("device/google/yogi/sepolicy/vendor/*.te") + \
             glob.glob("device/google/yogi/sepolicy/public/*.te"):
-        names |= set(re.findall(r"^\s*type\s+([A-Za-z0-9_-]+)", open(f).read(), re.M))
+        body = open(f).read()
+        names |= set(re.findall(r"^\s*type\s+([A-Za-z0-9_-]+)", body, re.M))
+        # Names declared through macros, which the type match above misses.
+        names |= set(re.findall(
+            r"^\s*(?:system|vendor)_(?:public|restricted|internal)_prop\(\s*([A-Za-z0-9_-]+)",
+            body, re.M))
+        for hal in re.findall(r"^\s*hal_attribute\(\s*([A-Za-z0-9_-]+)\s*\)", body, re.M):
+            names |= {"hal_" + hal, "hal_" + hal + "_client", "hal_" + hal + "_server"}
     return names
 
 
