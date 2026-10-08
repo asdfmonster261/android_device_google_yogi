@@ -126,11 +126,11 @@ public class FaceEnrollActivity extends Activity {
         }
 
         final SurfaceView preview = findViewById(R.id.preview);
-        // The surface's size becomes the camera stream's, so the layout keeps this a
-        // full-width square, a size the camera offers. Deliberately no setFixedSize: forcing
-        // a size changed the stream configuration and the camera pipeline could not build
-        // its usual preview graph, so the frames arrived unprocessed. Stock hands over a
-        // plain square SurfaceView the same way.
+        // The surface's size becomes the camera stream's, so the layout holds this at a
+        // square the camera offers (see SquareFrameLayout). Deliberately no setFixedSize:
+        // forcing a size changed the stream configuration and the camera pipeline could not
+        // build its usual preview graph, so the frames arrived unprocessed. Stock hands over
+        // a plain square SurfaceView the same way.
         preview.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
