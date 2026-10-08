@@ -21,6 +21,8 @@
 # while someone is running dumpsys, not during a boot, and listing them would hide a
 # real shell-domain problem later.
 
+grilservice_app hal_radio_ext_service service_manager yogi/stock-denies
+
 hal_bluetooth_btlinux sysfs file yogi/stock-denies
 
 hal_camera_default default_android_service service_manager yogi/provider-absent
