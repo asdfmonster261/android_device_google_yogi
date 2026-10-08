@@ -233,6 +233,10 @@ BOARD_VENDOR_SEPOLICY_DIRS += \
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
 SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/public
 
+# deprecated_soc_prop, as on stock: the SoC name properties TensorFlow's cpuinfo probes,
+# which nothing on Pixel sets.
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += hardware/google/pixel-sepolicy/common/system_ext
+
 # Reverse wireless charging. init.malibu.rc chowns this node to system, and the stock
 # wireless_charger HAL drives the same one.
 SOONG_CONFIG_NAMESPACES += lineage_powershare
