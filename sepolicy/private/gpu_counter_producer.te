@@ -1,0 +1,12 @@
+typeattribute gpu_counter_producer coredomain;
+
+# GPU profilers start it from the shell.
+domain_auto_trans(shell, gpu_counter_producer_exec, gpu_counter_producer)
+allow gpu_counter_producer shell:process sigchld;
+allow gpu_counter_producer { adbd shell }:fd use;
+allow gpu_counter_producer { adbd shell }:unix_stream_socket { read write };
+
+allow gpu_counter_producer gpu_counter_producer_exec:file execute_no_trans;
+allow gpu_counter_producer { gpu_device graphics_device }:chr_file rw_file_perms;
+allow gpu_counter_producer same_process_hal_file:file rx_file_perms;
+perfetto_producer(gpu_counter_producer)
