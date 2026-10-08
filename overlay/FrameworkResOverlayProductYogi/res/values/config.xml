@@ -43,6 +43,11 @@
         <item>com.netmarble.enngb</item>
         <item>com.netmarble.enn</item>
         <item>com.netmarble.ennt</item>
+        <item>com.miHoYo.bh3oversea</item>
+        <item>com.miHoYo.bh3global</item>
+        <item>com.miHoYo.bh3rdJP</item>
+        <item>com.miHoYo.bh3oversea_vn</item>
+        <item>com.miHoYo.bh3tw</item>
     </string-array>
     <integer-array name="config_availableEMValueOptions">
         <item>0</item>
