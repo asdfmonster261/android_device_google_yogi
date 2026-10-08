@@ -1,0 +1,5 @@
+# Google's TPU app service, the system_ext daemon apps reach the Tensor TPU through. The
+# types are public because the vendor policy names them too, as stock's does.
+type edgetpu_app_server, domain;
+type edgetpu_app_server_exec, exec_type, file_type, system_file_type;
+type edgetpu_app_service, app_api_service, isolated_compute_allowed_service, service_manager_type;

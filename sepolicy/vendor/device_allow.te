@@ -664,8 +664,28 @@ allow e2fs sysfs_scsi_devices_0000:dir { getattr ioctl lock open read search wat
 allow e2fs sysfs_scsi_devices_0000:file { getattr ioctl lock map open read watch watch_reads };
 allow e2fs userdata_exp_block_device:blk_file { append getattr ioctl lock map open read watch watch_reads write };
 
+# edgetpu_app_server
+allow edgetpu_app_server appdomain:memfd_file { getattr map read write };
+allow edgetpu_app_server device_config_edgetpu_native_prop:file { getattr map open read };
+allow edgetpu_app_server edgetpu_dba_server:binder { transfer };
+allow edgetpu_app_server edgetpu_device:chr_file { append getattr ioctl lock map open read watch watch_reads write };
+allow edgetpu_app_server edgetpu_tachyon_server:binder { transfer };
+allow edgetpu_app_server edgetpu_vendor_server:binder { call transfer };
+allow edgetpu_app_server edgetpu_vendor_server:fd { use };
+allow edgetpu_app_server edgetpu_vendor_server:memfd_file { getattr map read write };
+allow edgetpu_app_server edgetpu_vendor_service:service_manager { find };
+allow edgetpu_app_server hal_audio_default:binder { transfer };
+allow edgetpu_app_server hal_neuralnetworks_darwinn:binder { transfer };
+allow edgetpu_app_server hal_power:memfd_file { getattr map read write };
+allow edgetpu_app_server sysfs_edgetpu:dir { getattr ioctl lock open read search watch watch_reads };
+allow edgetpu_app_server sysfs_edgetpu:file { append getattr ioctl lock map open read watch watch_reads write };
+allow edgetpu_app_server vendor_edgetpu_service_prop:file { getattr map open read };
+
 # edgetpu_dba_server
 allow edgetpu_dba_server dmabuf_system_heap_device:chr_file { getattr ioctl lock map open read watch watch_reads };
+allow edgetpu_dba_server edgetpu_app_server:binder { call transfer };
+allow edgetpu_dba_server edgetpu_app_server:fd { use };
+allow edgetpu_dba_server edgetpu_app_service:service_manager { find };
 allow edgetpu_dba_server edgetpu_dba_server_exec:file { entrypoint execute getattr map open read };
 allow edgetpu_dba_server edgetpu_dba_service:service_manager { add find };
 allow edgetpu_dba_server edgetpu_device:chr_file { append getattr ioctl lock map open read watch watch_reads write };
@@ -697,6 +717,9 @@ allow edgetpu_logging system_server:fd { use };
 allow edgetpu_tachyon_server aocxd:binder { call transfer };
 allow edgetpu_tachyon_server aocxd:fd { use };
 allow edgetpu_tachyon_server dmabuf_system_heap_device:chr_file { getattr ioctl lock map open read watch watch_reads };
+allow edgetpu_tachyon_server edgetpu_app_server:binder { call transfer };
+allow edgetpu_tachyon_server edgetpu_app_server:fd { use };
+allow edgetpu_tachyon_server edgetpu_app_service:service_manager { find };
 allow edgetpu_tachyon_server edgetpu_device:chr_file { append getattr ioctl lock map open read watch watch_reads write };
 allow edgetpu_tachyon_server edgetpu_tachyon_server_exec:file { entrypoint execute getattr map open read };
 allow edgetpu_tachyon_server edgetpu_tachyon_service:service_manager { add find };
@@ -747,6 +770,7 @@ allow edgetpu_tachyon_server vendor_tflite_delegate_prop:file { getattr map open
 
 # edgetpu_vendor_server
 allow edgetpu_vendor_server appdomain:memfd_file { getattr map read write };
+allow edgetpu_vendor_server edgetpu_app_server:binder { transfer };
 allow edgetpu_vendor_server edgetpu_vendor_server_exec:file { entrypoint execute getattr map open read };
 allow edgetpu_vendor_server edgetpu_vendor_service:service_manager { add find };
 allow edgetpu_vendor_server edgetpu_vendor_service_data_file:dir { add_name create getattr ioctl lock open read remove_name rename reparent rmdir search setattr watch watch_reads write };
@@ -919,6 +943,9 @@ allow hal_audio_default battery_mitigation:fd { use };
 allow hal_audio_default boot_status_prop:file { getattr map open read };
 allow hal_audio_default dmabuf_heap_device:chr_file { getattr ioctl lock map open read watch watch_reads };
 allow hal_audio_default dmabuf_system_heap_device:chr_file { getattr ioctl lock map open read watch watch_reads };
+allow hal_audio_default edgetpu_app_server:binder { call transfer };
+allow hal_audio_default edgetpu_app_server:fd { use };
+allow hal_audio_default edgetpu_app_service:service_manager { find };
 allow hal_audio_default edgetpu_device:chr_file { append getattr ioctl lock map open read watch watch_reads write };
 allow hal_audio_default edgetpu_tachyon_server:binder { call transfer };
 allow hal_audio_default edgetpu_tachyon_server:fd { use };
@@ -1741,6 +1768,9 @@ allow hal_motioncontext_default servicemanager:binder { call transfer };
 
 # hal_neuralnetworks_darwinn
 allow hal_neuralnetworks_darwinn dmabuf_system_heap_device:chr_file { getattr ioctl lock map open read watch watch_reads };
+allow hal_neuralnetworks_darwinn edgetpu_app_server:binder { call transfer };
+allow hal_neuralnetworks_darwinn edgetpu_app_server:fd { use };
+allow hal_neuralnetworks_darwinn edgetpu_app_service:service_manager { find };
 allow hal_neuralnetworks_darwinn edgetpu_device:chr_file { append getattr ioctl lock map open read watch watch_reads write };
 allow hal_neuralnetworks_darwinn edgetpu_nnapi_service:service_manager { add find };
 allow hal_neuralnetworks_darwinn fwk_stats_service:service_manager { find };
@@ -1810,6 +1840,7 @@ allow hal_plat_security servicemanager:binder { call transfer };
 allow hal_plat_security tee_device:chr_file { append getattr ioctl lock map open read watch watch_reads write };
 
 # hal_power
+allow hal_power edgetpu_app_server:memfd_file { getattr map read write };
 allow hal_power edgetpu_dba_server:memfd_file { getattr map read write };
 allow hal_power hal_camera_default:memfd_file { getattr map read write };
 allow hal_power hal_face_default:memfd_file { getattr map read write };
@@ -3228,6 +3259,7 @@ allow priv_app_36 intelligence_data_file:file { getattr ioctl lock map open read
 allow priv_app_36 proc_version:file { getattr };
 
 # priv_app_all
+allow priv_app_all edgetpu_app_service:service_manager { find };
 allow priv_app_all edgetpu_device:chr_file { getattr ioctl map read write };
 allow priv_app_all edgetpu_nnapi_service:service_manager { find };
 allow priv_app_all edgetpu_tachyon_server:binder { transfer };
@@ -3608,6 +3640,7 @@ allow ufs_firmware_update ufs_internal_block_device:blk_file { append getattr io
 allow ufs_firmware_update vendor_toolbox_exec:file { execute_no_trans };
 
 # untrusted_app_all
+allow untrusted_app_all edgetpu_app_service:service_manager { find };
 allow untrusted_app_all edgetpu_device:chr_file { getattr ioctl map read write };
 allow untrusted_app_all edgetpu_tachyon_server:binder { transfer };
 

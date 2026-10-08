@@ -225,6 +225,7 @@ BOARD_VENDOR_SEPOLICY_DIRS += \
 # Platform-side rules stock carries in its own system_ext and platform policy, where they
 # meet this device's HALs. The vendor policy cannot name the platform's private types.
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
+SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/public
 
 # Reverse wireless charging. init.malibu.rc chowns this node to system, and the stock
 # wireless_charger HAL drives the same one.
