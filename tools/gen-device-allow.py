@@ -21,7 +21,7 @@ import re
 import sys
 
 STOCK = os.path.expanduser(
-    "~/Projects/yogi/crdroid/b1-dump/dump/vendor/etc/selinux/vendor_sepolicy.cil")
+    "~/Projects/yogi/crdroid/oct-dump/dump/vendor/etc/selinux/vendor_sepolicy.cil")
 OUT = "device/google/yogi/sepolicy/vendor/device_allow.te"
 # Rules stock grants directly that AOSP forbids being granted that way: the access has
 # to come through a client attribute instead, so lifting stock verbatim trips the
@@ -35,7 +35,7 @@ BUILT_CIL = [
 ]
 
 ALLOW = re.compile(
-    r"^\(allow\s+([A-Za-z0-9_-]+)\s+([A-Za-z0-9_-]+)\s+\(([a-z_]+)\s+\(([a-z_ ]+)\)\)\)$", re.M)
+    r"^\(allow\s+([A-Za-z0-9_-]+)\s+([A-Za-z0-9_-]+)\s+\(([a-z0-9_]+)\s+\(([a-z0-9_ ]+)\)\)\)$", re.M)
 VERSIONED = re.compile(r"_\d{6}$")
 # The policy compiler invents these while compiling. They appear in the output it
 # produces but are not names anything can declare, so a rule naming one will not
