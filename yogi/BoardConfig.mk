@@ -72,6 +72,10 @@ BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
 BOARD_SYSTEM_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
 
+# An ext4 image is built just big enough for its contents; this adds the free space GApps
+# needs in system, system_ext and product.
+include vendor/lineage/config/BoardConfigReservedSize.mk
+
 # Each image we build needs its copy-out target declared.
 TARGET_COPY_OUT_VENDOR := vendor
 TARGET_COPY_OUT_PRODUCT := product
