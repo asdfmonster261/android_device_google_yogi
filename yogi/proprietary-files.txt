@@ -139,6 +139,15 @@ system_ext/priv-app/VendorImplSatelliteService/VendorImplSatelliteService.apk
 system_ext/priv-app/grilservice/grilservice.apk
 system_ext/priv-app/ril-extension/ril-extension.apk
 
+# Assisted GNSS. LPPeService is the system side of MediaTek's AGPS daemon, reached through
+# mtk_framework2agps and mtk_agps2framework: it brings up the data connection for SUPL,
+# answers the daemon's network requests and passes it the network location. Without it
+# the GNSS stack never asks for assistance at all. It joins the system uid and runs inside
+# system_server, so it re-signs with our platform key and needs no policy of its own;
+# system_server already has stock's rules for the LBS daemons.
+system_ext/etc/permissions/privapp-permlist_com.google.location.lppe.main.xml
+system_ext/priv-app/LPPeService/LPPeService.apk
+
 # The side fingerprint sensor overlay. yogi reads fingerprints from the power button, and
 # this is what tells Settings so: the per-stage guidance strings, the lottie animations
 # showing which way to move, and the message timing that stops it repeating one line. The
