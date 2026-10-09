@@ -62,6 +62,7 @@ shared_modem_platform vendor_ramdump_prop file yogi/stock-denies
 surfaceflinger vendor_display_prop file yogi/stock-denies
 
 system_server vendor_default_prop file yogi/stock-denies
+system_server priv_app process yogi/stock-denies
 
 vendor_init modem_debug_policy_file dir yogi/stock-denies
 
