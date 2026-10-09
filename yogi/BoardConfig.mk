@@ -293,6 +293,14 @@ BOARD_VENDOR_KERNEL_MODULES_LOAD := \
 BOARD_SYSTEM_KERNEL_MODULES := \
     $(wildcard $(KERNEL_MODULE_DIR)/system_dlkm/*.ko)
 
+# Stock loads these at boot: init.common.cfg runs "modprobe|system -b *", which reads
+# system_dlkm's modules.load and skips what modules.blocklist names. The build writes
+# neither unless told, and without them only what a vendor module depends on loads.
+BOARD_SYSTEM_KERNEL_MODULES_LOAD := \
+    $(addprefix $(KERNEL_MODULE_DIR)/system_dlkm/,\
+        $(shell cat $(DEVICE_PATH)/system_dlkm.modules.load))
+BOARD_SYSTEM_KERNEL_MODULES_BLOCKLIST_FILE := $(DEVICE_PATH)/system_dlkm.modules.blocklist
+
 include $(DEVICE_PATH)/wifi/BoardConfig-wifi.mk
 
 include $(VENDOR_PATH)/BoardConfigVendor.mk
