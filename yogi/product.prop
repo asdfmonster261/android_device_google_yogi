@@ -8,6 +8,7 @@ bluetooth.hci.timeout_milliseconds=5000
 persist.bluetooth.leaudio.allow_list=SM-R510,WF-1000XM5,SM-R630,WH-1000XM6,880066-0100,G4,G5,AG4,AG5,LinkBuds Fit,WF-1000XM6
 persist.bluetooth.leaudio.allow_list_extend=LinkBuds Open
 ro.carriersetup.vzw_consent_page=true
+ro.gwfcactivation.disabled_carriers=1492
 ro.zram_backing_device_min_free_mb=1536
 mmd.zram.enabled=true
 mmd.zram.size=50%

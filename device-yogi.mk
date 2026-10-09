@@ -231,6 +231,13 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/permissions/privapp-permissions-google-euicc.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-google-euicc.xml \
     $(DEVICE_PATH)/permissions/privapp-permissions-google-carrier.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-google-carrier.xml
 
+# WfcActivation's hidden API exemption and default grants. Stock keeps both in Google's
+# GMS-wide lists, which this build does not carry; its allowlist shares
+# privapp-permissions-google-carrier.xml with CarrierSettings.
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/permissions/hidden-api-whitelist-com.google.android.wfcactivation.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/hidden-api-whitelist-com.google.android.wfcactivation.xml \
+    $(DEVICE_PATH)/permissions/default-permissions-com.google.android.wfcactivation.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/default-permissions/default-permissions-com.google.android.wfcactivation.xml
+
 # The embedded secure element behind ISecureElement/eSE1. Built from source; its
 # libse-gto-hal.conf is already among the blobs.
 PRODUCT_PACKAGES += \

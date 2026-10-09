@@ -167,6 +167,14 @@ product/overlay/SfpsOverlay.apk:product/app/SfpsOverlay/SfpsOverlay.apk
 product/etc/sysconfig/preinstalled-packages-pixel-carrier.xml
 product/priv-app/CarrierSettings/CarrierSettings.apk;PRESIGNED
 
+# Wi-Fi calling setup. A carrier config that wants an emergency address before Wi-Fi
+# calling turns on (TELUS's does) names WfcActivationActivity, and Settings has no
+# fallback: without this package, turning Wi-Fi calling on crashes Settings. PRESIGNED,
+# as stock ships it. It reads Google Services Framework when it starts, so without GApps
+# it may not run either. Its allowlist, hidden API exemption and default grants are in
+# the device tree; nexus.xml and the user-type list above already name it.
+product/priv-app/WfcActivation/WfcActivation.apk;PRESIGNED
+
 # eSIM. Two separate things. EuiccSupportPixel is the low-level half: eUICC firmware
 # and applet updates, its own privapp allowlist, and a malibu overlay. It runs with or
 # without GMS. EuiccGoogle is the LPA, and it only works with GMS, which is what

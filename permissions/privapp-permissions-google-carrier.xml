@@ -4,10 +4,11 @@
      SPDX-License-Identifier: Apache-2.0
 
      CarrierSettings is what the framework means by platform_carrier_config_package, and
-     it is presigned rather than platform signed, so it cannot pick these up by signature.
+     WfcActivation is the carrier app Settings opens to set up Wi-Fi calling. Both are
+     presigned rather than platform signed, so they cannot pick these up by signature.
      Stock keeps them in privapp-permissions-google-p.xml, which is Google's own allowlist
-     for the whole of GMS and not something this build should carry, so the entries it
-     needs are here instead. Without them ro.control_privapp_permissions=enforce throws
+     for the whole of GMS and not something this build should carry, so the entries they
+     need are here instead. Without them ro.control_privapp_permissions=enforce throws
      out of system_server at boot.
 -->
 <permissions>
@@ -18,5 +19,13 @@
         <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
         <permission name="android.permission.WRITE_APN_SETTINGS"/>
         <permission name="com.android.permission.INSTALL_EXISTING_PACKAGES"/>
+    </privapp-permissions>
+
+    <privapp-permissions package="com.google.android.wfcactivation">
+        <permission name="android.permission.CONNECTIVITY_INTERNAL"/>
+        <permission name="android.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS"/>
+        <permission name="android.permission.MODIFY_PHONE_STATE"/>
+        <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
+        <permission name="android.permission.WRITE_APN_SETTINGS"/>
     </privapp-permissions>
 </permissions>
