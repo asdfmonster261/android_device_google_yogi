@@ -47,6 +47,8 @@ insmod-sh debugfs_fwtp dir yogi/stock-denies
 insmod-sh insmod-sh key yogi/stock-denies
 insmod-sh proc_cmdline file yogi/stock-denies
 
+kernel kernel capability yogi/stock-denies
+
 mediacodec_google traced_producer_socket sock_file yogi/stock-denies
 
 pixelntnservice_app content_capture_service service_manager yogi/stock-denies
@@ -58,6 +60,8 @@ rild rild packet_socket yogi/stock-denies
 shared_modem_platform vendor_ramdump_prop file yogi/stock-denies
 
 surfaceflinger vendor_display_prop file yogi/stock-denies
+
+system_server vendor_default_prop file yogi/stock-denies
 
 vendor_init modem_debug_policy_file dir yogi/stock-denies
 
