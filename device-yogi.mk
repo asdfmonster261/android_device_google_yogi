@@ -388,6 +388,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     device/google/yogi/init.insmod.yogi.cfg:$(TARGET_COPY_OUT_VENDOR_DLKM)/etc/init.insmod.yogi.cfg
 
+# Stock's props for Google's apps, set only when a GApps package is installed. See the
+# header in that file.
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/google-props.rc:$(TARGET_COPY_OUT_PRODUCT)/etc/init/google-props.rc
+
 # Vendor properties recovered from stock. See the header in that file for why the gap
 # mattered: without ro.hardware.egl there is no display at all.
 include device/google/yogi/vendor_props.mk
