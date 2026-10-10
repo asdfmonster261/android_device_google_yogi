@@ -5,4 +5,7 @@
      eSIM works without it; silencing the report just stops the crash dialog. -->
 <resources>
     <string name="config_appsNotReportingCrashes">com.google.android.euicc</string>
+
+    <!-- Surface the stock-hidden developer option that controls desktop mode. -->
+    <bool name="config_isDesktopModeDevOptionSupported">true</bool>
 </resources>
