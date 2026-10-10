@@ -16,7 +16,15 @@ set -u
 cd "$(dirname "$0")/../../../.." || exit 2
 [ -d .repo ] || { echo "not a repo tree: $PWD" >&2; exit 2; }
 
+# Both a repo binary missing from PATH and a forall that fails outright look
+# exactly like a clean tree once stderr is discarded below, so check first.
+command -v repo >/dev/null 2>&1 || {
+  echo "FATAL repo is not on PATH (needs the conda env and ~/bin)" >&2
+  exit 2
+}
+
 scan='
+  echo "OK $REPO_PATH"
   dirty=$(git status --porcelain 2>/dev/null | wc -l)
   head=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
   ahead=0
@@ -34,10 +42,12 @@ scan='
 out=$(repo forall -c bash -c "$scan" 2>/dev/null)
 fatal=$(printf '%s\n' "$out" | grep -c '^FATAL')
 localc=$(printf '%s\n' "$out" | grep -c '^LOCAL')
+okc=$(printf '%s\n' "$out" | grep -c '^OK')
+[ "$okc" != "0" ] || { echo "FATAL scanned zero projects; forall failed?" >&2; exit 2; }
 
-printf '%s\n' "$out" | grep . | sed 's/^/  /'
+printf '%s\n' "$out" | grep -v '^OK' | grep . | sed 's/^/  /'
 echo "  ---"
-echo "  $fatal project(s) would lose work; $localc carry commits only on this machine"
+echo "  $((fatal + localc + okc)) projects scanned: $fatal would lose work, $localc carry commits only on this machine"
 
 if [ "$fatal" != "0" ]; then
   echo "  refusing to sync. Commit the dirty trees, and put detached commits on a" >&2
