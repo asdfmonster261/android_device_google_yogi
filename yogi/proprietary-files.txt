@@ -135,6 +135,7 @@ system_ext/etc/sysconfig/preinstalled-packages-gril.xml
 system_ext/etc/sysconfig/preinstalled-packages-pixel-modem-service.xml
 system_ext/etc/sysconfig/preinstalled-packages-ril.xml
 product/priv-app/SatelliteGateway-Phone/SatelliteGateway-Phone.apk;PRESIGNED
+product/priv-app/SCONE-v77459/SCONE-v77459.apk;PRESIGNED
 system_ext/priv-app/CarrierSetup/CarrierSetup.apk
 system_ext/priv-app/PixelModemService/PixelModemService.apk
 system_ext/priv-app/PixelSatelliteService/PixelSatelliteService.apk

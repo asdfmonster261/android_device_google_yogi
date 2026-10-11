@@ -7,4 +7,10 @@
         <install-in user-type="SYSTEM" />
     </install-in-user-type>
     <allow-ignore-location-settings package="com.google.android.apps.stargate" attributionTag="*" />
+  <!-- SCONE (Adaptive Connectivity Services) installs for the system user and
+       managed profiles, as stock's preinstalled-packages product config has it. -->
+    <install-in-user-type package="com.google.android.apps.scone">
+        <install-in user-type="SYSTEM" />
+        <install-in user-type="android.os.usertype.profile.MANAGED" />
+    </install-in-user-type>
 </config>
