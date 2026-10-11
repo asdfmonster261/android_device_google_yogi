@@ -8,4 +8,7 @@
 
     <!-- Surface the stock-hidden developer option that controls desktop mode. -->
     <bool name="config_isDesktopModeDevOptionSupported">true</bool>
+
+    <!-- Deliberately overrides the stock-ported true in FrameworkResOverlayVendorYogi. -->
+    <bool name="config_isDesktopModeSupported">false</bool>
 </resources>
