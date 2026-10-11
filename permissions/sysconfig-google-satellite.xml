@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <!-- stargate registers the eSIM IMSI per user and the server side supports one,
+       so keep it in the system user only, as stock's preinstalled-packages product
+       config does. -->
+    <install-in-user-type package="com.google.android.apps.stargate">
+        <install-in user-type="SYSTEM" />
+    </install-in-user-type>
+    <allow-ignore-location-settings package="com.google.android.apps.stargate" attributionTag="*" />
+</config>

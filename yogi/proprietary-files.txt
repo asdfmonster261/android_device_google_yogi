@@ -67,7 +67,9 @@ product/etc/sysconfig/pixel_experience_2025_midyear.xml
 product/etc/sysconfig/pixel_experience_2026.xml
 product/etc/sysconfig/quick_tap.xml
 product/etc/sysconfig/satellite_sos.xml
+product/etc/permissions/android.hardware.telephony.satellite.xml
 product/etc/permissions/com.google.android.apps.stargate.support.xml
+product/etc/permissions/com.google.android.apps.stargate.xml
 product/etc/permissions/features-verizon.xml
 
 # Pixel libraries and the jars behind them. The declarations alone would fail at
@@ -132,6 +134,7 @@ system_ext/etc/permissions/privapp-permlist_com.google.android.grilservice.xml
 system_ext/etc/sysconfig/preinstalled-packages-gril.xml
 system_ext/etc/sysconfig/preinstalled-packages-pixel-modem-service.xml
 system_ext/etc/sysconfig/preinstalled-packages-ril.xml
+product/priv-app/SatelliteGateway-Phone/SatelliteGateway-Phone.apk;PRESIGNED
 system_ext/priv-app/CarrierSetup/CarrierSetup.apk
 system_ext/priv-app/PixelModemService/PixelModemService.apk
 system_ext/priv-app/PixelSatelliteService/PixelSatelliteService.apk

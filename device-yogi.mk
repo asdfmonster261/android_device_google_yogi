@@ -238,6 +238,11 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/permissions/hidden-api-whitelist-com.google.android.wfcactivation.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/hidden-api-whitelist-com.google.android.wfcactivation.xml \
     $(DEVICE_PATH)/permissions/default-permissions-com.google.android.wfcactivation.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/default-permissions/default-permissions-com.google.android.wfcactivation.xml
 
+# stargate's user-type restriction and location exemption, both from stock's
+# product sysconfigs this build does not carry wholesale.
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/permissions/sysconfig-google-satellite.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/sysconfig-google-satellite.xml
+
 # The embedded secure element behind ISecureElement/eSE1. Built from source; its
 # libse-gto-hal.conf is already among the blobs.
 PRODUCT_PACKAGES += \
