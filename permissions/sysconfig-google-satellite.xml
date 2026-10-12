@@ -13,4 +13,9 @@
         <install-in user-type="SYSTEM" />
         <install-in user-type="android.os.usertype.profile.MANAGED" />
     </install-in-user-type>
+  <!-- The satellite geofence lookups sit on the emergency path: SCONE asks under
+       the satellite_esos attribution and the access controller in com.android.phone
+       under its own. -->
+    <allow-ignore-location-settings package="com.google.android.apps.scone" attributionTag="satellite_esos" />
+    <allow-ignore-location-settings package="com.android.phone" attributionTag="telephony" />
 </config>
