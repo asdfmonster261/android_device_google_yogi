@@ -1,3 +1,0 @@
-typeattribute grilservice_app coredomain;
-app_domain(grilservice_app)
-net_domain(grilservice_app)

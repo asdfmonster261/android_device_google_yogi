@@ -1,3 +1,10 @@
-# thermal_symlinks populates /dev/thermal with links to the thermal_zone and
-# cooling_device sysfs nodes, which is what the power and thermal HALs read.
-type thermal_link_device, dev_type;
+#
+# SPDX-FileCopyrightText: The LineageOS Project
+# SPDX-License-Identifier: Apache-2.0
+#
+
+# What is the fold's own: the side fingerprint HAL and the second display's dump tool.
+hal_client_domain(hal_fingerprint_capacitance, hal_power)
+hal_server_domain(hal_fingerprint_capacitance, hal_fingerprint)
+
+typeattribute dump_pixel_second_display hal_dumpstate;

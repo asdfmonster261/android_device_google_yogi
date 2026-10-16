@@ -3,11 +3,12 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# TODO: once a malibu SoC-common tree exists this should inherit
-# device/google/malibu/aosp_common.mk, the way comet inherits zumapro.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-$(call inherit-product, device/google/yogi/device-yogi.mk)
+DEVICE_CODENAME := yogi
+DEVICE_PATH := device/google/yogi
+VENDOR_PATH := vendor/google/yogi
+
+$(call inherit-product, device/google/malibu/aosp_common.mk)
+$(call inherit-product, $(DEVICE_PATH)/device-yogi.mk)
 
 PRODUCT_NAME := aosp_yogi
 PRODUCT_DEVICE := yogi
