@@ -4,7 +4,11 @@
 #
 
 # What is the fold's own: the side fingerprint HAL and the second display's dump tool.
+type hal_fingerprint_capacitance, domain;
+init_daemon_domain(hal_fingerprint_capacitance)
 hal_client_domain(hal_fingerprint_capacitance, hal_power)
 hal_server_domain(hal_fingerprint_capacitance, hal_fingerprint)
 
+type dump_pixel_second_display, domain;
+domain_auto_trans(hal_dumpstate_default, dump_pixel_second_display_exec, dump_pixel_second_display)
 typeattribute dump_pixel_second_display hal_dumpstate;

@@ -124,9 +124,6 @@ domain_auto_trans(hal_dumpstate_default, dump_pixel_display_userdebug_exec, dump
 type dump_pixel_metrics, domain;
 domain_auto_trans(hal_dumpstate_default, dump_pixel_metrics_exec, dump_pixel_metrics)
 
-type dump_pixel_second_display, domain;
-domain_auto_trans(hal_dumpstate_default, dump_pixel_second_display_exec, dump_pixel_second_display)
-
 type dump_power, domain;
 domain_auto_trans(hal_dumpstate_default, dump_power_exec, dump_power)
 
@@ -198,9 +195,6 @@ init_daemon_domain(hal_audiometricext_default)
 
 type hal_drm_clearkey, domain;
 init_daemon_domain(hal_drm_clearkey)
-
-type hal_fingerprint_capacitance, domain;
-init_daemon_domain(hal_fingerprint_capacitance)
 
 type hal_googlebattery, domain;
 init_daemon_domain(hal_googlebattery)
